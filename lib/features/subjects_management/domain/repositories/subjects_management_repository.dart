@@ -8,5 +8,5 @@ abstract class SubjectsManagementRepo {
   SubjectsManagementRepo();
 
   //* Get All SubjectsManagement
-  Future<Either<String, SubjectsManagementEntity>> getAllSubjectsManagement();
+  Future<Either<String, Subject>> getAllSubjectsManagement();
 }

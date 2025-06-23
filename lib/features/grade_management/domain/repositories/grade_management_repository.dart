@@ -8,5 +8,5 @@ abstract class GradeManagementRepo {
   GradeManagementRepo();
 
   //* Get All GradeManagement
-  Future<Either<String, GradeManagementEntity>> getAllGradeManagement();
+  Future<Either<String, Grade>> getAllGradeManagement();
 }

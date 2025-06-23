@@ -13,6 +13,6 @@ class GradeManagementUsecase {
   }) : _repo = repo;
 
   //* Get All GradeManagement
-  Future<Either<String, GradeManagementEntity>> getAllGradeManagement() =>
+  Future<Either<String, Grade>> getAllGradeManagement() =>
       _repo.getAllGradeManagement();
 }

@@ -13,6 +13,6 @@ class SubjectsManagementUsecase {
   }) : _repo = repo;
 
   //* Get All SubjectsManagement
-  Future<Either<String, SubjectsManagementEntity>> getAllSubjectsManagement() =>
+  Future<Either<String, Subject>> getAllSubjectsManagement() =>
       _repo.getAllSubjectsManagement();
 }

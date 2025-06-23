@@ -15,7 +15,7 @@ class GradeManagementRepoImp implements GradeManagementRepo {
   }) : _remote = remote;
 
   @override
-  Future<Either<String, GradeManagementEntity>> getAllGradeManagement() {
+  Future<Either<String, Grade>> getAllGradeManagement() {
     return throwAppException(
       () async {
         return await _remote.getAllGradeManagement();
