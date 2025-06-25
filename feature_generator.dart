@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 
 void main(List<String> arguments) {
@@ -135,8 +137,9 @@ class ${featureName.pascalCase}Usecase {
   });
 
   // Create injection file in main lib directory
-  final injectionFile =
-      File('${injectionDirectory.path}/${featureName}_injection.dart');
+  final injectionFile = File(
+    '${injectionDirectory.path}/${featureName}_injection.dart',
+  );
   injectionFile.createSync(recursive: true);
   injectionFile.writeAsStringSync('''
 //!----------------------------  Imports  -------------------------------------!//
@@ -178,8 +181,8 @@ Future<void> ${featureName}Injection() async {
 extension StringExtensions on String {
   String get pascalCase {
     if (isEmpty) return this;
-    return split('_')
-        .map((word) => word[0].toUpperCase() + word.substring(1))
-        .join();
+    return split(
+      '_',
+    ).map((word) => word[0].toUpperCase() + word.substring(1)).join();
   }
 }

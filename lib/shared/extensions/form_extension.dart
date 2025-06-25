@@ -12,6 +12,14 @@ extension FormGroupExtensions on FormGroup {
     control.value = value;
   }
 
+  bool isFormValid() {
+    final isValid = valid;
+    if (!isValid) {
+      markAllAsTouched();
+    }
+    return isValid;
+  }
+
   void resetForm() {
     reset();
   }

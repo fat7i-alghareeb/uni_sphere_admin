@@ -2,22 +2,13 @@
 
 // 🌎 Project imports:
 
-
 import '../../shared/imports/imports.dart';
-
-
-
 
 const designSize = Size(375, 812);
 
-
-
-
-
-
 // final InputDecorationTheme inputDecorationThemeLight = InputDecorationTheme(
 //     fillColor: Colors.white,
-//     hintStyle: TextStyle(color: AppColors.grey.withOpacity(0.5)),
+//     hintStyle: TextStyle(color: AppColors.grey.withValues(alpha:0.5)),
 //     focusedBorder: OutlineInputBorder(
 //       borderSide: const BorderSide(color: AppColors.lightPrimary),
 //       borderRadius: borderRadiusCircular,
@@ -76,7 +67,7 @@ const designSize = Size(375, 812);
 //         labelText: labelText,
 //         hintText: hintText,
 //         prefixIcon: Icon(icon),
-//         hintStyle: TextStyle(color: AppColors.white.withOpacity(0.3)),
+//         hintStyle: TextStyle(color: AppColors.white.withValues(alpha:0.3)),
 //         errorStyle: themeData.textTheme.labelSmall!.copyWith(
 //           color: AppColors.danger,
 //         ),
@@ -102,7 +93,7 @@ const designSize = Size(375, 812);
 //     borderSide: const BorderSide(color: AppColors.lightPrimary),
 //     borderRadius: borderRadiusCircular,
 //   ),
-//   hintStyle: TextStyle(color: AppColors.white.withOpacity(0.3)),
+//   hintStyle: TextStyle(color: AppColors.white.withValues(alpha:0.3)),
 //   errorStyle: TextStyle(color: Colors.red, height: 1.sp),
 //   contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
 //   border: OutlineInputBorder(borderRadius: borderRadiusCircular),

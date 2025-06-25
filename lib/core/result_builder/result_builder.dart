@@ -3,50 +3,61 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
-// 🌎 Project imports:
-
-
+import '../../shared/utils/helper/show_error_overlay.dart';
 import '../../shared/widgets/failed_widget.dart';
+// 🌎 Project imports:
 import '../../shared/widgets/loading_progress.dart';
 import 'result.dart';
 
 class ResultBuilder<T> extends StatelessWidget {
-  ResultBuilder({
+  const ResultBuilder({
     super.key,
     required this.success,
     this.loading,
     this.init,
-    required this.onError,
+    this.onError,
     required this.result,
-    this.showFailedWidget = false,
+    this.errorMessage,
+    this.showLoadingProgress = true,
+    this.showInitWidget = true,
   });
 
   final Result<T> result;
-  Widget Function()? loading;
-  Widget Function()? init;
+  final Widget Function()? loading;
+  final Widget Function()? init;
   final Widget Function(T data) success;
-  final Function() onError;
-  final bool showFailedWidget;
+  final Function()? onError;
+  final String? errorMessage;
+  final bool showLoadingProgress;
+  final bool showInitWidget;
+
   @override
   Widget build(BuildContext context) {
     late final Widget next;
 
-    loading ??= () => const Center(child: LoadingProgress());
-    init ??= () => const SizedBox();
+    defaultLoading() => showLoadingProgress
+        ? const Center(child: LoadingProgress())
+        : const SizedBox.shrink();
+
+    defaultInit() => const SizedBox.shrink();
 
     result.when(
-        init: () => next = init!(),
-        loading: () => next = loading!(),
-        loaded: (data) => next = success(data),
-        error: (message) {
-          if (showFailedWidget) {
-            return next = FailedWidget(
-              error: message,
-              onPressed: onError,
-            );
-          }
+      init: () => next = init?.call() ?? defaultInit(),
+      loading: () => next = loading?.call() ?? defaultLoading(),
+      loaded: (data) => next = success(data),
+      error: (message) {
+        if (onError != null) {
+          return next = FailedWidget(
+            error: errorMessage ?? message,
+            onPressed: onError!,
+          );
+        } else {
+          showErrorOverlay(context, errorMessage ?? message);
           return next = const SizedBox.shrink();
-        });
+        }
+      },
+    );
+
     return next;
   }
 }

@@ -41,6 +41,62 @@ extension DateConverter on String {
         DateTime(2020, 0, 0, int.parse(timeSplit[0]), int.parse(timeSplit[1]));
     return converted.toString().time();
   }
+
+  DateTime? toDate() {
+    try {
+      return DateFormat('yyyy-MM-dd').parse(this);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  DateTime? toTime() {
+    try {
+      final timeParts = split(':');
+      if (timeParts.length >= 2) {
+        final now = DateTime.now();
+        return DateTime(
+          now.year,
+          now.month,
+          now.day,
+          int.parse(timeParts[0]),
+          int.parse(timeParts[1]),
+          timeParts.length > 2 ? int.parse(timeParts[2]) : 0,
+        );
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /// Converts a date-time string (e.g., "2025-06-18 12:30:00") to DateTime
+  /// Returns null if parsing fails
+  DateTime? toDateTime() {
+    try {
+      if (contains(' ')) {
+        final parts = split(' ');
+        final datePart = parts[0];
+        final timePart = parts[1];
+        final date = datePart.toDate();
+        final timeComponents = timePart.split(':');
+
+        if (date != null && timeComponents.length >= 2) {
+          return DateTime(
+            date.year,
+            date.month,
+            date.day,
+            int.parse(timeComponents[0]),
+            int.parse(timeComponents[1]),
+            timeComponents.length > 2 ? int.parse(timeComponents[2]) : 0,
+          );
+        }
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
 }
 
 extension DateTimeRangeFormatter on DateTimeRange {
@@ -55,5 +111,11 @@ extension DateTimeRangeFormatter on DateTimeRange {
 extension DateTimeExt on DateTime {
   String toDate() {
     return DateFormat('yyyy-MM-dd', 'en-us').format(this);
+  }
+}
+
+extension DateTimeFormatter on DateTime {
+  String get formatTime {
+    return DateFormat('HH:mm a', 'en-us').format(this);
   }
 }

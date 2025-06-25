@@ -32,14 +32,15 @@ class AppManagerState extends Equatable {
         isSupported
       ];
 
-  copyWith(
-      {Status? status,
-      String? message,
-      bool? checkedUpdate,
-      bool? expired,
-      bool? isGuest,
-      bool? choosePassed,
-      bool? isSupported}) {
+  copyWith({
+    Status? status,
+    String? message,
+    bool? checkedUpdate,
+    bool? expired,
+    bool? isGuest,
+    bool? choosePassed,
+    bool? isSupported,
+  }) {
     return AppManagerState(
       expired: expired ?? this.expired,
       isGuest: isGuest ?? this.isGuest,

@@ -1,72 +1,67 @@
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../shared/imports/imports.dart';
-import 'app_text_theme.dart';
 import 'colors.dart';
 
+/// A collection of theme configurations for the app.
+/// Provides both light and dark theme variants with proper text theming.
 class AppThemes {
   AppThemes._();
 
   /// Light theme configuration for the app.
   static ThemeData lightThemeData({Color? primaryColor}) {
+    final colorScheme = _createColorScheme(
+      primaryColor: primaryColor ?? AppColors.lightPrimary,
+      isDark: false,
+    );
+
     return ThemeData(
-      indicatorColor: AppColors.lightPrimary,
+      useMaterial3: true,
+      colorScheme: colorScheme,
+      textTheme: AppTextTheme.textTheme,
+      fontFamily: GoogleFonts.almarai().fontFamily,
+      brightness: Brightness.light,
+      scaffoldBackgroundColor: AppColors.lightBackground,
+      cardColor: colorScheme.primary.withValues(alpha: 0.08),
+      indicatorColor: colorScheme.primary,
       progressIndicatorTheme: ProgressIndicatorThemeData(
-        color: AppColors.lightPrimary,
+        color: colorScheme.primary,
         linearMinHeight: 20.r,
-      ),
-      cardColor: AppColors.lightPrimary.withOpacity(0.08),
-      dialogBackgroundColor: Colors.white,
-      colorScheme: ColorScheme.fromSeed(
-        brightness: Brightness.light,
-        surface: Colors.white,
-        seedColor: primaryColor ?? AppColors.lightPrimary,
-        primary: primaryColor ?? AppColors.lightPrimary,
-        secondary: AppColors.darkPrimary,
-        tertiary: const Color(0xff4B465C),
-        onPrimary: Colors.white,
       ),
       iconButtonTheme: IconButtonThemeData(
         style: IconButton.styleFrom(
           padding: REdgeInsets.all(0),
         ),
       ),
-      menuTheme: const MenuThemeData(
+      menuTheme: MenuThemeData(
         style: MenuStyle(
-          backgroundColor: WidgetStatePropertyAll(Colors.white),
-          shadowColor: WidgetStatePropertyAll(AppColors.lightPrimary),
+          backgroundColor: const WidgetStatePropertyAll(Colors.white),
+          shadowColor: WidgetStatePropertyAll(colorScheme.primary),
         ),
       ),
-      useMaterial3: true,
-      scaffoldBackgroundColor: Colors.white,
       tabBarTheme: TabBarTheme(
-        labelColor: primaryColor ?? AppColors.lightPrimary,
-        unselectedLabelColor: (primaryColor ?? AppColors.lightPrimary).withOpacity(0.4),
+        labelColor: colorScheme.primary,
+        unselectedLabelColor: colorScheme.primary.withValues(alpha: 0.4),
       ),
-      datePickerTheme: const DatePickerThemeData(
+      datePickerTheme: DatePickerThemeData(
         backgroundColor: Colors.white,
         headerBackgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
         confirmButtonStyle: ButtonStyle(
           textStyle: WidgetStatePropertyAll(
-            TextStyle(color: Colors.black),
+            AppTextTheme.textTheme.labelLarge,
           ),
-          backgroundColor: WidgetStatePropertyAll(Colors.white),
+          backgroundColor: const WidgetStatePropertyAll(Colors.white),
         ),
         cancelButtonStyle: ButtonStyle(
           textStyle: WidgetStatePropertyAll(
-            TextStyle(color: Colors.black),
+            AppTextTheme.textTheme.labelLarge,
           ),
-          backgroundColor: WidgetStatePropertyAll(Colors.white),
+          backgroundColor: const WidgetStatePropertyAll(Colors.white),
         ),
       ),
-      textTheme: AppTextTheme.textTheme,
-      brightness: Brightness.light,
-      fontFamily: GoogleFonts.almarai().fontFamily,
-      primaryColor: primaryColor ?? AppColors.lightPrimary,
-      textSelectionTheme: const TextSelectionThemeData(
-        cursorColor: AppColors.lightPrimary,
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: colorScheme.primary,
       ),
       appBarTheme: AppBarTheme(
         elevation: 0,
@@ -76,37 +71,52 @@ class AppThemes {
         iconTheme: IconThemeData(color: AppColors.white, size: 22.r),
         color: Colors.transparent,
       ),
-
     );
   }
 
   /// Dark theme configuration for the app.
   static ThemeData darkThemeData({Color? primaryColor}) {
-    return ThemeData(
-      brightness: Brightness.dark,
-      useMaterial3: true,
+    final colorScheme = _createColorScheme(
       primaryColor: primaryColor ?? AppColors.darkPrimary,
+      isDark: true,
+    );
+
+    return ThemeData(
+      useMaterial3: true,
+      colorScheme: colorScheme,
+      textTheme: AppTextTheme.textTheme,
       fontFamily: GoogleFonts.almarai().fontFamily,
-      textSelectionTheme: const TextSelectionThemeData(
-        cursorColor: AppColors.lightPrimary,
+      brightness: Brightness.dark,
+      scaffoldBackgroundColor: AppColors.darkBackground,
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: colorScheme.primary,
       ),
       appBarTheme: const AppBarTheme(
         elevation: 0,
         iconTheme: IconThemeData(color: AppColors.white),
         systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
+    );
+  }
 
-      textTheme: AppTextTheme.textTheme,
-      scaffoldBackgroundColor: const Color(0xff25293c),
-      colorScheme: ColorScheme.fromSeed(
-        brightness: Brightness.dark,
-        surface: const Color(0xff25293c),
-        seedColor: primaryColor ?? AppColors.darkPrimary,
-        primary: primaryColor ?? AppColors.darkPrimary,
-        secondary: AppColors.lightPrimary,
-        tertiary: Colors.white,
-        onPrimary: const Color(0xff25293c),
-      ),
+  /// Creates a color scheme based on the primary color and theme mode
+  static ColorScheme _createColorScheme({
+    required Color primaryColor,
+    required bool isDark,
+  }) {
+    return ColorScheme.fromSeed(
+      brightness: isDark ? Brightness.dark : Brightness.light,
+      surface: isDark ? AppColors.darkBackground : AppColors.lightBackground,
+      onSurface: isDark ? AppColors.lightBackground : AppColors.darkBackground,
+      seedColor: primaryColor,
+      primary: primaryColor,
+      secondary: isDark ? AppColors.lightPrimary : AppColors.darkPrimary,
+      secondaryContainer:
+          isDark ? AppColors.darkCardColor : AppColors.lightCardColor,
+      tertiary: isDark ? AppColors.darkGreyColor : AppColors.lightGreyColor,
+      onPrimary: isDark ? const Color(0xff25293c) : Colors.white,
+      onTertiary:
+          isDark ? AppColors.darkShimmerColor : AppColors.lightShimmerColor,
     );
   }
 }

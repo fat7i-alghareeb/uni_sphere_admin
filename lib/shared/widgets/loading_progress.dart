@@ -7,23 +7,22 @@ import '../imports/imports.dart';
 class LoadingProgress extends StatelessWidget {
   final double size;
   final double strokeWidth;
-  final Color color;
+  final Color? color;
 
   const LoadingProgress({
     super.key,
     this.size = 60,
     this.strokeWidth = 3,
-    this.color = Colors.white,
+    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: SpinKitCircle(
-        color: color,
+        color: color ?? context.primaryColor,
         size: size.r,
       ),
     );
   }
 }
-

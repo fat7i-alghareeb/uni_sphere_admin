@@ -17,10 +17,10 @@ class AuthLocal {
     await local.setString(kUserInfo, jsonEncode(value.toMap()));
   }
 
-  bool isAuthenticated() {
-    final String? string = local.getString(kUserInfo);
-    return string != null && string.isNotEmpty;
-  }
+  // bool isAuthenticated() {
+  //   final String? string = local.getString(kUserInfo);
+  //   return string != null && string.isNotEmpty;
+  // }
 
   removeUser() async {
     await local.remove(kUserInfo);

@@ -15,7 +15,6 @@ import '../../../core/repo/auth_repo/auth_repo.dart';
 
 //  Package imports:
 
-
 part 'app_manager_event.dart';
 part 'app_manager_state.dart';
 
@@ -61,8 +60,12 @@ class AppManagerBloc extends Bloc<AppManagerEvent, AppManagerState> {
       _authRepository = lazyAuthRepository();
       _authStateStream = _authRepository.authStatusStream.listen(
         (event) {
-          add(AppManageStatusChanged(
-              status: event.status, message: event.message));
+          add(
+            AppManageStatusChanged(
+              status: event.status,
+              message: event.message,
+            ),
+          );
         },
       );
     } else if (event is AppManageStatusChanged) {

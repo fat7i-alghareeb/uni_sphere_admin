@@ -55,8 +55,9 @@ Future<void> generalInjection() async {
 
   // Register a ReactiveTokenStorage for managing authentication tokens
   getIt.registerSingleton<ReactiveTokenStorage>(
-    ReactiveTokenStorage(getIt<
-        StorageService<SecureStorage>>()), // Inject secure storage service
+    ReactiveTokenStorage(
+      getIt<StorageService<SecureStorage>>(),
+    ), // Inject secure storage service
   );
 
   // Load the token into memory at application startup

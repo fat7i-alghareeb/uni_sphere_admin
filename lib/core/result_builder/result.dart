@@ -25,6 +25,6 @@ extension ResultExtension<T> on Result<T> {
 
   T? getDataWhenSuccess() =>
       maybeWhen(orElse: () => null, loaded: (data) => data);
+
+  String getError() => maybeWhen(orElse: () => "", error: (error) => error);
 }
-
-

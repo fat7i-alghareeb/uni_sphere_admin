@@ -2,18 +2,21 @@
 
 // 🌎 Project imports:
 
-
-import 'package:jwt_decoder/jwt_decoder.dart';
+// import 'package:jwt_decoder/jwt_decoder.dart';
 
 import '../../core/auth_data_source/local/auth_local.dart';
+import '../../core/auth_data_source/local/reactive_token_storage.dart'
+    show ReactiveTokenStorage;
 import '../../core/injection/injection.dart';
+import '../../core/models/auth_token_dio.dart' show AuthTokenModel;
 import '../entities/user.dart';
 import '../utils/helper/colored_print.dart';
 
 bool isTokenAboutToExpire(String token, {int bufferTimeInSeconds = 900}) {
   try {
     // Decode the token
-    DateTime expirationDate = JwtDecoder.getExpirationDate(token);
+    // DateTime expirationDate = JwtDecoder.getExpirationDate(token);
+    DateTime expirationDate = DateTime.now();
     printK("expirationDate:     $expirationDate");
 
     // Get the current time
@@ -38,15 +41,23 @@ bool isTokenAboutToExpire(String token, {int bufferTimeInSeconds = 900}) {
 }
 
 Future<void> updateStorageToken(
-  User user,
-  String accessToken,
+  AuthTokenModel token,
 ) async {
+  final reactiveTokenStorage = getIt<ReactiveTokenStorage>();
+  await reactiveTokenStorage.write(token);
+  final user = getIt<AuthLocal>().getUser();
+  if (user == null) return;
   User user2 = User(
-    id: user.id,
-    accessToken: accessToken,
-    refreshToken: user.refreshToken,
-    fullName: user.fullName,
-    deviceToken: user.deviceToken,
+    studentId: user.studentId,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    fatherName: user.fatherName,
+    enrollmentStatusName: user.enrollmentStatusName,
+    majorName: user.majorName,
+    studentNumber: user.studentNumber,
+    year: user.year,
+    numberOfMajorYears: user.numberOfMajorYears,
+    image: user.image,
   );
   await getIt<AuthLocal>().setUser(user2);
 }

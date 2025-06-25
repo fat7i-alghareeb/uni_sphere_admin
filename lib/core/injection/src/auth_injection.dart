@@ -13,16 +13,22 @@ import '../injection.dart';
 
 Future<void> authInjection() async {
   getIt.registerSingleton<AuthLocal>(
-      AuthLocal(local: getIt<StorageService<SharedStorage>>()));
+    AuthLocal(local: getIt<StorageService<SharedStorage>>()),
+  );
 
   getIt.registerSingleton<AuthRemote>(AuthRemote(getIt<Dio>()));
 
-  getIt.registerSingleton<AuthRepository>(AuthRepoImp(
-    remote: getIt<AuthRemote>(),
-    reactiveTokenStorage: getIt<ReactiveTokenStorage>(),
-    storageService: getIt<AuthLocal>(),
-  ));
-
+  getIt.registerSingleton<AuthRepository>(
+    AuthRepoImp(
+      remote: getIt<AuthRemote>(),
+      reactiveTokenStorage: getIt<ReactiveTokenStorage>(),
+      storageService: getIt<AuthLocal>(),
+    ),
+  );
+  // getIt.registerSingleton<AuthUsecases>(
+  //   AuthUsecases(remote: getIt<AuthRepository>()),
+  // );
+  // getIt.registerSingleton<AuthBloc>(AuthBloc(useCase: getIt<AuthUsecases>()));
   // getIt.registerSingleton<AuthFacade>(
   //   AuthFacade(
   //     remote: getIt<AuthRepository>(),

@@ -6,7 +6,7 @@ import 'dart:io';
 void main() {
   const jsonFilePath = 'assets/l10n/ar.json'; // Change if needed
   const serviceFilePath = 'lib/shared/helper/localization_service.dart';
-  const keysFilePath = 'lib/shared/constant/app_strings.dart';
+  const keysFilePath = 'lib/common/constant/app_strings.dart';
 
   final jsonFile = File(jsonFilePath);
   if (!jsonFile.existsSync()) {
@@ -18,10 +18,12 @@ void main() {
   final Map<String, dynamic> jsonMap = jsonDecode(jsonString);
 
   // Ensure the directories exist
-  Directory(serviceFilePath.substring(0, serviceFilePath.lastIndexOf('/')))
-      .createSync(recursive: true);
-  Directory(keysFilePath.substring(0, keysFilePath.lastIndexOf('/')))
-      .createSync(recursive: true);
+  Directory(
+    serviceFilePath.substring(0, serviceFilePath.lastIndexOf('/')),
+  ).createSync(recursive: true);
+  Directory(
+    keysFilePath.substring(0, keysFilePath.lastIndexOf('/')),
+  ).createSync(recursive: true);
 
   // Generate LocalizationService
   final serviceBuffer = StringBuffer();
@@ -47,7 +49,7 @@ class LocalizationService {
   final keysBuffer = StringBuffer();
   keysBuffer.writeln('''
 import 'package:get_it/get_it.dart';
-import '../helper/localization_service.dart';
+import '../../shared/helper/localization_service.dart';
 // dart run generate_localization_keys.dart  
 // AUTO-GENERATED FILE, DO NOT EDIT
 class AppStrings {
@@ -63,7 +65,8 @@ class AppStrings {
         generateKeys(map[key], fullKey);
       } else {
         keysBuffer.writeln(
-            "  static String get $newKey => _localization.tr('$fullKey');");
+          "  static String get $newKey => _localization.tr('$fullKey');",
+        );
       }
     }
   }
@@ -78,10 +81,13 @@ class AppStrings {
 
 // Function to convert snake_case to camelCase
 String _toCamelCase(String text) {
-  return text.split('_').mapIndexed((index, word) {
-    if (index == 0) return word.toLowerCase();
-    return word[0].toUpperCase() + word.substring(1).toLowerCase();
-  }).join('');
+  return text
+      .split('_')
+      .mapIndexed((index, word) {
+        if (index == 0) return word.toLowerCase();
+        return word[0].toUpperCase() + word.substring(1).toLowerCase();
+      })
+      .join('');
 }
 
 // Helper function to iterate over a list with an index

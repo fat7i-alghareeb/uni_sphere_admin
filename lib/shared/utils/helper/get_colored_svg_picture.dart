@@ -9,8 +9,8 @@ SvgPicture getColoredSvgPicture({
 }) {
   return SvgPicture.asset(
     assetName,
-    width: width?.w,
-    height: height?.h,
+    width: width?.r,
+    height: height?.r,
     fit: fit,
     colorFilter: color != null
         ? ColorFilter.mode(

@@ -1,14 +1,14 @@
 import 'dart:async';
 
 import 'package:beamer/beamer.dart';
-import 'package:device_preview/device_preview.dart';
+// ignore: unused_import
+import 'package:device_frame_plus/device_frame_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'core/styles/themes.dart';
 
+import 'core/styles/themes.dart';
 import 'core/injection/injection.dart';
 import 'core/styles/style.dart';
 import 'features/root/presentation/state/provider/nav_bar_provider.dart';
@@ -43,39 +43,37 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        systemNavigationBarColor: Colors.white.withOpacity(0.9),
-      ),
-      child: ScreenUtilInit(
-        designSize: designSize,
-        minTextAdapt: true,
-        splitScreenMode: true,
-        builder: (_, child) {
-          return MultiProvider(
-            providers: [
-              BlocProvider.value(value: _bloc),
-              ChangeNotifierProvider(
-                create: (context) => NavBarProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (context) => ThemeProvider(),
-              ),
-            ],
-            child: BeamerProvider(
-                routerDelegate: router.router,
-                child: Consumer<ThemeProvider>(
-                  builder: (context, themeProvider, child) =>
-                      MaterialApp.router(
+    return ScreenUtilInit(
+      designSize: designSize,
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (_, child) {
+        return MultiProvider(
+          providers: [
+            BlocProvider.value(value: _bloc),
+            ChangeNotifierProvider(
+              create: (context) => NavBarProvider(),
+            ),
+            ChangeNotifierProvider.value(
+              value: getIt<ThemeProvider>(),
+            ),
+          ],
+          child: BeamerProvider(
+              routerDelegate: router.router,
+              child: Consumer<ThemeProvider>(
+                builder: (context, themeProvider, _) {
+                  return MaterialApp.router(
+                    title: "UniSphere",
                     debugShowCheckedModeBanner: false,
                     routerDelegate: router.router,
                     localizationsDelegates: context.localizationDelegates,
                     supportedLocales: context.supportedLocales,
                     locale: context.locale,
-                    theme: themeProvider.isDarkMode
-                        ? AppThemes.darkThemeData()
-                        : AppThemes.lightThemeData(),
+                    theme: AppThemes.lightThemeData(),
+                    darkTheme: AppThemes.darkThemeData(),
+                    themeMode: themeProvider.isDarkMode
+                        ? ThemeMode.dark
+                        : ThemeMode.light,
                     routeInformationParser: BeamerParser(),
                     builder: (context, child) {
                       if (kReleaseMode) {
@@ -90,15 +88,24 @@ class _MyAppState extends State<MyApp> {
                             LocalizationService(context),
                           );
                         }
-                        child = DevicePreview.appBuilder(context, child);
+                        // child = DeviceFrame(
+                        //   device: Devices.ios.iPhone13,
+                        //   screen: child!,
+                        //   isFrameVisible: false,
+                        // );
                       }
-                      return child!;
+                      return AnnotatedRegion<SystemUiOverlayStyle>(
+                        value: SystemUiOverlayStyle(
+                            statusBarColor: Colors.transparent,
+                            systemNavigationBarColor: context.backgroundColor),
+                        child: child!,
+                      );
                     },
-                  ),
-                )),
-          );
-        },
-      ),
+                  );
+                },
+              )),
+        );
+      },
     );
   }
 
