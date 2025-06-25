@@ -74,6 +74,8 @@
     "passwordMinLength": "طول كلمة المرور أقل من الطول المطلوب",
     "mustMatch": "القيمتان غير متطابقتان",
     "darkMode": "الوضع الليلي",
-    "lightMode": "الوضع النهاري"
+    "lightMode": "الوضع النهاري",
+    "selectLanguage": "أختر اللغة",
+    "language" : "اللغة"
 
 }

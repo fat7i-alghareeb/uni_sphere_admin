@@ -1,6 +1,8 @@
 import 'dart:async';
+
 import 'package:beamer/beamer.dart';
-import '../features/root/presentation/ui/screen/root_screen.dart';
+
+import '../features/root/presentation/ui/screen/root_screen.dart' show RootScreen;
 import '../shared/imports/imports.dart';
 import '../shared/states/app_manager_bloc/app_manager_bloc.dart';
 import '../shared/utils/helper/colored_print.dart';
@@ -36,23 +38,41 @@ class BRouterConfig {
         printG("route: ${routerInfo.uri}");
         printC(appManagerBloc.state.status);
 
-        // final bool isUpdateAvailable = appManagerBloc.state.expired == true;
-        // final bool isInUpdate = routerInfo.location == UpdateAvailable.routePath;
-        // if (isInUpdate && isUpdateAvailable) {
-        //   return null;
-        // }
-        // if (isUpdateAvailable) {
-        //   routerDelegate.beamToNamed(UpdateAvailable.routePath);
-        // }
-        // if (appManagerBloc.state.status == Status.authenticated && !routerInfo.location!.contains(RootScreen.pagePath)) {
-        //   routerDelegate.beamToNamed(RootScreen.pagePath);
-        // } else if (appManagerBloc.state.status == Status.unauthenticated && !routerInfo.location!.contains(LoginScreen.pagePath)) {
-        //   routerDelegate.beamToNamed(LoginScreen.pagePath);
+
+        // if (appManagerBloc.state.status == Status.authenticated &&
+        //     !routerInfo.uri.path.contains(RootScreen.pagePath)) {
+        //   routerDelegate.beamToReplacementNamed(RootScreen.pagePath);
+        // } else if (appManagerBloc.state.status == Status.unauthenticated &&
+        //     !routerInfo.uri.path.contains(ChooseAccessMethodScreen.pagePath)) {
+        //   routerDelegate
+        //       .beamToReplacementNamed(ChooseAccessMethodScreen.pagePath);
         // }
       },
       locationBuilder: RoutesLocationBuilder(
         routes: {
+          // //! -------------- Access ---------------- !//
+          // '/choose_access_method': ChooseAccessMethodScreen.pageBuilder,
+          // '/choose_access_method/login': LoginScreen.pageBuilder,
+          // '/choose_access_method/check_one_time_code':
+          //     CheckOneTimeCodeScreen.pageBuilder,
+          // '/choose_access_method/check_one_time_code/register':
+          //     RegisterScreen.pageBuilder,
+
+          // //! -------------- End Access ---------------- !//
+
           '/root': RootScreen.pageBuilder,
+          // //! -------------- Subjects ---------------- !//
+          // "/root/choose_years_screen": ChooseYearsScreen.pageBuilder,
+          // "/root/subject_details": SubjectDetailsScreen.pageBuilder,
+          // "/root/choose_years_screen/year_subjects": YearSubjects.pageBuilder,
+          // "/root/choose_years_screen/year_subjects/subject_details":
+          //     SubjectDetailsScreen.pageBuilder,
+          // //! -------------- Announcements ---------------- !//
+          // "/root/news_details": NewsDetailsScreen.pageBuilder,
+          // //! -------------- Settings ---------------- !//
+          // "/root/language_selection": LanguageSelectionScreen.pageBuilder,
+          // "/root/grades_screen": GradesScreen.pageBuilder,
+          // "/root/student": StudentScreen.pageBuilder,
         },
       ).call,
     );

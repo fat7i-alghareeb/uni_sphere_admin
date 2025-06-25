@@ -73,7 +73,8 @@
     "passwordMinLength": "The password length is less than the required length",
     "mustMatch": "The values do not match",
     "darkMode": "الوضع الليلي",
-    "lightMode": "الوضع النهاري"
-
+    "lightMode": "الوضع النهاري",
+    "selectLanguage": "Select Language",
+    "language": "Language"
 
 }
