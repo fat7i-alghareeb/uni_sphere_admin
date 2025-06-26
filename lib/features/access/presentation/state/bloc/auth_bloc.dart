@@ -15,6 +15,7 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthUsecases _useCase;
   static bool isCheckingOneTimeCode = false;
+  static Role selectedRole = Role.admin;
   AuthBloc({required AuthUsecases useCase})
       : _useCase = useCase,
         super(AuthState()) {
@@ -26,7 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   _login(LoginEvent event, Emitter emit) async {
     emit(state.copyWith(loginResult: const Result.loading()));
     Either<String, User> response;
-    switch (event.role) {
+    switch (selectedRole) {
       case Role.admin:
         response = await _useCase.loginAdmin(loginParam: event.loginParam);
         break;
@@ -58,7 +59,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   _register(RegisterEvent event, Emitter emit) async {
     emit(state.copyWith(registerResult: const Result.loading()));
     Either<String, User> response;
-    switch (event.role) {
+    switch (selectedRole) {
       case Role.admin:
         response = await _useCase.registerAdmin(registerParam: event.registerParam);
         break;
@@ -89,7 +90,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   _checkOneTime(CheckOneTimeCodeEvent event, Emitter emit) async {
     emit(state.copyWith(checkOneTimeResult: const Result.loading()));
     Either<String, String> response;
-    switch (event.role) {
+      switch (selectedRole) {
       case Role.admin:
         response = await _useCase.checkOneTimeCodeAdmin(checkOneTimeParam: event.checkOneTimeParam);
         break;

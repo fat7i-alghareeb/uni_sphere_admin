@@ -4,18 +4,15 @@ abstract class AuthEvent {}
 
 final class LoginEvent extends AuthEvent {
   LoginParam loginParam;
-  Role role;
-  LoginEvent({required this.loginParam, required this.role});
+  LoginEvent({required this.loginParam});
 }
 
 final class RegisterEvent extends AuthEvent {
   RegisterParam registerParam;
-    Role role;
-  RegisterEvent({required this.registerParam, required this.role});
+  RegisterEvent({required this.registerParam});
 }
 
 final class CheckOneTimeCodeEvent extends AuthEvent {
   CheckOneTimeParam checkOneTimeParam;
-  Role role;
-  CheckOneTimeCodeEvent({required this.checkOneTimeParam, required this.role});
+  CheckOneTimeCodeEvent({required this.checkOneTimeParam});
 }
