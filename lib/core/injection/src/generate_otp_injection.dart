@@ -8,7 +8,7 @@ import '../injection.dart';
 
 //!----------------------------  The Class  -------------------------------------!//
 
-Future<void> generate_otpInjection() async {
+Future<void> generateOtpInjection() async {
   getIt.registerLazySingleton<GenerateOtpRemote>(
     () => GenerateOtpRemote(
       getIt<Dio>(),

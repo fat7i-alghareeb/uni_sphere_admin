@@ -41,7 +41,9 @@ class _RootScreenState extends State<RootScreen>
     try {
       final user = getIt<AuthLocal>().getUser();
       if (user != null) {
-        return '${user.firstName} ${user.lastName}';
+        return context.isEnglish
+            ? '${user.firstNameEn} ${user.lastNameEn}'
+            : '${user.firstNameAr} ${user.lastNameAr}';
       }
       return '';
     } catch (e) {

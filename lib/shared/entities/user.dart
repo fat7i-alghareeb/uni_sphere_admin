@@ -1,56 +1,72 @@
 
 class User {
   final String studentId;
-  final String firstName;
-  final String lastName;
-  final String fatherName;
-  final String enrollmentStatusName;
-  final String majorName;
-  final String studentNumber;
-  final int year;
-  final int numberOfMajorYears;
+  final String firstNameAr;
+  final String firstNameEn;
+  final String lastNameAr;
+  final String lastNameEn;
+  final String fatherNameAr;
+  final String fatherNameEn;
+  final String enrollmentStatusNameAr;
+  final String enrollmentStatusNameEn;
+  final String majorNameAr;
+  final String majorNameEn;
+  final String gmail;
   final String image;
+  final String role;
   User({
-    required this.firstName,
     required this.studentId,
-    required this.lastName,
-    required this.fatherName,
-    required this.enrollmentStatusName,
-    required this.majorName,
-    required this.studentNumber,
-    required this.year,
-    required this.numberOfMajorYears,
+    required this.firstNameAr,
+    required this.firstNameEn,
+    required this.lastNameAr,
+    required this.lastNameEn,
+    required this.fatherNameAr,
+    required this.fatherNameEn,
+    required this.enrollmentStatusNameAr,
+    required this.enrollmentStatusNameEn,
+    required this.majorNameAr,
+    required this.majorNameEn,
+    required this.gmail,
     required this.image,
+    required this.role,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'studentId': studentId,
-      'firstName': firstName,
-      'lastName': lastName,
-      'fatherName': fatherName,
-      'enrollmentStatusName': enrollmentStatusName,
-      'majorName': majorName,
-      'studentNumber': studentNumber,
-      'year': year,
-      'fullName': '$firstName $lastName',
-      'numberOfMajorYears': numberOfMajorYears,
+      'firstNameAr': firstNameAr,
+      'firstNameEn': firstNameEn,
+      'lastNameAr': lastNameAr,
+      'lastNameEn': lastNameEn,
+      'fatherNameAr': fatherNameAr,
+      'fatherNameEn': fatherNameEn,
+      'enrollmentStatusNameAr': enrollmentStatusNameAr,
+      'enrollmentStatusNameEn': enrollmentStatusNameEn,
+      'majorNameAr': majorNameAr,
+      'majorNameEn': majorNameEn,
+      'gmail': gmail,
       'image': image,
+      'role': role,
     };
   }
 
   factory User.fromMap(Map<String, dynamic> map) {
+    
     return User(
       studentId: map['studentId'] as String? ?? map['id'] as String? ?? '',
-      firstName: map['firstName'] as String,
-      lastName: map['lastName'] as String,
-      fatherName: map['fatherName'] as String,
-      enrollmentStatusName: map['enrollmentStatusName'] as String,
-      majorName: map['majorName'] as String,
-      studentNumber: map['studentNumber'] as String,
-      year: map['year'] as int,
-      numberOfMajorYears: map['numberOfMajorYears'] as int,
+      firstNameAr: map['firstName']['ar'] as String,
+      firstNameEn: map['firstName']['en'] as String,
+      lastNameAr: map['lastName']['ar'] as String,
+      lastNameEn: map['lastName']['en'] as String,
+      fatherNameAr: map['fatherName']['ar'] as String,
+      fatherNameEn: map['fatherName']['en'] as String,
+      enrollmentStatusNameAr: map['enrollmentStatusName']['ar'] as String,
+      enrollmentStatusNameEn: map['enrollmentStatusName']['en'] as String,
+      majorNameAr: map['majorName']['ar'] as String,
+      majorNameEn: map['majorName']['en'] as String,
+      gmail: map['gmail'] as String,
       image: map['image'] as String? ?? '',
+      role: map['role'] as String,
     );
   }
 }
@@ -61,36 +77,44 @@ class FullUser extends User {
   final String deviceToken;
 
   FullUser({
-    required super.firstName,
-    required super.lastName,
+    required super.firstNameAr,
+    required super.firstNameEn,
+    required super.lastNameAr,
+    required super.lastNameEn,
     required super.studentId,
-    required super.year,
-    required super.majorName,
-    required super.studentNumber,
-    required super.enrollmentStatusName,
-    required super.fatherName,
+    required super.gmail,
+    required super.majorNameAr,
+    required super.majorNameEn,
+    required super.enrollmentStatusNameAr,
+    required super.enrollmentStatusNameEn,
+    required super.fatherNameAr,
+    required super.fatherNameEn,
     required this.refreshToken,
     required this.accessToken,
     required this.deviceToken,
-    required super.numberOfMajorYears,
     required super.image,
+    required super.role,
   });
 
   factory FullUser.fromMap(Map<String, dynamic> map) {
     return FullUser(
-      firstName: map['firstName'] as String,
-      lastName: map['lastName'] as String,
+      firstNameAr: map['firstName']['ar'] as String,
+      firstNameEn: map['firstName']['en'] as String,
+      lastNameAr: map['lastName']['ar'] as String,
+      lastNameEn: map['lastName']['en'] as String,
       studentId: map['studentId'] as String,
-      year: map['year'] as int,
-      majorName: map['majorName'] as String,
-      studentNumber: map['studentNumber'] as String,
-      enrollmentStatusName: map['enrollmentStatusName'] as String,
-      fatherName: map['fatherName'] as String,
+      gmail: map['gmail'] as String,
+      majorNameAr: map['majorName']['ar'] as String,
+      majorNameEn: map['majorName']['en'] as String,
+      enrollmentStatusNameAr: map['enrollmentStatusName']['ar'] as String,
+      enrollmentStatusNameEn: map['enrollmentStatusName']['en'] as String,
+      fatherNameAr: map['fatherName']['ar'] as String,
+      fatherNameEn: map['fatherName']['en'] as String,
       refreshToken: map['refreshToken'] as String,
       accessToken: map['accessToken'] as String,
       deviceToken: map['deviceToken'] as String? ?? '',
-      numberOfMajorYears: map['numberOfMajorYears'] as int? ?? 0,
       image: map['image'] as String? ?? '',
+      role: map['role'] as String,
     );
   }
 }

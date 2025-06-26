@@ -15,40 +15,114 @@ class AuthRemote {
 
   const AuthRemote(Dio dio) : _dio = dio;
 
-  Future<FullUser> login({required LoginParam loginParam}) {
+  Future<FullUser> loginAdmin({required LoginParam loginParam}) {
     return throwDioException(() async {
       final response = await _dio.post(
-        AppUrl.login,
-        data: loginParam.toJson(),
+        AppUrl.loginAdmin,
+        data: loginParam.toAdminJson(),
       );
       return FullUser.fromMap(response.data);
     });
   }
 
-  // Future<SimpleUser> checkOneTimeCode(
-  //     {required CheckOneTimeParam checkOneTimeParam}) {
-  //   return throwDioException(() async {
-  //     final response = await _dio.post(
-  //       AppUrl.checkOneTimeCode,
-  //       data: checkOneTimeParam.toJson(),
-  //     );
-  //     return SimpleUser.fromJson(response.data);
-  //   });
-  // }
+  Future<FullUser> loginSuperAdmin({required LoginParam loginParam}) {
 
-  Future<FullUser> register({required RegisterParam registerParam}) {
     return throwDioException(() async {
       final response = await _dio.post(
-        AppUrl.register,
-        data: registerParam.toJson(),
+        AppUrl.loginSuperAdmin,
+        data: loginParam.toSuperAdminJson(),
       );
       return FullUser.fromMap(response.data);
     });
   }
+
+  Future<FullUser> loginProfessor({required LoginParam loginParam}) {
+
+    return throwDioException(() async {
+      final response = await _dio.post(
+        AppUrl.loginProfessor,
+        data: loginParam.toProfessorJson(),
+      );
+      return FullUser.fromMap(response.data);
+    });
+  }
+
+  Future<FullUser> loginSystemController({required LoginParam loginParam}) {
+
+    return throwDioException(() async {
+      final response = await _dio.post(
+        AppUrl.loginSystemController,
+        data: loginParam.toSystemControllerJson(),
+      );
+      return FullUser.fromMap(response.data);
+    });
+  }
+        Future<String> checkOneTimeCodeAdmin(
+      {required CheckOneTimeParam checkOneTimeParam}) {
+    return throwDioException(() async {
+      final response = await _dio.post(
+        AppUrl.checkOneTimeCodeAdmin,
+        data: checkOneTimeParam.toAdminJson(),
+      );
+      return response.data;
+    });
+  }
+
+  Future<String> checkOneTimeCodeSuperAdmin(
+    {required CheckOneTimeParam checkOneTimeParam}) {
+    return throwDioException(() async {
+      final response = await _dio.post(
+        AppUrl.checkOneTimeCodeSuperAdmin,
+        data: checkOneTimeParam.toSuperAdminJson(),
+      );
+      return response.data;
+    });
+  }
+  Future<String> checkOneTimeCodeProfessor(
+    {required CheckOneTimeParam checkOneTimeParam}) {
+    return throwDioException(() async {
+      final response = await _dio.post(
+        AppUrl.checkOneTimeCodeProfessor,
+        data: checkOneTimeParam.toProfessorJson(),
+      );
+      return response.data;
+    });
+  }
+  Future<FullUser> registerAdmin({required RegisterParam registerParam}) {
+
+    return throwDioException(() async {
+      final response = await _dio.post(
+        AppUrl.registerAdmin,
+        data: registerParam.toAdminJson(),
+      );
+      return FullUser.fromMap(response.data);
+    });
+  }
+
+  Future<FullUser> registerSuperAdmin({required RegisterParam registerParam}) {
+
+    return throwDioException(() async {
+      final response = await _dio.post(
+        AppUrl.registerSuperAdmin,
+        data: registerParam.toSuperAdminJson(),
+      );
+      return FullUser.fromMap(response.data);
+    });
+  }
+
+  Future<FullUser> registerProfessor({required RegisterParam registerParam}) {
+
+    return throwDioException(() async {
+      final response = await _dio.post(
+        AppUrl.registerProfessor,
+        data: registerParam.toProfessorJson(),
+      );
+      return FullUser.fromMap(response.data);
+    });
+  }
+
+
   // Future<void> forgetPassword({required String email}) {
-  //   return throwDioException(() async {
-  //     await _dio.post(
-  //       AppUrl.forgetPassword,
   //       data: {"email": email},
   //     );
   //     return;

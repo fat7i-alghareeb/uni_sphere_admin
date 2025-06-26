@@ -13,7 +13,7 @@ class AuthLocal {
   AuthLocal({required this.local});
 
   ///***************** user Storage **************
-  Future<void> setUser(User value) async {
+  Future<void> setUser(User value ) async {
     await local.setString(kUserInfo, jsonEncode(value.toMap()));
   }
 

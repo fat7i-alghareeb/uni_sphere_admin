@@ -8,7 +8,7 @@ import '../injection.dart';
 
 //!----------------------------  The Class  -------------------------------------!//
 
-Future<void> materials_managementInjection() async {
+Future<void> materialsManagementInjection() async {
   getIt.registerLazySingleton<MaterialsManagementRemote>(
     () => MaterialsManagementRemote(
       getIt<Dio>(),

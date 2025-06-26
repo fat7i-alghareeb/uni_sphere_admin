@@ -1,17 +1,39 @@
 class LoginParam {
-  final String studentNumber;
-  final String majorId;
+  final String gmail;
+  final String? id;
   final String password;
   LoginParam({
-    required this.majorId,
+    this.id,
     required this.password,
-    required this.studentNumber,
+    required this.gmail,
   });
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toAdminJson() {
     return {
-      'studentNumber': studentNumber,
-      'majorId': majorId,
+      'gmail': gmail,
+      'majorId': id,
+      'password': password,
+    };
+  }
+
+  Map<String, dynamic> toSuperAdminJson() {
+    return {
+      'gmail': gmail,
+      'facultyId': id,
+      'password': password,
+    };
+  }
+
+  Map<String, dynamic> toProfessorJson() {
+    return {
+      'gmail': gmail,
+      'password': password,
+    };
+  }
+
+  Map<String, dynamic> toSystemControllerJson() {
+    return {
+      'gmail': gmail,
       'password': password,
     };
   }

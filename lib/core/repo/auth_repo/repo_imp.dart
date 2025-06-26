@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../features/access/data/params/check_one_time_param.dart';
 import '../../../features/access/data/params/login_param.dart';
 import '../../../features/access/data/params/register_param.dart'
     show RegisterParam;
@@ -33,29 +34,74 @@ class AuthRepoImp implements AuthRepository {
       reactiveTokenStorage.authenticationStatus;
 
   @override
-  Future<Either<String, FullUser>> login({required LoginParam loginParam}) {
+  Future<Either<String, FullUser>> loginAdmin({required LoginParam loginParam}) {
     return throwAppException(() async {
-      final response = await remote.login(loginParam: loginParam);
-      final user = User(
-        studentId: response.studentId,
-        firstName: response.firstName,
-        lastName: response.lastName,
-        year: response.year,
-        majorName: response.majorName,
-        studentNumber: response.studentNumber,
-        enrollmentStatusName: response.enrollmentStatusName,
-        fatherName: response.fatherName,
-        numberOfMajorYears: response.numberOfMajorYears,
-        image: response.image,
+      final response = await remote.loginAdmin(loginParam: loginParam);
+      _saveUser(
+        response,
+        refreshToken: response.refreshToken,
+        accessToken: response.accessToken,
       );
-      _saveUser(user,
-          refreshToken: response.refreshToken,
-          accessToken: response.accessToken);
+      return response;
+    });
+  }
+  @override
+  Future<Either<String, FullUser>> loginProfessor({required LoginParam loginParam}) {
+    return throwAppException(() async {
+      final response = await remote.loginProfessor(loginParam: loginParam);
+      _saveUser(
+        response,
+        refreshToken: response.refreshToken,
+          accessToken: response.accessToken,
+      );
+      return response;
+    });
+  }
+  @override
+  Future<Either<String, FullUser>> loginSuperAdmin({required LoginParam loginParam}) {
+    return throwAppException(() async {
+      final response = await remote.loginSuperAdmin(loginParam: loginParam);
+      _saveUser(response, refreshToken: response.refreshToken, accessToken: response.accessToken);
+      return response;
+    });
+  }
+  @override
+  Future<Either<String, FullUser>> loginSystemController({required LoginParam loginParam}) {
+    return throwAppException(() async {
+      final response = await remote.loginSystemController(loginParam: loginParam);
+      _saveUser(response, refreshToken: response.refreshToken, accessToken: response.accessToken);
+      return response;
+    });
+  }
+  @override
+  Future<Either<String, FullUser>> registerProfessor(
+      {required RegisterParam registerParam}) {
+    return throwAppException(() async {
+      final response = await remote.registerProfessor(registerParam: registerParam);
+      _saveUser(response, refreshToken: response.refreshToken, accessToken: response.accessToken);
+      return response;
+    });
+  }
+  @override
+  Future<Either<String, FullUser>> registerSuperAdmin(
+      {required RegisterParam registerParam}) {
+    return throwAppException(() async {
+      final response = await remote.registerSuperAdmin(registerParam: registerParam);
+      _saveUser(response, refreshToken: response.refreshToken, accessToken: response.accessToken);
+      return response;
+    });
+  }
+  @override
+  Future<Either<String, FullUser>> registerAdmin(
+      {required RegisterParam registerParam}) {
+    return throwAppException(() async {
+      final response = await remote.registerAdmin(registerParam: registerParam);
+      _saveUser(response, refreshToken: response.refreshToken, accessToken: response.accessToken);
       return response;
     });
   }
 
-  _saveUser(User user, {required String? refreshToken, String? accessToken}) {
+  _saveUser(FullUser user, {required String? refreshToken, String? accessToken}) {
     reactiveTokenStorage.write(
       AuthTokenModel(
         accessToken: accessToken ?? '',
@@ -65,41 +111,28 @@ class AuthRepoImp implements AuthRepository {
     storageService.setUser(user);
   }
 
-  // @override
-  // Future<Either<String, SimpleUser>> checkOneTimeCode(
-  //     {required CheckOneTimeParam checkOneTimeParam}) {
-  //   return throwAppException(() async {
-  //     final response =
-  //         await remote.checkOneTimeCode(checkOneTimeParam: checkOneTimeParam);
-  //     return response;
-  //   });
-  // }
-
   @override
-  Future<Either<String, FullUser>> register(
-      {required RegisterParam registerParam}) {
+  Future<Either<String, User>> checkOneTimeCodeSuperAdmin({required CheckOneTimeParam checkOneTimeParam}) {
     return throwAppException(() async {
-      final response = await remote.register(registerParam: registerParam);
-      final user = User(
-        studentId: response.studentId,
-        firstName: response.firstName,
-        lastName: response.lastName,
-        year: response.year,
-        majorName: response.majorName,
-        studentNumber: response.studentNumber,
-        enrollmentStatusName: response.enrollmentStatusName,
-        fatherName: response.fatherName,
-        numberOfMajorYears: response.numberOfMajorYears,
-        image: response.image,
-      );
-      _saveUser(
-        user,
-        refreshToken: response.refreshToken,
-        accessToken: response.accessToken,
-      );
+      final response = await remote.checkOneTimeCodeSuperAdmin(checkOneTimeParam: checkOneTimeParam);
       return response;
     });
   }
+  @override
+  Future<Either<String, User>> checkOneTimeCodeProfessor({required CheckOneTimeParam checkOneTimeParam}) {
+    return throwAppException(() async {
+      final response = await remote.checkOneTimeCodeProfessor(checkOneTimeParam: checkOneTimeParam);
+      return response;
+    });
+  }
+  @override
+  Future<Either<String, User>> checkOneTimeCodeAdmin({required CheckOneTimeParam checkOneTimeParam}) {
+    return throwAppException(() async {
+      final response = await remote.checkOneTimeCodeAdmin(checkOneTimeParam: checkOneTimeParam);
+      return response;
+    });
+  } 
+  
 
   @override
   Future<bool> logout() async {

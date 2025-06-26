@@ -1,22 +1,46 @@
 class RegisterParam {
   final String userName;
-  final String studentId;
+  final String id;
   final String password;
   final String confirmPassword;
 
   RegisterParam({
     required this.userName,
-    required this.studentId,
+    required this.id,
     required this.password, 
     required this.confirmPassword,
   });
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toAdminJson() {
     return {
       'userName': userName,
-      'studentId': studentId,
+      'adminId': id,
       'password': password,
       'confirmPassword': confirmPassword,
     };
   }
+  Map<String, dynamic> toSuperAdminJson() {
+    return {
+      'userName': userName,
+      'superAdminId': id,
+      'password': password,
+      'confirmPassword': confirmPassword,
+    };
+  }
+  Map<String, dynamic> toProfessorJson() {
+    return {
+      'userName': userName,
+      'professorId': id,
+      'password': password,
+      'confirmPassword': confirmPassword,
+    };
+  }
+  Map<String, dynamic> toSystemControllerJson() { 
+    return {
+      'userName': userName,
+      'systemControllerId': id,
+      'password': password,
+      'confirmPassword': confirmPassword,
+    };
+  }   
 }

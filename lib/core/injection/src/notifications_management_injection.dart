@@ -8,7 +8,7 @@ import '../injection.dart';
 
 //!----------------------------  The Class  -------------------------------------!//
 
-Future<void> notifications_managementInjection() async {
+Future<void> notificationsManagementInjection() async {
   getIt.registerLazySingleton<NotificationsManagementRemote>(
     () => NotificationsManagementRemote(
       getIt<Dio>(),

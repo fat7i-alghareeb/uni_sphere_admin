@@ -8,7 +8,7 @@ import '../injection.dart';
 
 //!----------------------------  The Class  -------------------------------------!//
 
-Future<void> grade_managementInjection() async {
+Future<void> gradeManagementInjection() async {
   getIt.registerLazySingleton<GradeManagementRemote>(
     () => GradeManagementRemote(
       getIt<Dio>(),

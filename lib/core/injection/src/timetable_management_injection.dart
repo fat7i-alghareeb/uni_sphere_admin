@@ -8,19 +8,19 @@ import '../injection.dart';
 
 //!----------------------------  The Class  -------------------------------------!//
 
-Future<void> timetable_managementInjection() async {
+Future<void> timetableManagementInjection() async {
   getIt.registerLazySingleton<TimetableManagementRemote>(
     () => TimetableManagementRemote(
       getIt<Dio>(),
     ),
   );
-  
+
   getIt.registerLazySingleton<TimetableManagementRepo>(
     () => TimetableManagementRepoImp(
       remote: getIt<TimetableManagementRemote>(),
     ),
   );
-  
+
   getIt.registerLazySingleton<TimetableManagementUsecase>(
     () => TimetableManagementUsecase(
       repo: getIt<TimetableManagementRepo>(),
