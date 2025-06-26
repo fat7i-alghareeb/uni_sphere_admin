@@ -13,16 +13,18 @@ class AppUrl {
   // static const _student = "Student";
 
   //! ************** Auth *************** //
-  static const loginAdmin = '$_admin/Login';
-  static const registerAdmin = '$_admin/Register';
-  static const checkOneTimeCodeAdmin = '$_admin/CheckOneTimeCode';
-  static const loginSuperAdmin = '$_superAdmin/Login';
-  static const registerSuperAdmin = '$_superAdmin/Register';
-  static const checkOneTimeCodeSuperAdmin = '$_superAdmin/CheckOneTimeCode';
-  static const loginProfessor = '$_professor/Login';
-  static const registerProfessor = '$_professor/Register';
-  static const checkOneTimeCodeProfessor = '$_professor/CheckOneTimeCode';
-  static const loginSystemController = '$_systemController/Login';
+  static const loginAdmin = '$_admin/$_auth/Login';
+  static const registerAdmin = '$_admin/$_auth/Register';
+  static const checkOneTimeCodeAdmin = '$_admin/$_auth/CheckOneTimeCode';
+  static const loginSuperAdmin = '$_superAdmin/$_auth/Login';
+  static const registerSuperAdmin = '$_superAdmin/$_auth/Register';
+  static const checkOneTimeCodeSuperAdmin =
+      '$_superAdmin/$_auth/CheckOneTimeCode';
+  static const loginProfessor = '$_professor/$_auth/Login';
+  static const registerProfessor = '$_professor/$_auth/Register';
+  static const checkOneTimeCodeProfessor =
+      '$_professor/$_auth/CheckOneTimeCode';
+  static const loginSystemController = '$_systemController/$_auth/Login';
 
   static const refreshToken = '$_auth/RefreshToken';
   // static const createAccount = '$_student/Create';

@@ -1,11 +1,13 @@
 import 'package:get_it/get_it.dart';
 import '../../shared/helper/localization_service.dart';
-// dart run generate_localization_keys.dart  
+
+// dart run generate_localization_keys.dart
 // AUTO-GENERATED FILE, DO NOT EDIT
 class AppStrings {
   static final _localization = GetIt.instance<LocalizationService>();
 
-  static String get welcomeToUniSphereAdmin => _localization.tr('welcomeToUniSphereAdmin');
+  static String get welcomeToUniSphereAdmin =>
+      _localization.tr('welcomeToUniSphereAdmin');
   static String get firstYear => _localization.tr('firstYear');
   static String get secondYear => _localization.tr('secondYear');
   static String get thirdYear => _localization.tr('thirdYear');
@@ -52,9 +54,12 @@ class AppStrings {
   static String get october => _localization.tr('october');
   static String get november => _localization.tr('november');
   static String get december => _localization.tr('december');
-  static String get noSchedulesAvailable => _localization.tr('noSchedulesAvailable');
-  static String get noScheduleForThisDay => _localization.tr('noScheduleForThisDay');
-  static String get noSchedulesForThisMonth => _localization.tr('noSchedulesForThisMonth');
+  static String get noSchedulesAvailable =>
+      _localization.tr('noSchedulesAvailable');
+  static String get noScheduleForThisDay =>
+      _localization.tr('noScheduleForThisDay');
+  static String get noSchedulesForThisMonth =>
+      _localization.tr('noSchedulesForThisMonth');
   static String get firstSemester => _localization.tr('firstSemester');
   static String get secondSemester => _localization.tr('secondSemester');
   static String get thirdSemester => _localization.tr('thirdSemester');
@@ -65,14 +70,18 @@ class AppStrings {
   static String get eighthSemester => _localization.tr('eighthSemester');
   static String get ninthSemester => _localization.tr('ninthSemester');
   static String get tenthSemester => _localization.tr('tenthSemester');
-  static String get noInternetConnection => _localization.tr('noInternetConnection');
-  static String get insufficientPermissions => _localization.tr('insufficientPermissions');
+  static String get noInternetConnection =>
+      _localization.tr('noInternetConnection');
+  static String get insufficientPermissions =>
+      _localization.tr('insufficientPermissions');
   static String get settings => _localization.tr('settings');
   static String get version => _localization.tr('version');
   static String get studentProfile => _localization.tr('studentProfile');
-  static String get noUserDataAvailable => _localization.tr('noUserDataAvailable');
+  static String get noUserDataAvailable =>
+      _localization.tr('noUserDataAvailable');
   static String get tryAgainTest => _localization.tr('tryAgainTest');
-  static String get pleaseTryAgainLater => _localization.tr('pleaseTryAgainLater');
+  static String get pleaseTryAgainLater =>
+      _localization.tr('pleaseTryAgainLater');
   static String get loading => _localization.tr('loading');
   static String get thisFieldRequired => _localization.tr('thisFieldRequired');
   static String get validEmail => _localization.tr('validEmail');
@@ -83,4 +92,36 @@ class AppStrings {
   static String get lightMode => _localization.tr('lightMode');
   static String get selectLanguage => _localization.tr('selectLanguage');
   static String get language => _localization.tr('language');
+  static String get selectRole => _localization.tr('selectRole');
+  static String get admin => _localization.tr('admin');
+  static String get superAdmin => _localization.tr('superAdmin');
+  static String get professor => _localization.tr('professor');
+  static String get systemController => _localization.tr('systemController');
+  static String get chooseAuthenticationMethod =>
+      _localization.tr('chooseAuthenticationMethod');
+  static String get login => _localization.tr('login');
+  static String get register => _localization.tr('register');
+  static String get email => _localization.tr('email');
+  static String get enterEmail => _localization.tr('enterEmail');
+  static String get password => _localization.tr('password');
+  static String get enterPassword => _localization.tr('enterPassword');
+  static String get confirmPassword => _localization.tr('confirmPassword');
+  static String get enterConfirmPassword =>
+      _localization.tr('enterConfirmPassword');
+  static String get createAccount => _localization.tr('createAccount');
+  static String get checkOneTimeCode => _localization.tr('checkOneTimeCode');
+  static String get checkYourAccessCode =>
+      _localization.tr('checkYourAccessCode');
+  static String get enterOneTimeCode => _localization.tr('enterOneTimeCode');
+  static String get oneTimeCode => _localization.tr('oneTimeCode');
+  static String get userName => _localization.tr('userName');
+  static String get enterUserName => _localization.tr('enterUserName');
+  static String get faculties => _localization.tr('faculties');
+  static String get majors => _localization.tr('majors');
+  static String get selectFaculty => _localization.tr('selectFaculty');
+  static String get selectMajor => _localization.tr('selectMajor');
+  static String get facultyId => _localization.tr('facultyId');
+  static String get majorId => _localization.tr('majorId');
+  static String get userId => _localization.tr('userId');
+  static String get enterUserId => _localization.tr('enterUserId');
 }

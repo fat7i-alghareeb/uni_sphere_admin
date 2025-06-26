@@ -2,10 +2,21 @@ import 'dart:async';
 
 import 'package:beamer/beamer.dart';
 
-import '../features/root/presentation/ui/screen/root_screen.dart' show RootScreen;
+import '../features/root/presentation/ui/screen/root_screen.dart'
+    show RootScreen;
 import '../shared/imports/imports.dart';
 import '../shared/states/app_manager_bloc/app_manager_bloc.dart';
 import '../shared/utils/helper/colored_print.dart';
+import '../features/access/presentation/ui/screens/role_selection_screen.dart'
+    show RoleSelectionScreen;
+import '../features/access/presentation/ui/screens/authentication_method_screen.dart'
+    show AuthenticationMethodScreen;
+import '../features/access/presentation/ui/screens/login_screen.dart'
+    show LoginScreen;
+import '../features/access/presentation/ui/screens/check_one_time_code_screen.dart'
+    show CheckOneTimeCodeScreen;
+import '../features/access/presentation/ui/screens/register_screen.dart'
+    show RegisterScreen;
 
 typedef BeamerBuilder = dynamic Function(BuildContext, BeamState, Object?);
 
@@ -32,12 +43,11 @@ class BRouterConfig {
 
   BRouterConfig({required this.appManagerBloc}) {
     router = BeamerDelegate(
-      initialPath: RootScreen.pagePath,
+      initialPath: RoleSelectionScreen.pagePath,
       updateListenable: RefreshStream(appManagerBloc.stream),
       routeListener: (routerInfo, routerDelegate) {
         printG("route: ${routerInfo.uri}");
         printC(appManagerBloc.state.status);
-
 
         // if (appManagerBloc.state.status == Status.authenticated &&
         //     !routerInfo.uri.path.contains(RootScreen.pagePath)) {
@@ -50,15 +60,18 @@ class BRouterConfig {
       },
       locationBuilder: RoutesLocationBuilder(
         routes: {
-          // //! -------------- Access ---------------- !//
-          // '/choose_access_method': ChooseAccessMethodScreen.pageBuilder,
-          // '/choose_access_method/login': LoginScreen.pageBuilder,
-          // '/choose_access_method/check_one_time_code':
-          //     CheckOneTimeCodeScreen.pageBuilder,
-          // '/choose_access_method/check_one_time_code/register':
-          //     RegisterScreen.pageBuilder,
+          //! -------------- Access ---------------- !//
+          '/role_selection': RoleSelectionScreen.pageBuilder,
+          '/role_selection/authentication_method':
+              AuthenticationMethodScreen.pageBuilder,
+          '/role_selection/authentication_method/login':
+              LoginScreen.pageBuilder,
+          '/role_selection/authentication_method/check_one_time_code':
+              CheckOneTimeCodeScreen.pageBuilder,
+          '/role_selection/authentication_method/check_one_time_code/register':
+              RegisterScreen.pageBuilder,
 
-          // //! -------------- End Access ---------------- !//
+          //! -------------- End Access ---------------- !//
 
           '/root': RootScreen.pageBuilder,
           // //! -------------- Subjects ---------------- !//

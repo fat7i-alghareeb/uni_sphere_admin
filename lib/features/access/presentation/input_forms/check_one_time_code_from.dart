@@ -7,40 +7,23 @@ import 'auth_input_keys.dart';
 class CheckOneTimeCodeForm {
   static FormGroup formGroup = FormGroup(
     {
+      AuthInputKeys.email: FormControl<String>(
+        validators: [
+          Validators.required,
+          Validators.email,
+        ],
+      ),
       AuthInputKeys.oneTimeCode: FormControl<String>(
         validators: [
           Validators.required,
         ],
       ),
-      AuthInputKeys.faculty: FormControl<String>(
-        validators: [
-          Validators.required,
-        ],
-      ),
-      AuthInputKeys.major: FormControl<String>(
-        validators: [
-          Validators.required,
-        ],
-      ),
-      AuthInputKeys.majorId: FormControl<String>(
-        validators: [
-          Validators.required,
-        ],
-      ),
-      AuthInputKeys.facultyId: FormControl<String>(
-        validators: [
-          Validators.required,
-        ],
-      ),
-      AuthInputKeys.studentNumber: FormControl<String>(
-        validators: [
-          Validators.required,
-        ],
-      ),
+      AuthInputKeys.faculty: FormControl<String?>(),
+      AuthInputKeys.major: FormControl<String?>(),
+      AuthInputKeys.majorId: FormControl<String?>(),
+      AuthInputKeys.facultyId: FormControl<String?>(),
     },
   );
-
-
 
   static void clearForm() {
     formGroup.reset();

@@ -4,15 +4,20 @@ import 'package:reactive_forms/reactive_forms.dart';
 // 🌎 Project imports:
 import 'auth_input_keys.dart';
 
-class LoginForm {
+class RegisterForm {
   static FormGroup formGroup = FormGroup({
-    AuthInputKeys.email: FormControl<String>(
+    AuthInputKeys.userId: FormControl<String>(
       validators: [
         Validators.required,
-        Validators.email,
       ],
     ),
     AuthInputKeys.password: FormControl<String>(
+      validators: [
+        Validators.required,
+        Validators.minLength(6),
+      ],
+    ),
+    AuthInputKeys.confirmPassword: FormControl<String>(
       validators: [
         Validators.required,
       ],

@@ -11,4 +11,9 @@ class AuthInputKeys {
   static const String password = 'password';
   static const String confirmPassword = 'confirmPassword';
   static const String oldPassword = 'oldPassword';
+
+  // Admin-specific fields
+  static const String email = 'email';
+  static const String userId = 'userId';
+  static const String role = 'role';
 }

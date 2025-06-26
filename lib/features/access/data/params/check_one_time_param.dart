@@ -1,19 +1,19 @@
 class CheckOneTimeParam {
   final String gmail;
   final String code;
-  final String majorId;
+  final String? id;
 
   CheckOneTimeParam({
     required this.gmail,
     required this.code,
-    required this.majorId,
+    this.id,
   });
 
   Map<String, dynamic> toAdminJson() {
     return {
       'gmail': gmail,
       'code': code,
-      'majorId': majorId,
+      'majorId': id,
     };
   }
 
@@ -21,7 +21,7 @@ class CheckOneTimeParam {
     return {
       'gmail': gmail,
       'code': code,
-      'facultyId': majorId,
+      'facultyId': id,
     };
   }
 
