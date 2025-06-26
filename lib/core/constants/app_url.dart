@@ -68,6 +68,11 @@ class AppUrl {
   static String deleteLecture(String id) => "$_scheduleManagement/$id";
 
   //! ************** End Schedule *************** //
-
+  //! ************** Info ***************//
+  static const _info = "Info";
+  static const getFaculties = '$_info/GetFaculties';
+  static const getMajors = '$_info/GetMajors';
+  static const getHomePageInfo = '$_info/GetHomePageInfo';
+  //! ************** Ent Info ***************//
   AppUrl._();
 }
