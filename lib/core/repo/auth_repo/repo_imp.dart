@@ -112,21 +112,21 @@ class AuthRepoImp implements AuthRepository {
   }
 
   @override
-  Future<Either<String, User>> checkOneTimeCodeSuperAdmin({required CheckOneTimeParam checkOneTimeParam}) {
+  Future<Either<String, String>> checkOneTimeCodeSuperAdmin({required CheckOneTimeParam checkOneTimeParam}) {
     return throwAppException(() async {
       final response = await remote.checkOneTimeCodeSuperAdmin(checkOneTimeParam: checkOneTimeParam);
       return response;
     });
   }
   @override
-  Future<Either<String, User>> checkOneTimeCodeProfessor({required CheckOneTimeParam checkOneTimeParam}) {
+  Future<Either<String, String>> checkOneTimeCodeProfessor({required CheckOneTimeParam checkOneTimeParam}) {
     return throwAppException(() async {
       final response = await remote.checkOneTimeCodeProfessor(checkOneTimeParam: checkOneTimeParam);
       return response;
     });
   }
   @override
-  Future<Either<String, User>> checkOneTimeCodeAdmin({required CheckOneTimeParam checkOneTimeParam}) {
+  Future<Either<String, String>> checkOneTimeCodeAdmin({required CheckOneTimeParam checkOneTimeParam}) {
     return throwAppException(() async {
       final response = await remote.checkOneTimeCodeAdmin(checkOneTimeParam: checkOneTimeParam);
       return response;

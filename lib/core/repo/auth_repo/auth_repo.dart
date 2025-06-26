@@ -27,11 +27,11 @@ abstract class AuthRepository {
   Future<Either<String, User>> registerSuperAdmin(
       {required RegisterParam registerParam});
 
-  Future<Either<String, User>> checkOneTimeCodeSuperAdmin(
+  Future<Either<String, String>> checkOneTimeCodeSuperAdmin(
       {required CheckOneTimeParam checkOneTimeParam});
-  Future<Either<String, User>> checkOneTimeCodeProfessor(
+  Future<Either<String, String>> checkOneTimeCodeProfessor(
       {required CheckOneTimeParam checkOneTimeParam});
-  Future<Either<String, User>> checkOneTimeCodeAdmin(
+  Future<Either<String, String>> checkOneTimeCodeAdmin(
       {required CheckOneTimeParam checkOneTimeParam});
 
   Stream<AuthStatus> get authStatusStream;
