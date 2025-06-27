@@ -79,5 +79,10 @@ class AppUrl {
   static const getMajors = '$_info/GetMajors';
   static const getHomePageInfo = '$_info/GetHomePageInfo';
   //! ************** Ent Info ***************//
+  //! ************** Announcements Management *************** //
+  static const _schedule = "Schedule";
+  static const getScheduleByMonth = "$_schedule/GetScheduleByMonth";
+  static const getMySchedule = "$_schedule/GetMySchedule";
+  //! ************** End Announcements Management *************** //
   AppUrl._();
 }

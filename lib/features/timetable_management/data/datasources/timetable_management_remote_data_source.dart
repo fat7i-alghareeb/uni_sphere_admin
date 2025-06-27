@@ -1,7 +1,8 @@
 //!----------------------------  Imports  -------------------------------------!//
 import 'package:dio/dio.dart';
-import '../models/timetable_management_model.dart';
+import '../../../../core/constants/app_url.dart' show AppUrl;
 import '../../../../shared/services/exception/error_handler.dart';
+import '../models/moth_schedule_model.dart' show MothScheduleModel;
 
 //!----------------------------  The Class  -------------------------------------!//
 
@@ -10,14 +11,28 @@ class TimetableManagementRemote {
 
   const TimetableManagementRemote(Dio dio) : _dio = dio;
 
-  //* Get All TimetableManagement
-  Future<TimetableManagementModel> getAllTimetableManagement() {
+  //* Get All Timetable
+  Future<MothScheduleModel> getMonthTimetable(
+      {required int month, required int year}) {
     return throwDioException(
       () async {
         final response = await _dio.get(
-          "random/url",
+          AppUrl.getScheduleByMonth,
+          queryParameters: {
+            "month": month,
+            "year": year,
+          },
         );
-        return response.data;
+        return MothScheduleModel.fromJson(response.data);
+      },
+    );
+  }
+
+  Future<MothScheduleModel> getAllTimetables() {
+    return throwDioException(
+      () async {
+        final response = await _dio.get(AppUrl.getMySchedule);
+        return MothScheduleModel.fromJson(response.data);
       },
     );
   }
