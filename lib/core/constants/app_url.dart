@@ -37,6 +37,8 @@ class AppUrl {
       "$_subject/$_superAdmin/$id";
   static String getProfessorSubjectById(String id) =>
       "$_subject/$_professor/$id";
+  static String updateSubject(String id) => '$_subject/$id';
+  static String uploadMaterial(String id) => '$_subject/$id/materials';
   static String editSubject(String id) => '$_subject/$id';
   //! ************** End Subject Management *************** //
 

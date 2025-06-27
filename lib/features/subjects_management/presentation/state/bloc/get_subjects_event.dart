@@ -1,6 +1,6 @@
 part of 'get_subjects_bloc.dart';
 
-@immutable
+
 sealed class GetSubjectsEvent {}
 
 class GetSuperAdminSubjectsEvent extends GetSubjectsEvent {
@@ -17,4 +17,18 @@ class GetSubjectByIdEvent extends GetSubjectsEvent {
   final Role role;
 
   GetSubjectByIdEvent({required this.id, required this.role});
+}
+
+class UpdateSubjectEvent extends GetSubjectsEvent {
+  final String id;
+  final List<UpdateParam> fields;
+
+  UpdateSubjectEvent({required this.id, required this.fields});
+}
+
+class UploadMaterialEvent extends GetSubjectsEvent {
+  final String id;
+  final File file;
+
+  UploadMaterialEvent({required this.id, required this.file});
 }

@@ -1,6 +1,9 @@
 //!----------------------------  Imports  -------------------------------------!//
+import 'dart:io';
+
 import 'package:fpdart/fpdart.dart';
 import '../../../../shared/entities/role.dart' show Role;
+import '../../../../shared/request_bodies/globel_patch_body.dart' show GlobalPatch;
 import '../../data/models/subjects_management_model.dart'
     show FacultySubjects, Subject, UniversitySubjects;
 import '../repositories/subjects_management_repository.dart';
@@ -24,4 +27,10 @@ class SubjectsManagementUsecase {
 
   Future<Either<String, Subject>> getSubjectById(String id, Role role) =>
       _repo.getSubjectById(id, role);
+
+  Future<Either<String, Subject>> updateSubject(String id, GlobalPatch patch) =>
+      _repo.updateSubject(id, patch);
+
+  Future<Either<String, Subject>> uploadMaterial(String id, File file) =>
+      _repo.uploadMaterial(id, file);
 }

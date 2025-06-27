@@ -1,6 +1,8 @@
 //!----------------------------  Imports  -------------------------------------!//
 import 'package:dio/dio.dart';
 import 'package:uni_sphere_admin/core/constants/app_url.dart' show AppUrl;
+import 'package:uni_sphere_admin/shared/request_bodies/globel_patch_body.dart'
+    show GlobalPatch;
 import '../../../../shared/entities/role.dart' show Role;
 import '../models/subjects_management_model.dart';
 import '../../../../shared/services/exception/error_handler.dart';
@@ -46,6 +48,25 @@ class SubjectsManagementRemote {
               ? AppUrl.getSuperAdminSubjectById(id)
               : AppUrl.getProfessorSubjectById(id),
         );
+        return Subject.fromJson(response.data);
+      },
+    );
+  }
+
+  Future<Subject> updateSubject(String id, GlobalPatch patch) {
+    return throwDioException(
+      () async {
+        final response =
+            await _dio.patch(AppUrl.updateSubject(id), data: patch.toJson());
+        return Subject.fromJson(response.data);
+      },
+    );
+  }
+
+  Future<Subject> uploadMaterial(String id, FormData formData) {
+    return throwDioException(
+      () async {
+        final response = await _dio.post(AppUrl.uploadMaterial(id), data: formData);
         return Subject.fromJson(response.data);
       },
     );
