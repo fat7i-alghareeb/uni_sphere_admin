@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:beamer/beamer.dart';
+import 'package:dio_refresh_bot/dio_refresh_bot.dart' show Status;
 
 import '../features/root/presentation/ui/screen/root_screen.dart'
     show RootScreen;
@@ -49,14 +50,13 @@ class BRouterConfig {
         printG("route: ${routerInfo.uri}");
         printC(appManagerBloc.state.status);
 
-        // if (appManagerBloc.state.status == Status.authenticated &&
-        //     !routerInfo.uri.path.contains(RootScreen.pagePath)) {
-        //   routerDelegate.beamToReplacementNamed(RootScreen.pagePath);
-        // } else if (appManagerBloc.state.status == Status.unauthenticated &&
-        //     !routerInfo.uri.path.contains(ChooseAccessMethodScreen.pagePath)) {
-        //   routerDelegate
-        //       .beamToReplacementNamed(ChooseAccessMethodScreen.pagePath);
-        // }
+        if (appManagerBloc.state.status == Status.authenticated &&
+            !routerInfo.uri.path.contains(RootScreen.pagePath)) {
+          routerDelegate.beamToReplacementNamed(RootScreen.pagePath);
+        } else if (appManagerBloc.state.status == Status.unauthenticated &&
+            !routerInfo.uri.path.contains(RoleSelectionScreen.pagePath)) {
+          routerDelegate.beamToReplacementNamed(RoleSelectionScreen.pagePath);
+        }
       },
       locationBuilder: RoutesLocationBuilder(
         routes: {

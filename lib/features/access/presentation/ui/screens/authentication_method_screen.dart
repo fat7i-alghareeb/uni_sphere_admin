@@ -85,6 +85,8 @@ class _AuthenticationMethodBodyState extends State<AuthenticationMethodBody>
         return AppStrings.professor;
       case Role.systemController:
         return AppStrings.systemController;
+      case Role.unknown:
+        return AppStrings.admin;
     }
   }
 
@@ -98,6 +100,8 @@ class _AuthenticationMethodBodyState extends State<AuthenticationMethodBody>
         return Icons.school;
       case Role.systemController:
         return Icons.settings_system_daydream;
+      case Role.unknown:
+        return Icons.admin_panel_settings;
     }
   }
 

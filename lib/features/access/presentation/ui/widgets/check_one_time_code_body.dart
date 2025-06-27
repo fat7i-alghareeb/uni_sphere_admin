@@ -307,34 +307,29 @@ class _CheckOneTimeCodeBodyState extends State<CheckOneTimeCodeBody>
                                         final majorId = CheckOneTimeCodeForm
                                             .formGroup
                                             .getValue(AuthInputKeys.majorId);
-
                                         if (facultyId == null) {
                                           showErrorOverlay(context,
                                               '${AppStrings.selectFaculty} ${AppStrings.thisFieldRequired}');
                                           return;
                                         }
-
                                         if (majorId == null) {
                                           showErrorOverlay(context,
                                               '${AppStrings.selectMajor} ${AppStrings.thisFieldRequired}');
                                           return;
                                         }
                                       }
-
                                       // Check if faculty is selected for super admin role
                                       if (AuthBloc.selectedRole ==
                                           Role.superAdmin) {
                                         final facultyId = CheckOneTimeCodeForm
                                             .formGroup
                                             .getValue(AuthInputKeys.facultyId);
-
                                         if (facultyId == null) {
                                           showErrorOverlay(context,
                                               '${AppStrings.selectFaculty} ${AppStrings.thisFieldRequired}');
                                           return;
                                         }
                                       }
-
                                       // Check if form is valid
                                       if (!CheckOneTimeCodeForm.formGroup
                                           .isFormValid()) {
@@ -342,7 +337,6 @@ class _CheckOneTimeCodeBodyState extends State<CheckOneTimeCodeBody>
                                             AppStrings.thisFieldRequired);
                                         return;
                                       }
-
                                       // If all validations pass, proceed with submission
                                       getIt<AuthBloc>().add(
                                         CheckOneTimeCodeEvent(
@@ -397,6 +391,8 @@ class _CheckOneTimeCodeBodyState extends State<CheckOneTimeCodeBody>
         return const SizedBox.shrink(); // No additional fields for professor
       case Role.systemController:
         return const SizedBox.shrink(); // System controller doesn't register
+      case Role.unknown:
+        return const SizedBox.shrink(); // Unknown role doesn't register
     }
   }
 

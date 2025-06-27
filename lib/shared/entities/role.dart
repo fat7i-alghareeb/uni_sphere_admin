@@ -3,4 +3,5 @@ enum Role {
   professor,
   superAdmin,
   systemController,
+  unknown;
 }

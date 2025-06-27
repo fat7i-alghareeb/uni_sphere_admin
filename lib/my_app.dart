@@ -7,12 +7,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:uni_sphere_admin/core/auth_data_source/local/auth_local.dart';
+import 'package:uni_sphere_admin/shared/entities/user.dart';
+import 'package:uni_sphere_admin/shared/utils/helper/colored_print.dart';
 
 import 'core/styles/themes.dart';
 import 'core/injection/injection.dart';
 import 'core/styles/style.dart';
 import 'features/root/presentation/state/provider/nav_bar_provider.dart';
 import 'router/router_config.dart';
+import 'shared/entities/role.dart' show Role;
 import 'shared/helper/localization_service.dart';
 import 'shared/imports/imports.dart';
 import 'core/repo/auth_repo/auth_repo.dart';
@@ -112,6 +116,18 @@ class _MyAppState extends State<MyApp> {
   FutureOr<void> _doBeforeOpen() async {
     final Completer<void> completer = Completer();
     try {
+      User? user = getIt<AuthLocal>().getUser();
+      if (user != null) {
+        AppConstants.userRole =
+            Role.values.firstWhere((element) => element.name == user.role);
+      } else {
+        AppConstants.userRole = Role.unknown;
+      }
+      printW(
+          "*********************************************************************************");
+      printW("userRole: ${AppConstants.userRole.name}");
+      printW(
+          "*********************************************************************************l");
       // CheckVersion checkVersion = CheckVersion();
       // await checkVersion.initCheckVersion();
       // checkVersion.onChanged.stream.listen((status) {
