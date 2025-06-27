@@ -1,8 +1,4 @@
 class AppUrl {
-  static String getAllSubjects = '';
-
-  static String getSubjectById = '';
-
   static const baseUrlDevelopment = 'https://192.168.1.125:5001/';
 
   static const _auth = "Auth";
@@ -35,7 +31,12 @@ class AppUrl {
   static const viewSuperAdminSubjects = "$_subject/$_superAdmin/MySubjects";
   static const viewProfessorSubjects = "$_subject/$_professor/MySubjects";
   static const uploadMaterials = "$_subject/$_professor/UploadMaterials";
-
+  static const getSuperAdminSubjects = "$_subject/$_superAdmin/Subjects";
+  static const getProfessorSubjects = "$_subject/$_professor/Subjects";
+  static String getSuperAdminSubjectById(String id) =>
+      "$_subject/$_superAdmin/$id";
+  static String getProfessorSubjectById(String id) =>
+      "$_subject/$_professor/$id";
   static String editSubject(String id) => '$_subject/$id';
   //! ************** End Subject Management *************** //
 

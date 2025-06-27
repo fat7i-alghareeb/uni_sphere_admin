@@ -1,5 +1,7 @@
 //!----------------------------  Imports  -------------------------------------!//
 import 'package:dio/dio.dart';
+import 'package:uni_sphere_admin/core/constants/app_url.dart' show AppUrl;
+import '../../../../shared/entities/role.dart' show Role;
 import '../models/subjects_management_model.dart';
 import '../../../../shared/services/exception/error_handler.dart';
 
@@ -11,13 +13,40 @@ class SubjectsManagementRemote {
   const SubjectsManagementRemote(Dio dio) : _dio = dio;
 
   //* Get All SubjectsManagement
-  Future<SubjectsManagementModel> getAllSubjectsManagement() {
+  Future<FacultySubjects> getSuperAdminSubjects(
+      {required int year, required String majorId}) {
     return throwDioException(
       () async {
         final response = await _dio.get(
-          "random/url",
+          AppUrl.getSuperAdminSubjects,
+          queryParameters: {
+            'year': year,
+            'majorId': majorId,
+          },
         );
-        return response.data;
+        return FacultySubjects.fromJson(response.data);
+      },
+    );
+  }
+
+  Future<UniversitySubjects> getProfessorSubjects() {
+    return throwDioException(
+      () async {
+        final response = await _dio.get(AppUrl.getProfessorSubjects);
+        return UniversitySubjects.fromJson(response.data);
+      },
+    );
+  }
+
+  Future<Subject> getSubjectById(String id, Role role) {
+    return throwDioException(
+      () async {
+        final response = await _dio.get(
+          role == Role.superAdmin
+              ? AppUrl.getSuperAdminSubjectById(id)
+              : AppUrl.getProfessorSubjectById(id),
+        );
+        return Subject.fromJson(response.data);
       },
     );
   }
