@@ -22,7 +22,9 @@ class RegisterForm {
         Validators.required,
       ],
     ),
-  });
+  }, validators: [
+    Validators.mustMatch(AuthInputKeys.password, AuthInputKeys.confirmPassword),
+  ]);
 
   static void clearForm() {
     formGroup.reset();

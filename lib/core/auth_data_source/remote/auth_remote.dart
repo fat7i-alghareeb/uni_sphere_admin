@@ -26,7 +26,6 @@ class AuthRemote {
   }
 
   Future<FullUser> loginSuperAdmin({required LoginParam loginParam}) {
-
     return throwDioException(() async {
       final response = await _dio.post(
         AppUrl.loginSuperAdmin,
@@ -37,7 +36,6 @@ class AuthRemote {
   }
 
   Future<FullUser> loginProfessor({required LoginParam loginParam}) {
-
     return throwDioException(() async {
       final response = await _dio.post(
         AppUrl.loginProfessor,
@@ -48,7 +46,6 @@ class AuthRemote {
   }
 
   Future<FullUser> loginSystemController({required LoginParam loginParam}) {
-
     return throwDioException(() async {
       final response = await _dio.post(
         AppUrl.loginSystemController,
@@ -57,39 +54,41 @@ class AuthRemote {
       return FullUser.fromMap(response.data);
     });
   }
-        Future<String> checkOneTimeCodeAdmin(
+
+  Future<String> checkOneTimeCodeAdmin(
       {required CheckOneTimeParam checkOneTimeParam}) {
     return throwDioException(() async {
       final response = await _dio.post(
         AppUrl.checkOneTimeCodeAdmin,
         data: checkOneTimeParam.toAdminJson(),
       );
-      return response.data;
+      return response.data["adminId"];
     });
   }
 
   Future<String> checkOneTimeCodeSuperAdmin(
-    {required CheckOneTimeParam checkOneTimeParam}) {
+      {required CheckOneTimeParam checkOneTimeParam}) {
     return throwDioException(() async {
       final response = await _dio.post(
         AppUrl.checkOneTimeCodeSuperAdmin,
         data: checkOneTimeParam.toSuperAdminJson(),
       );
-      return response.data;
+      return response.data["superAdminId"];
     });
   }
+
   Future<String> checkOneTimeCodeProfessor(
-    {required CheckOneTimeParam checkOneTimeParam}) {
+      {required CheckOneTimeParam checkOneTimeParam}) {
     return throwDioException(() async {
       final response = await _dio.post(
         AppUrl.checkOneTimeCodeProfessor,
         data: checkOneTimeParam.toProfessorJson(),
       );
-      return response.data;
+      return response.data["professorId"];
     });
   }
-  Future<FullUser> registerAdmin({required RegisterParam registerParam}) {
 
+  Future<FullUser> registerAdmin({required RegisterParam registerParam}) {
     return throwDioException(() async {
       final response = await _dio.post(
         AppUrl.registerAdmin,
@@ -100,7 +99,6 @@ class AuthRemote {
   }
 
   Future<FullUser> registerSuperAdmin({required RegisterParam registerParam}) {
-
     return throwDioException(() async {
       final response = await _dio.post(
         AppUrl.registerSuperAdmin,
@@ -111,7 +109,6 @@ class AuthRemote {
   }
 
   Future<FullUser> registerProfessor({required RegisterParam registerParam}) {
-
     return throwDioException(() async {
       final response = await _dio.post(
         AppUrl.registerProfessor,
@@ -120,7 +117,6 @@ class AuthRemote {
       return FullUser.fromMap(response.data);
     });
   }
-
 
   // Future<void> forgetPassword({required String email}) {
   //       data: {"email": email},

@@ -48,15 +48,12 @@ Future<void> updateStorageToken(
   final user = getIt<AuthLocal>().getUser();
   if (user == null) return;
   User user2 = User(
-    studentId: user.studentId,
     firstNameAr: user.firstNameAr,
     firstNameEn: user.firstNameEn,
     lastNameAr: user.lastNameAr,
     lastNameEn: user.lastNameEn,
     fatherNameAr: user.fatherNameAr,
     fatherNameEn: user.fatherNameEn,
-    enrollmentStatusNameAr: user.enrollmentStatusNameAr,
-    enrollmentStatusNameEn: user.enrollmentStatusNameEn,
     majorNameAr: user.majorNameAr,
     majorNameEn: user.majorNameEn,
     gmail: user.gmail,

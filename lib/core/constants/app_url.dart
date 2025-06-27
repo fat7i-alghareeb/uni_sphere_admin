@@ -3,12 +3,12 @@ class AppUrl {
 
   static String getSubjectById = '';
 
-  static const baseUrlDevelopment = 'https://192.168.102.173:5001/';
+  static const baseUrlDevelopment = 'https://192.168.1.125:5001/';
 
   static const _auth = "Auth";
   static const _admin = "Admin";
   static const _superAdmin = "SuperAdmin";
-  static const _professor = "Professor";
+  static const _professor = "Professors";
   static const _systemController = "SystemController";
   // static const _student = "Student";
 
