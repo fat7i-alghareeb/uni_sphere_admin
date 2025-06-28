@@ -1,7 +1,7 @@
 import 'package:uni_sphere_admin/shared/imports/imports.dart';
 
-class ScheduleView extends StatelessWidget {
-  const ScheduleView({super.key});
+class HomeView extends StatelessWidget {
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,13 +10,13 @@ class ScheduleView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
-            Icons.schedule,
+            Icons.home,
             size: 100.r,
             color: context.primaryColor,
           ),
           20.verticalSpace,
           Text(
-            'Schedule View',
+            'Home View',
             style: context.textTheme.headlineMedium?.copyWith(
               color: context.primaryColor,
             ),

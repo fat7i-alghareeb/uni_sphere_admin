@@ -14,7 +14,7 @@ class NavBarProvider extends ChangeNotifier {
 
   void changeSelected(int index) {
     selectedIndex = index;
-
+    pageController.jumpToPage(index);
     notifyListeners();
   }
 }

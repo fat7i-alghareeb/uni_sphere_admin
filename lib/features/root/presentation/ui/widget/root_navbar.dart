@@ -11,17 +11,12 @@ import '../../state/provider/nav_bar_provider.dart';
 /// A custom navigation bar widget that provides a glass-morphism effect
 /// with animated transitions between selected items.
 class RootNavbar extends StatelessWidget {
-  RootNavbar({
-    super.key,
-  });
+  final List<NavItem> navItems;
 
-  /// List of navigation items with their respective icons
-  late final List<NavItem> _navItems = [
-    NavItem(iconPath: Assets.icons.home, index: 0),
-    NavItem(iconPath: Assets.icons.subjects, index: 1),
-    NavItem(iconPath: Assets.icons.timeTable, index: 2),
-    NavItem(iconPath: Assets.icons.announcement, index: 3),
-  ];
+  const RootNavbar({
+    super.key,
+    required this.navItems,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +41,7 @@ class RootNavbar extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30.r),
               ),
               child: Row(
-                children: _navItems
+                children: navItems
                     .map((item) => _buildNavItem(
                           context: context,
                           item: item,

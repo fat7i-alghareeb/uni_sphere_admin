@@ -117,7 +117,7 @@ class _CheckOneTimeCodeBodyState extends State<CheckOneTimeCodeBody>
 
     // Fetch faculties for admin roles
     if (AuthBloc.selectedRole == Role.admin ||
-        AuthBloc.selectedRole == Role.superAdmin) {
+        AuthBloc.selectedRole == Role.superadmin) {
       getIt<InfoBloc>().add(GetFacultiesEvent());
     }
 
@@ -274,7 +274,7 @@ class _CheckOneTimeCodeBodyState extends State<CheckOneTimeCodeBody>
                                 final isFormReady = (AuthBloc.selectedRole !=
                                             Role.admin &&
                                         AuthBloc.selectedRole !=
-                                            Role.superAdmin) ||
+                                            Role.superadmin) ||
                                     (AuthBloc.selectedRole == Role.admin &&
                                         CheckOneTimeCodeForm.formGroup.getValue(
                                                 AuthInputKeys.facultyId) !=
@@ -282,7 +282,7 @@ class _CheckOneTimeCodeBodyState extends State<CheckOneTimeCodeBody>
                                         CheckOneTimeCodeForm.formGroup.getValue(
                                                 AuthInputKeys.majorId) !=
                                             null) ||
-                                    (AuthBloc.selectedRole == Role.superAdmin &&
+                                    (AuthBloc.selectedRole == Role.superadmin &&
                                         CheckOneTimeCodeForm.formGroup.getValue(
                                                 AuthInputKeys.facultyId) !=
                                             null);
@@ -320,7 +320,7 @@ class _CheckOneTimeCodeBodyState extends State<CheckOneTimeCodeBody>
                                       }
                                       // Check if faculty is selected for super admin role
                                       if (AuthBloc.selectedRole ==
-                                          Role.superAdmin) {
+                                          Role.superadmin) {
                                         final facultyId = CheckOneTimeCodeForm
                                             .formGroup
                                             .getValue(AuthInputKeys.facultyId);
@@ -385,11 +385,11 @@ class _CheckOneTimeCodeBodyState extends State<CheckOneTimeCodeBody>
     switch (AuthBloc.selectedRole) {
       case Role.admin:
         return const SizedBox.shrink(); // MajorSelector handles this
-      case Role.superAdmin:
+      case Role.superadmin:
         return _superAdminFields();
       case Role.professor:
         return const SizedBox.shrink(); // No additional fields for professor
-      case Role.systemController:
+      case Role.systemcontroller:
         return const SizedBox.shrink(); // System controller doesn't register
       case Role.unknown:
         return const SizedBox.shrink(); // Unknown role doesn't register
@@ -447,14 +447,14 @@ class _CheckOneTimeCodeBodyState extends State<CheckOneTimeCodeBody>
       final isFormDisabled = (AuthBloc.selectedRole == Role.admin &&
               (form.getValue(AuthInputKeys.facultyId) == null ||
                   form.getValue(AuthInputKeys.majorId) == null)) ||
-          (AuthBloc.selectedRole == Role.superAdmin &&
+          (AuthBloc.selectedRole == Role.superadmin &&
               form.getValue(AuthInputKeys.facultyId) == null);
 
       return Column(
         children: [
           if (isFormDisabled &&
               (AuthBloc.selectedRole == Role.admin ||
-                  AuthBloc.selectedRole == Role.superAdmin))
+                  AuthBloc.selectedRole == Role.superadmin))
             Container(
               padding: REdgeInsets.all(12),
               margin: REdgeInsets.only(bottom: 16),

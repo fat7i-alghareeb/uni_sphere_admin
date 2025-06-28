@@ -34,10 +34,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       case Role.professor:
         response = await _useCase.loginProfessor(loginParam: event.loginParam);
         break;
-      case Role.superAdmin:
+      case Role.superadmin:
         response = await _useCase.loginSuperAdmin(loginParam: event.loginParam);
         break;
-      case Role.systemController:
+      case Role.systemcontroller:
         response =
             await _useCase.loginSystemController(loginParam: event.loginParam);
         break;
@@ -69,10 +69,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       case Role.professor:
         response = await _useCase.registerProfessor(registerParam: event.registerParam);
         break;
-      case Role.superAdmin:
+      case Role.superadmin:
         response = await _useCase.registerSuperAdmin(registerParam: event.registerParam);
         break;
-      case Role.systemController:
+      case Role.systemcontroller:
         response = await _useCase.registerSuperAdmin(registerParam: event.registerParam);
         break;
       case Role.unknown:
@@ -103,10 +103,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       case Role.professor:
         response = await _useCase.checkOneTimeCodeProfessor(checkOneTimeParam: event.checkOneTimeParam);
         break;
-      case Role.superAdmin:
+        case Role.superadmin:
         response = await _useCase.checkOneTimeCodeSuperAdmin(checkOneTimeParam: event.checkOneTimeParam);
         break;
-      case Role.systemController:
+      case Role.systemcontroller:
         response = await _useCase.checkOneTimeCodeSuperAdmin(checkOneTimeParam: event.checkOneTimeParam);
         break;
       case Role.unknown:

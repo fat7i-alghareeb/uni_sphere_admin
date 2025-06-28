@@ -1,3 +1,5 @@
+import 'role.dart';
+
 class User {
   final String firstNameAr;
   final String firstNameEn;
@@ -28,6 +30,22 @@ class User {
     required this.role,
   });
 
+  /// Convert role string to Role enum
+  Role get roleEnum {
+    switch (role.toLowerCase()) {
+      case 'admin':
+        return Role.admin;
+      case 'professor':
+        return Role.professor;
+      case 'superadmin':
+        return Role.superadmin;
+      case 'systemcontroller':
+        return Role.systemcontroller;
+      default:
+        return Role.unknown;
+    }
+  }
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'firstNameAr': firstNameAr,
@@ -47,17 +65,56 @@ class User {
   }
 
   factory User.fromMap(Map<String, dynamic> map) {
+    // Handle both nested and flat formats for firstName and lastName
+    String getFirstNameAr() {
+      if (map['firstName'] is Map) {
+        return map['firstName']['ar'] as String;
+      } else {
+        return map['firstNameAr'] as String;
+      }
+    }
+
+    String getFirstNameEn() {
+      if (map['firstName'] is Map) {
+        return map['firstName']['en'] as String;
+      } else {
+        return map['firstNameEn'] as String;
+      }
+    }
+
+    String getLastNameAr() {
+      if (map['lastName'] is Map) {
+        return map['lastName']['ar'] as String;
+      } else {
+        return map['lastNameAr'] as String;
+      }
+    }
+
+    String getLastNameEn() {
+      if (map['lastName'] is Map) {
+        return map['lastName']['en'] as String;
+      } else {
+        return map['lastNameEn'] as String;
+      }
+    }
+
     return User(
-      firstNameAr: map['firstName']['ar'] as String,
-      firstNameEn: map['firstName']['en'] as String,
-      lastNameAr: map['lastName']['ar'] as String,
-      lastNameEn: map['lastName']['en'] as String,
-      fatherNameAr: map['fatherName']?['ar'] as String?,
-      fatherNameEn: map['fatherName']?['en'] as String?,
-      majorNameAr: map['majorName']?['ar'] as String?,
-      majorNameEn: map['majorName']?['en'] as String?,
-      facultyNameAr: map['facultyName']?['ar'] as String?,
-      facultyNameEn: map['facultyName']?['en'] as String?,
+      firstNameAr: getFirstNameAr(),
+      firstNameEn: getFirstNameEn(),
+      lastNameAr: getLastNameAr(),
+      lastNameEn: getLastNameEn(),
+      fatherNameAr:
+          map['fatherName']?['ar'] as String? ?? map['fatherNameAr'] as String?,
+      fatherNameEn:
+          map['fatherName']?['en'] as String? ?? map['fatherNameEn'] as String?,
+      majorNameAr:
+          map['majorName']?['ar'] as String? ?? map['majorNameAr'] as String?,
+      majorNameEn:
+          map['majorName']?['en'] as String? ?? map['majorNameEn'] as String?,
+      facultyNameAr: map['facultyName']?['ar'] as String? ??
+          map['facultyNameAr'] as String?,
+      facultyNameEn: map['facultyName']?['en'] as String? ??
+          map['facultyNameEn'] as String?,
       gmail: map['gmail'] as String,
       image: map['image'] as String? ?? '',
       role: map['role'] as String,
@@ -90,18 +147,57 @@ class FullUser extends User {
   });
 
   factory FullUser.fromMap(Map<String, dynamic> map) {
+    // Handle both nested and flat formats for firstName and lastName
+    String getFirstNameAr() {
+      if (map['firstName'] is Map) {
+        return map['firstName']['ar'] as String;
+      } else {
+        return map['firstNameAr'] as String;
+      }
+    }
+
+    String getFirstNameEn() {
+      if (map['firstName'] is Map) {
+        return map['firstName']['en'] as String;
+      } else {
+        return map['firstNameEn'] as String;
+      }
+    }
+
+    String getLastNameAr() {
+      if (map['lastName'] is Map) {
+        return map['lastName']['ar'] as String;
+      } else {
+        return map['lastNameAr'] as String;
+      }
+    }
+
+    String getLastNameEn() {
+      if (map['lastName'] is Map) {
+        return map['lastName']['en'] as String;
+      } else {
+        return map['lastNameEn'] as String;
+      }
+    }
+
     return FullUser(
-      firstNameAr: map['firstName']['ar'] as String,
-      firstNameEn: map['firstName']['en'] as String,
-      lastNameAr: map['lastName']['ar'] as String,
-      lastNameEn: map['lastName']['en'] as String,
+      firstNameAr: getFirstNameAr(),
+      firstNameEn: getFirstNameEn(),
+      lastNameAr: getLastNameAr(),
+      lastNameEn: getLastNameEn(),
       gmail: map['gmail'] as String,
-      majorNameAr: map['majorName']?['ar'] as String?,
-      majorNameEn: map['majorName']?['en'] as String?,
-      facultyNameAr: map['facultyName']?['ar'] as String?,
-      facultyNameEn: map['facultyName']?['en'] as String?,
-      fatherNameAr: map['fatherName']?['ar'] as String?,
-      fatherNameEn: map['fatherName']?['en'] as String?,
+      majorNameAr:
+          map['majorName']?['ar'] as String? ?? map['majorNameAr'] as String?,
+      majorNameEn:
+          map['majorName']?['en'] as String? ?? map['majorNameEn'] as String?,
+      facultyNameAr: map['facultyName']?['ar'] as String? ??
+          map['facultyNameAr'] as String?,
+      facultyNameEn: map['facultyName']?['en'] as String? ??
+          map['facultyNameEn'] as String?,
+      fatherNameAr:
+          map['fatherName']?['ar'] as String? ?? map['fatherNameAr'] as String?,
+      fatherNameEn:
+          map['fatherName']?['en'] as String? ?? map['fatherNameEn'] as String?,
       refreshToken: map['refreshToken'] as String,
       accessToken: map['accessToken'] as String,
       deviceToken: map['deviceToken'] as String? ?? '',

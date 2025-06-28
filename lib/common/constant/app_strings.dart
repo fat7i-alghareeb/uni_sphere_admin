@@ -124,4 +124,14 @@ class AppStrings {
   static String get majorId => _localization.tr('majorId');
   static String get userId => _localization.tr('userId');
   static String get enterUserId => _localization.tr('enterUserId');
+  static String get home => _localization.tr('home');
+  static String get timetable => _localization.tr('timetable');
+  static String get announcement => _localization.tr('announcement');
+  static String get uploadGrades => _localization.tr('uploadGrades');
+  static String get generateOneTimeCode =>
+      _localization.tr('generateOneTimeCode');
+  static String get assignReassignProfessor =>
+      _localization.tr('assignReassignProfessor');
+  static String get logout => _localization.tr('logout');
+  static String get profile => _localization.tr('profile');
 }

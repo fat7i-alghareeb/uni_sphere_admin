@@ -79,11 +79,11 @@ class _AuthenticationMethodBodyState extends State<AuthenticationMethodBody>
     switch (AuthBloc.selectedRole) {
       case Role.admin:
         return AppStrings.admin;
-      case Role.superAdmin:
+      case Role.superadmin:
         return AppStrings.superAdmin;
       case Role.professor:
         return AppStrings.professor;
-      case Role.systemController:
+      case Role.systemcontroller:
         return AppStrings.systemController;
       case Role.unknown:
         return AppStrings.admin;
@@ -94,11 +94,11 @@ class _AuthenticationMethodBodyState extends State<AuthenticationMethodBody>
     switch (AuthBloc.selectedRole) {
       case Role.admin:
         return Icons.admin_panel_settings;
-      case Role.superAdmin:
+      case Role.superadmin:
         return Icons.supervisor_account;
       case Role.professor:
         return Icons.school;
-      case Role.systemController:
+      case Role.systemcontroller:
         return Icons.settings_system_daydream;
       case Role.unknown:
         return Icons.admin_panel_settings;
@@ -175,7 +175,7 @@ class _AuthenticationMethodBodyState extends State<AuthenticationMethodBody>
             ),
             20.verticalSpace,
             // Only show register option for roles that support it
-            if (AuthBloc.selectedRole != Role.systemController)
+              if (AuthBloc.selectedRole != Role.systemcontroller)
               FadeTransition(
                 opacity: _fadeAnimation,
                 child: SlideTransition(

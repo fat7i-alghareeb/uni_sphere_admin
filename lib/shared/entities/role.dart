@@ -1,7 +1,7 @@
 enum Role {
   admin,
   professor,
-  superAdmin,
-  systemController,
+  superadmin,
+  systemcontroller,
   unknown;
 }

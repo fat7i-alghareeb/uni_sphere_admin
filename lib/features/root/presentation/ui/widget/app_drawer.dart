@@ -6,9 +6,12 @@ import 'package:uni_sphere_admin/features/root/presentation/ui/screen/language_s
 import '../../../../../common/constant/app_strings.dart' show AppStrings;
 import '../../../../../shared/widgets/theme_switcher.dart';
 import '../../../../../shared/imports/imports.dart';
+import '../../../../../shared/entities/role.dart';
 
 class CustomEndDrawer extends StatelessWidget {
-  const CustomEndDrawer({super.key});
+  final Role userRole;
+
+  const CustomEndDrawer({super.key, required this.userRole});
 
   // ignore: unused_element
   Future<String> _getAppVersion() async {
@@ -65,6 +68,10 @@ class CustomEndDrawer extends StatelessWidget {
               padding: REdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
+                  // Role-specific menu items
+                  ..._buildRoleSpecificMenuItems(context),
+                  12.verticalSpace,
+                  // Common menu items
                   ListTile(
                     leading: Icon(Icons.language, color: context.primaryColor),
                     title: Text(
@@ -85,11 +92,11 @@ class CustomEndDrawer extends StatelessWidget {
                     leading:
                         Icon(Icons.person_outline, color: context.primaryColor),
                     title: Text(
-                      AppStrings.studentProfile,
+                      AppStrings.profile,
                       style: context.textTheme.titleMedium,
                     ),
                     onTap: () {
-                      //   context.beamToNamed('/root/${StudentScreen.pagePath}');
+                      // Placeholder for profile screen
                     },
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.r)),
@@ -98,6 +105,21 @@ class CustomEndDrawer extends StatelessWidget {
                         REdgeInsets.symmetric(horizontal: 20, vertical: 8),
                   ),
                   12.verticalSpace,
+                  ListTile(
+                    leading: Icon(Icons.logout, color: context.primaryColor),
+                    title: Text(
+                      AppStrings.logout,
+                      style: context.textTheme.titleMedium,
+                    ),
+                    onTap: () {
+                      // Placeholder for logout functionality
+                    },
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.r)),
+                    tileColor: context.cardColor,
+                    contentPadding:
+                        REdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  ),
                 ],
               ),
             ),
@@ -119,5 +141,80 @@ class CustomEndDrawer extends StatelessWidget {
             ),
           ],
         ));
+  }
+
+  List<Widget> _buildRoleSpecificMenuItems(BuildContext context) {
+    switch (userRole) {
+      case Role.admin:
+        return [
+          ListTile(
+            leading: Icon(Icons.upload_file, color: context.primaryColor),
+            title: Text(
+              AppStrings.uploadGrades,
+              style: context.textTheme.titleMedium,
+            ),
+            onTap: () {
+              // Placeholder for upload grades functionality
+            },
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.r)),
+            tileColor: context.cardColor,
+            contentPadding: REdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          ),
+          12.verticalSpace,
+          ListTile(
+            leading: Icon(Icons.qr_code, color: context.primaryColor),
+            title: Text(
+              AppStrings.generateOneTimeCode,
+              style: context.textTheme.titleMedium,
+            ),
+            onTap: () {
+              // Placeholder for generate one-time code functionality
+            },
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.r)),
+            tileColor: context.cardColor,
+            contentPadding: REdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          ),
+        ];
+      case Role.professor:
+        return []; // No additional menu items for professor
+      case Role.superadmin:
+        return [
+          ListTile(
+            leading: Icon(Icons.qr_code, color: context.primaryColor),
+            title: Text(
+              AppStrings.generateOneTimeCode,
+              style: context.textTheme.titleMedium,
+            ),
+            onTap: () {
+              // Placeholder for generate one-time code functionality
+            },
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.r)),
+            tileColor: context.cardColor,
+            contentPadding: REdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          ),
+          12.verticalSpace,
+          ListTile(
+            leading: Icon(Icons.people, color: context.primaryColor),
+            title: Text(
+              AppStrings.assignReassignProfessor,
+              style: context.textTheme.titleMedium,
+            ),
+            onTap: () {
+              // Placeholder for assign/reassign professor functionality
+            },
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.r)),
+            tileColor: context.cardColor,
+            contentPadding: REdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          ),
+        ];
+      case Role.systemcontroller:
+        return []; // No additional menu items for system controller
+      case Role.unknown:
+        return []; // No additional menu items for unknown role
+    }
   }
 }

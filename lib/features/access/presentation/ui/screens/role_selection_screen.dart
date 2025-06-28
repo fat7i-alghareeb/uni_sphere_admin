@@ -140,7 +140,7 @@ class _RoleSelectionBodyState extends State<RoleSelectionBody>
                   title: AppStrings.superAdmin,
                   icon: Icons.supervisor_account,
                   onTap: () {
-                    AuthBloc.selectedRole = Role.superAdmin;
+                    AuthBloc.selectedRole = Role.superadmin;
                     context.beamToNamed(AuthenticationMethodScreen.pagePath);
                   },
                 ),
@@ -170,7 +170,7 @@ class _RoleSelectionBodyState extends State<RoleSelectionBody>
                   title: AppStrings.systemController,
                   icon: Icons.settings_system_daydream,
                   onTap: () {
-                    AuthBloc.selectedRole = Role.systemController;
+                    AuthBloc.selectedRole = Role.systemcontroller;
                     context.beamToNamed(AuthenticationMethodScreen.pagePath);
                   },
                 ),

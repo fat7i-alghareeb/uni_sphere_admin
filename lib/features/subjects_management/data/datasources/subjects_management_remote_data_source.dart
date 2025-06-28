@@ -44,7 +44,7 @@ class SubjectsManagementRemote {
     return throwDioException(
       () async {
         final response = await _dio.get(
-          role == Role.superAdmin
+          role == Role.superadmin
               ? AppUrl.getSuperAdminSubjectById(id)
               : AppUrl.getProfessorSubjectById(id),
         );

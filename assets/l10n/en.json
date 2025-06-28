@@ -104,5 +104,13 @@
     "facultyId": "Faculty ID",
     "majorId": "Major ID",
     "userId": "User ID",
-    "enterUserId": "Enter User ID"
+    "enterUserId": "Enter User ID",
+    "home": "Home",
+    "timetable": "Timetable",
+    "announcement": "Announcements",
+    "uploadGrades": "Upload Grades",
+    "generateOneTimeCode": "Generate One-Time Code",
+    "assignReassignProfessor": "Assign/Reassign Professor",
+    "logout": "Logout",
+    "profile": "Profile"
 }

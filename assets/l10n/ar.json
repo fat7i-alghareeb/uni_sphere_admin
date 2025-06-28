@@ -105,5 +105,13 @@
     "facultyId": "معرف الكلية",
     "majorId": "معرف التخصص",
     "userId": "معرف المستخدم",
-    "enterUserId": "أدخل معرف المستخدم"
+    "enterUserId": "أدخل معرف المستخدم",
+    "home": "الرئيسية",
+    "timetable": "الجدول الزمني",
+    "announcement": "الإعلانات",
+    "uploadGrades": "رفع الدرجات",
+    "generateOneTimeCode": "إنشاء رمز وصول لمرة واحدة",
+    "assignReassignProfessor": "تعيين/إعادة تعيين الدكتور",
+    "logout": "تسجيل الخروج",
+    "profile": "الملف الشخصي"
 }
