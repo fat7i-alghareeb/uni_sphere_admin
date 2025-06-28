@@ -82,8 +82,8 @@ class AppUrl {
   static const createSchedule = "$_scheduleManagement/CreateSchedule";
   static String deleteLecture(String id) => "$_scheduleManagement/$id";
   static String updateSchedule(String id) => "$_schedule/$id";
-  static const getScheduleByMonth = "$_schedule/GetScheduleByMonth";
-  static const getMySchedule = "$_schedule/GetMySchedule";
+  static const getScheduleByMonth = "$_schedule/$_admin/GetScheduleByMonth";
+  static const getMySchedule = "$_scheduleManagement/UpdateLecture/GetMySchedule";
   //! ************** End Schedule Management *************** //
   AppUrl._();
 }

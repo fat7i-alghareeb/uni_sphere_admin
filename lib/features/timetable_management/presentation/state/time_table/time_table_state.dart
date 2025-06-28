@@ -3,7 +3,6 @@ part of 'time_table_bloc.dart';
 class TimeTableState {
   Result<MonthScheduleEntity> result;
   Result<MonthScheduleEntity> loadMonthResult;
-  Result<DayScheduleEntity> daySchedule;
   List<MonthScheduleEntity> monthsSchedules;
     final Result<bool> operationResult;
 
@@ -12,7 +11,6 @@ class TimeTableState {
     this.loadMonthResult = const Result.init(),
     this.monthsSchedules = const [],
     this.operationResult = const Result.loaded(data: true),
-    this.daySchedule = const Result.init(),
   });
 
   TimeTableState copyWith({
@@ -27,7 +25,6 @@ class TimeTableState {
       monthsSchedules: monthsSchedules ?? this.monthsSchedules,
       loadMonthResult: loadMonthResult ?? this.loadMonthResult,
       operationResult: operationResult ?? this.operationResult,
-      daySchedule: daySchedule ?? this.daySchedule,
     );
   }
 }
