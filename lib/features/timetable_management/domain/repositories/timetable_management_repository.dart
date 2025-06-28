@@ -1,5 +1,8 @@
 //!----------------------------  Imports  -------------------------------------!//
 import 'package:fpdart/fpdart.dart';
+import '../../data/param/add_lecutre.dart' show AddLectureParam;
+import '../../data/param/create_schedule.dart';
+import '../entities/day_schedule_entity.dart' show DayScheduleEntity;
 import '../entities/month_schedule_entity.dart' show MonthScheduleEntity;
 
 //!----------------------------  The Class  -------------------------------------!//
@@ -11,4 +14,6 @@ abstract class TimetableManagementRepo {
   Future<Either<String, MonthScheduleEntity>> getMonthTimetable(
       {required int month, required int year});
   Future<Either<String, MonthScheduleEntity>> getAllTimetables();
+  Future<Either<String, DayScheduleEntity>> addLecture(AddLectureParam param);
+  Future<Either<String, MonthScheduleEntity>> createSchedule(CreateSchedule param);
 }

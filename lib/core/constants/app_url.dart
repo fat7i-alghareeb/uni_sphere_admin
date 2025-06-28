@@ -68,9 +68,6 @@ class AppUrl {
       "$_professor/RemoveProfessorFromSubject";
   //! ************** End Super Admin *************** //
   //! ************** Schedule *************** //
-  static const _scheduleManagement = "ScheduleManagement";
-  static const addLecture = "$_scheduleManagement/AddLecture";
-  static String deleteLecture(String id) => "$_scheduleManagement/$id";
 
   //! ************** End Schedule *************** //
   //! ************** Info ***************//
@@ -79,10 +76,15 @@ class AppUrl {
   static const getMajors = '$_info/GetMajors';
   static const getHomePageInfo = '$_info/GetHomePageInfo';
   //! ************** Ent Info ***************//
-  //! ************** Announcements Management *************** //
+  //! ************** Schedule Management *************** //
   static const _schedule = "Schedule";
+  static const _scheduleManagement = "ScheduleManagement";
+  static const addLecture = "$_scheduleManagement/AddLecture";
+  static const createSchedule = "$_scheduleManagement/CreateSchedule";
+  static String deleteLecture(String id) => "$_scheduleManagement/$id";
+
   static const getScheduleByMonth = "$_schedule/GetScheduleByMonth";
   static const getMySchedule = "$_schedule/GetMySchedule";
-  //! ************** End Announcements Management *************** //
+  //! ************** End Schedule Management *************** //
   AppUrl._();
 }

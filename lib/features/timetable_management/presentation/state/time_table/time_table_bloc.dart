@@ -1,8 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../data/param/add_lecutre.dart' show AddLectureParam;
+import '../../../data/param/create_schedule.dart' show CreateSchedule;
+import '../../../domain/entities/day_schedule_entity.dart'
+    show DayScheduleEntity;
 import '../../../domain/entities/month_schedule_entity.dart';
 import '../../../../../shared/utils/helper/colored_print.dart' show printW;
 import '../../../../../core/result_builder/result.dart';
-import '../../../domain/usecases/timetable_management_usecase.dart' show TimetableManagementUsecase;
+import '../../../domain/usecases/timetable_management_usecase.dart'
+    show TimetableManagementUsecase;
 part 'time_table_event.dart';
 part 'time_table_state.dart';
 
@@ -15,6 +20,8 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
         super(TimeTableState()) {
     on<GetTimeTableEvent>(_onGetTimeTable);
     on<LoadMonthEvent>(_onLoadMonth);
+    on<AddLectureEvent>(_onAddLecture);
+    on<CreateScheduleEvent>(_onCreateSchedule);
   }
 
   Future<void> _onGetTimeTable(
@@ -50,6 +57,41 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
         result: Result.error(error: e.toString()),
       ));
     }
+  }
+
+  Future<void> _onAddLecture(
+      AddLectureEvent event, Emitter<TimeTableState> emit) async {
+    emit(state.copyWith(operationResult: const Result.loading()));
+
+    final response = await _usecase.addLecture(event.param);
+    response.fold(
+      (error) =>
+          emit(state.copyWith(operationResult: Result.error(error: error))),
+      (data) => emit(
+        state.copyWith(
+          operationResult: Result.loaded(data: true),
+          monthsSchedules: _addDayScheduleToState(data, state.monthsSchedules),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _onCreateSchedule(
+      CreateScheduleEvent event, Emitter<TimeTableState> emit) async {
+    emit(state.copyWith(operationResult: const Result.loading()));
+
+    final response = await _usecase.createSchedule(event.param);
+    response.fold(
+      (error) =>
+          emit(state.copyWith(operationResult: Result.error(error: error))),
+      (data) => emit(
+        state.copyWith(
+          operationResult: Result.loaded(data: true),
+          monthsSchedules: List<MonthScheduleEntity>.from(state.monthsSchedules)
+            ..add(data),
+        ),
+      ),
+    );      
   }
 
   Future<void> _onLoadMonth(
@@ -97,6 +139,22 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
     return state.monthsSchedules.any(
       (element) => element.month.month == month.month,
     );
+  }
+
+  List<MonthScheduleEntity> _addDayScheduleToState(
+      DayScheduleEntity daySchedule,
+      List<MonthScheduleEntity> monthsSchedules) {
+    final updatedSchedules = monthsSchedules.firstWhere(
+      (element) => element.month.month == selectedDateTime.month,
+    );
+
+    updatedSchedules.daysTimeTables.add(daySchedule);
+    final updatedMonthsSchedules = monthsSchedules
+        .map((e) =>
+            e.month.month == selectedDateTime.month ? updatedSchedules : e)
+        .toList();
+
+    return updatedMonthsSchedules;
   }
 
   void _emitExistingMonthData(DateTime month, Emitter<TimeTableState> emit) {
