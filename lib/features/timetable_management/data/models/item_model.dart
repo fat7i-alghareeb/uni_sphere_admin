@@ -1,4 +1,5 @@
 class ItemModel {
+  final String id;
   final String subjectName;
   final String lectureName;
   final String lectureHall;
@@ -6,6 +7,7 @@ class ItemModel {
   final String endTime;
 
   ItemModel({
+    required this.id,
     required this.subjectName,
     required this.lectureName,
     required this.lectureHall,
@@ -15,6 +17,7 @@ class ItemModel {
 
       factory ItemModel.fromJson(Map<String, dynamic> json) {
     return ItemModel(
+      id: json['id'] as String,
       subjectName: json['subjectName'] as String,
       lectureName: json['lectureName'] as String,
       lectureHall: json['lectureHall'] as String,

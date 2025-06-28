@@ -34,6 +34,7 @@ extension DayScheduleMapper on DayScheduleModel {
 extension ItemMapper on ItemModel {
   TimetableEntity toEntity() {
     return TimetableEntity(
+      id: id,
       subjectName: subjectName,
       lecturerName: lectureName,
       lectureHall: lectureHall,

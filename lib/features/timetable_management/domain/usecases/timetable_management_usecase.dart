@@ -1,6 +1,7 @@
 //!----------------------------  Imports  -------------------------------------!//
 import 'package:fpdart/fpdart.dart';
-import 'package:uni_sphere_admin/features/timetable_management/domain/entities/day_schedule_entity.dart' show DayScheduleEntity;
+import '../../domain/entities/day_schedule_entity.dart' show DayScheduleEntity;
+import '../../../../shared/request_bodies/globel_patch_body.dart' show GlobalPatch;
 import '../../data/param/add_lecutre.dart';
 import '../../data/param/create_schedule.dart' show CreateSchedule;
 import '../entities/month_schedule_entity.dart' show MonthScheduleEntity;
@@ -25,4 +26,6 @@ class TimetableManagementUsecase {
       _repo.addLecture(param);
   Future<Either<String, MonthScheduleEntity>> createSchedule(CreateSchedule param) =>
       _repo.createSchedule(param);
+  Future<Either<String, DayScheduleEntity>> updateSchedule(String id, GlobalPatch patch) =>
+      _repo.updateSchedule(id, patch);
 }

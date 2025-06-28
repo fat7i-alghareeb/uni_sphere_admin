@@ -1,4 +1,5 @@
 class TimetableEntity {
+  final String id;
   final String subjectName;
   final String lecturerName;
   final String lectureHall;
@@ -6,6 +7,7 @@ class TimetableEntity {
   final DateTime endTime;
 
   TimetableEntity({
+    required this.id,
     required this.subjectName,
     required this.lecturerName,
     required this.lectureHall,

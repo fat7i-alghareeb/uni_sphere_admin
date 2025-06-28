@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:uni_sphere_admin/shared/request_bodies/globel_patch_body.dart';
 import '../../../data/param/add_lecutre.dart' show AddLectureParam;
 import '../../../data/param/create_schedule.dart' show CreateSchedule;
+import '../../../data/param/update_param.dart' show UpdateScheduleParam;
 import '../../../domain/entities/day_schedule_entity.dart'
     show DayScheduleEntity;
 import '../../../domain/entities/month_schedule_entity.dart';
@@ -22,6 +24,7 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
     on<LoadMonthEvent>(_onLoadMonth);
     on<AddLectureEvent>(_onAddLecture);
     on<CreateScheduleEvent>(_onCreateSchedule);
+    on<UpdateScheduleEvent>(_onUpdateSchedule);
   }
 
   Future<void> _onGetTimeTable(
@@ -91,7 +94,34 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
             ..add(data),
         ),
       ),
-    );      
+    );
+  }
+
+  Future<void> _onUpdateSchedule(
+      UpdateScheduleEvent event, Emitter<TimeTableState> emit) async {
+    emit(state.copyWith(operationResult: const Result.loading()));
+
+    final response = await _usecase.updateSchedule(
+        event.id,
+        GlobalPatch(
+            patches: event.fields
+                .map((field) => Patch(
+                    path: field.field.name,
+                    op: 'replace',
+                    from: "",
+                    value: field.newValue))
+                .toList()));
+    response.fold(
+      (error) =>
+          emit(state.copyWith(operationResult: Result.error(error: error))),
+      (data) => emit(
+        state.copyWith(
+          operationResult: Result.loaded(data: true),
+          monthsSchedules:
+              _updateDayScheduleInState(data, state.monthsSchedules),
+        ),
+      ),
+    );
   }
 
   Future<void> _onLoadMonth(
@@ -149,6 +179,25 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
     );
 
     updatedSchedules.daysTimeTables.add(daySchedule);
+    final updatedMonthsSchedules = monthsSchedules
+        .map((e) =>
+            e.month.month == selectedDateTime.month ? updatedSchedules : e)
+        .toList();
+
+    return updatedMonthsSchedules;
+  }
+
+  List<MonthScheduleEntity> _updateDayScheduleInState(
+      DayScheduleEntity daySchedule,
+      List<MonthScheduleEntity> monthsSchedules) {
+    final updatedSchedules = monthsSchedules.firstWhere(
+      (element) => element.month.month == selectedDateTime.month,
+    );
+
+    updatedSchedules.daysTimeTables
+        .removeWhere((element) => element.day == daySchedule.day);
+    updatedSchedules.daysTimeTables.add(daySchedule);
+
     final updatedMonthsSchedules = monthsSchedules
         .map((e) =>
             e.month.month == selectedDateTime.month ? updatedSchedules : e)

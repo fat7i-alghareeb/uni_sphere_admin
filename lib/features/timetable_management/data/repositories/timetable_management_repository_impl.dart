@@ -1,6 +1,8 @@
 //!----------------------------  Imports  -------------------------------------!//
 import 'package:fpdart/fpdart.dart';
 import 'package:uni_sphere_admin/features/timetable_management/data/mappers/schedule_mappers.dart';
+import '../../../../shared/request_bodies/globel_patch_body.dart'
+    show GlobalPatch;
 import '../../domain/entities/day_schedule_entity.dart' show DayScheduleEntity;
 import '../../domain/entities/month_schedule_entity.dart'
     show MonthScheduleEntity;
@@ -52,11 +54,23 @@ class TimetableManagementRepoImp implements TimetableManagementRepo {
   }
 
   @override
-  Future<Either<String, MonthScheduleEntity>> createSchedule(CreateSchedule param) {
+  Future<Either<String, MonthScheduleEntity>> createSchedule(
+      CreateSchedule param) {
     return throwAppException(
       () async {
         final createSchedule = await _remote.createSchedule(param);
         return createSchedule.toEntity();
+      },
+    );
+  }
+
+  @override
+  Future<Either<String, DayScheduleEntity>> updateSchedule(
+      String id, GlobalPatch patch) {
+    return throwAppException(
+      () async {
+        final updateSchedule = await _remote.updateSchedule(id, patch);
+        return updateSchedule.toEntity();
       },
     );
   }

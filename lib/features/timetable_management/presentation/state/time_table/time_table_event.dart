@@ -21,3 +21,9 @@ final class CreateScheduleEvent extends TimeTableEvent {
   CreateScheduleEvent({required this.param});
   final CreateSchedule param;
 }
+
+final class UpdateScheduleEvent extends TimeTableEvent {
+  UpdateScheduleEvent({required this.id, required this.fields});
+  final String id;
+  final List<UpdateScheduleParam> fields;
+}

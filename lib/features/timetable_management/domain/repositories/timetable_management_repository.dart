@@ -1,5 +1,6 @@
 //!----------------------------  Imports  -------------------------------------!//
 import 'package:fpdart/fpdart.dart';
+import '../../../../shared/request_bodies/globel_patch_body.dart' show GlobalPatch;
 import '../../data/param/add_lecutre.dart' show AddLectureParam;
 import '../../data/param/create_schedule.dart';
 import '../entities/day_schedule_entity.dart' show DayScheduleEntity;
@@ -16,4 +17,5 @@ abstract class TimetableManagementRepo {
   Future<Either<String, MonthScheduleEntity>> getAllTimetables();
   Future<Either<String, DayScheduleEntity>> addLecture(AddLectureParam param);
   Future<Either<String, MonthScheduleEntity>> createSchedule(CreateSchedule param);
+  Future<Either<String, DayScheduleEntity>> updateSchedule(String id, GlobalPatch patch);
 }

@@ -7,7 +7,7 @@ import '../../../../../shared/entities/role.dart' show Role;
 import '../../../../../shared/request_bodies/globel_patch_body.dart'
     show GlobalPatch, Patch;
 import '../../../data/models/subjects_management_model.dart';
-import '../../../data/params/update_param.dart' show UpdateParam;
+import '../../../data/params/update_param.dart' show UpdateSubjectParam;
 import '../../../domain/usecases/subjects_management_usecase.dart'
     show SubjectsManagementUsecase;
 

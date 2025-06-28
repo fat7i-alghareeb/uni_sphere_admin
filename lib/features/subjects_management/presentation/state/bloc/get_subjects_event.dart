@@ -1,6 +1,5 @@
 part of 'get_subjects_bloc.dart';
 
-
 sealed class GetSubjectsEvent {}
 
 class GetSuperAdminSubjectsEvent extends GetSubjectsEvent {
@@ -21,7 +20,7 @@ class GetSubjectByIdEvent extends GetSubjectsEvent {
 
 class UpdateSubjectEvent extends GetSubjectsEvent {
   final String id;
-  final List<UpdateParam> fields;
+  final List<UpdateSubjectParam> fields;
 
   UpdateSubjectEvent({required this.id, required this.fields});
 }
