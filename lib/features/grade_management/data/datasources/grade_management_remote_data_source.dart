@@ -1,6 +1,7 @@
 //!----------------------------  Imports  -------------------------------------!//
 import 'package:dio/dio.dart';
-import '../models/grade_management_model.dart';
+import '../../../../core/constants/app_url.dart' show AppUrl;
+import '../../../generate_otp/data/param/subject_grade.dart' show SubjectGrade;
 import '../../../../shared/services/exception/error_handler.dart';
 
 //!----------------------------  The Class  -------------------------------------!//
@@ -11,11 +12,12 @@ class GradeManagementRemote {
   const GradeManagementRemote(Dio dio) : _dio = dio;
 
   //* Get All GradeManagement
-  Future<GradeManagementModel> getAllGradeManagement() {
+  Future<void> assignGradesToSubject(SubjectGrade subjectGrade) {
     return throwDioException(
       () async {
-        final response = await _dio.get(
-          "random/url",
+        final response = await _dio.post(
+          AppUrl.assignGradesToSubject,
+          data: subjectGrade.toJson(),
         );
         return response.data;
       },

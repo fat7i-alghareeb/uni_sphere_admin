@@ -1,6 +1,6 @@
 //!----------------------------  Imports  -------------------------------------!//
 import 'package:fpdart/fpdart.dart';
-import '../../domain/entities/grade_management_entity.dart';
+import '../../../generate_otp/data/param/subject_grade.dart' show SubjectGrade;
 import '../datasources/grade_management_remote_data_source.dart';
 import '../../domain/repositories/grade_management_repository.dart';
 import '../../../../shared/services/exception/error_handler.dart';
@@ -15,10 +15,10 @@ class GradeManagementRepoImp implements GradeManagementRepo {
   }) : _remote = remote;
 
   @override
-  Future<Either<String, Grade>> getAllGradeManagement() {
+  Future<Either<String, void>> assignGradesToSubject(SubjectGrade subjectGrade) {
     return throwAppException(
       () async {
-        return await _remote.getAllGradeManagement();
+        return await _remote.assignGradesToSubject(subjectGrade);
       },
     );
   }

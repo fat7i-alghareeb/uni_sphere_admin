@@ -1,6 +1,6 @@
 //!----------------------------  Imports  -------------------------------------!//
 import 'package:fpdart/fpdart.dart';
-import '../entities/generate_otp_entity.dart';
+import '../../../grade_management/data/param/assign_one_time_code.dart' show AssignOneTimeCode;
 import '../repositories/generate_otp_repository.dart';
 
 //!----------------------------  The Class  -------------------------------------!//
@@ -12,7 +12,11 @@ class GenerateOtpUsecase {
     required GenerateOtpRepo repo,
   }) : _repo = repo;
 
-  //* Get All GenerateOtp
-  Future<Either<String, GenerateOtpEntity>> getAllGenerateOtp() =>
-      _repo.getAllGenerateOtp();
+  //* Assign One Time Code To Student
+  Future<Either<String, void>> assignOneTimeCodeToStudent(AssignOneTimeCode assignOneTimeCode) =>
+      _repo.assignOneTimeCodeToStudent(assignOneTimeCode);
+
+  //* Assign One Time Code To Professor
+  Future<Either<String, void>> assignOneTimeCodeToProfessor(AssignOneTimeCode assignOneTimeCode) =>
+      _repo.assignOneTimeCodeToProfessor(assignOneTimeCode);
 }

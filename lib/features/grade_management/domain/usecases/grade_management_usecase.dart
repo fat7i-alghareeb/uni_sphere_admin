@@ -1,6 +1,6 @@
 //!----------------------------  Imports  -------------------------------------!//
 import 'package:fpdart/fpdart.dart';
-import '../entities/grade_management_entity.dart';
+import '../../../generate_otp/data/param/subject_grade.dart' show SubjectGrade;
 import '../repositories/grade_management_repository.dart';
 
 //!----------------------------  The Class  -------------------------------------!//
@@ -12,7 +12,7 @@ class GradeManagementUsecase {
     required GradeManagementRepo repo,
   }) : _repo = repo;
 
-  //* Get All GradeManagement
-  Future<Either<String, Grade>> getAllGradeManagement() =>
-      _repo.getAllGradeManagement();
+  //* Assign Grades To Subject
+  Future<Either<String, void>> assignGradesToSubject(SubjectGrade subjectGrade) =>
+      _repo.assignGradesToSubject(subjectGrade);
 }

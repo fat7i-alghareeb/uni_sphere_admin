@@ -73,7 +73,7 @@ class AppUrl {
   static const getFaculties = '$_info/GetFaculties';
   static const getMajors = '$_info/GetMajors';
   static const getHomePageInfo = '$_info/GetHomePageInfo';
-  
+
   //! ************** Ent Info ***************//
   //! ************** Schedule Management *************** //
   static const _schedule = "Schedule";
@@ -83,7 +83,19 @@ class AppUrl {
   static String deleteLecture(String id) => "$_scheduleManagement/$id";
   static String updateSchedule(String id) => "$_schedule/$id";
   static const getScheduleByMonth = "$_schedule/$_admin/GetScheduleByMonth";
-  static const getMySchedule = "$_scheduleManagement/UpdateLecture/GetMySchedule";
+  static const getMySchedule =
+      "$_scheduleManagement/UpdateLecture/GetMySchedule";
   //! ************** End Schedule Management *************** //
+
+  //! ************** Subject Grade Management *************** //
+  static const _subjectGrade = "Grades";
+  static const assignGradesToSubject = "$_subjectGrade/AssignGradesToSubject";
+  //! ************** End Subject Grade Management *************** //
+  //! ************** AssignOneTimeCode ***************//
+  static const assignOneTimeCodeToStudent =
+      "$_admin/AssignOneTimeCodeToStudent";
+  static const assignOneTimeCodeToProfessor = "$_superAdmin/AssignOneTimeCode";
+  //! ************** End AssignOneTimeCode ***************//
+
   AppUrl._();
 }

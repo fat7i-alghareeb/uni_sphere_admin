@@ -1,6 +1,7 @@
 //!----------------------------  Imports  -------------------------------------!//
 import 'package:dio/dio.dart';
-import '../models/generate_otp_model.dart';
+import '../../../../core/constants/app_url.dart' show AppUrl;
+import '../../../grade_management/data/param/assign_one_time_code.dart' show AssignOneTimeCode;
 import '../../../../shared/services/exception/error_handler.dart';
 
 //!----------------------------  The Class  -------------------------------------!//
@@ -10,14 +11,20 @@ class GenerateOtpRemote {
 
   const GenerateOtpRemote(Dio dio) : _dio = dio;
 
-  //* Get All GenerateOtp
-  Future<GenerateOtpModel> getAllGenerateOtp() {
+  //* Assign One Time Code To Student
+  Future<void> assignOneTimeCodeToStudent(AssignOneTimeCode assignOneTimeCode) {
     return throwDioException(
       () async {
-        final response = await _dio.get(
-          "random/url",
-        );
-        return response.data;
+        await _dio.post(AppUrl.assignOneTimeCodeToStudent, data: assignOneTimeCode.toJson());
+      },
+    );
+  }
+
+  //* Assign One Time Code To Professor
+  Future<void> assignOneTimeCodeToProfessor(AssignOneTimeCode assignOneTimeCode) {
+    return throwDioException(
+      ()   async {
+        await _dio.post(AppUrl.assignOneTimeCodeToProfessor, data: assignOneTimeCode.toJson());
       },
     );
   }
