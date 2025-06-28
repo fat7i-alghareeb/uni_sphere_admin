@@ -19,6 +19,7 @@ class ReactiveTokenStorage extends BotMemoryTokenStorage<AuthTokenModel>
   @override
   FutureOr<void> delete([String? message]) async {
     await storageService.remove(kTokenKey);
+    _cachedToken = null;
     super.delete(message);
   }
 

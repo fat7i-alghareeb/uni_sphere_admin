@@ -1,9 +1,11 @@
 // 📦 Package imports:
 import 'package:beamer/beamer.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:uni_sphere_admin/core/injection/injection.dart' show getIt;
 import 'package:uni_sphere_admin/features/root/presentation/ui/screen/language_selection_screen.dart'
     show LanguageSelectionScreen;
 import '../../../../../common/constant/app_strings.dart' show AppStrings;
+import '../../../../../core/repo/auth_repo/auth_repo.dart';
 import '../../../../../shared/widgets/theme_switcher.dart';
 import '../../../../../shared/imports/imports.dart';
 import '../../../../../shared/entities/role.dart';
@@ -112,7 +114,7 @@ class CustomEndDrawer extends StatelessWidget {
                       style: context.textTheme.titleMedium,
                     ),
                     onTap: () {
-                      // Placeholder for logout functionality
+                      getIt<AuthRepository>().logout();
                     },
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.r)),

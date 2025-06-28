@@ -121,6 +121,7 @@ class _MyAppState extends State<MyApp> {
         AppConstants.userRole =
             Role.values.firstWhere((element) => element.name == user.role);
       } else {
+        printR("userIsNull");
         AppConstants.userRole = Role.unknown;
       }
       printW(

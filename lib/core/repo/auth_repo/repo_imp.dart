@@ -34,7 +34,8 @@ class AuthRepoImp implements AuthRepository {
       reactiveTokenStorage.authenticationStatus;
 
   @override
-  Future<Either<String, FullUser>> loginAdmin({required LoginParam loginParam}) {
+  Future<Either<String, FullUser>> loginAdmin(
+      {required LoginParam loginParam}) {
     return throwAppException(() async {
       final response = await remote.loginAdmin(loginParam: loginParam);
       _saveUser(
@@ -45,63 +46,86 @@ class AuthRepoImp implements AuthRepository {
       return response;
     });
   }
+
   @override
-  Future<Either<String, FullUser>> loginProfessor({required LoginParam loginParam}) {
+  Future<Either<String, FullUser>> loginProfessor(
+      {required LoginParam loginParam}) {
     return throwAppException(() async {
       final response = await remote.loginProfessor(loginParam: loginParam);
       _saveUser(
         response,
         refreshToken: response.refreshToken,
-          accessToken: response.accessToken,
+        accessToken: response.accessToken,
       );
       return response;
     });
   }
+
   @override
-  Future<Either<String, FullUser>> loginSuperAdmin({required LoginParam loginParam}) {
+  Future<Either<String, FullUser>> loginSuperAdmin(
+      {required LoginParam loginParam}) {
     return throwAppException(() async {
       final response = await remote.loginSuperAdmin(loginParam: loginParam);
-      _saveUser(response, refreshToken: response.refreshToken, accessToken: response.accessToken);
+      _saveUser(response,
+          refreshToken: response.refreshToken,
+          accessToken: response.accessToken);
       return response;
     });
   }
+
   @override
-  Future<Either<String, FullUser>> loginSystemController({required LoginParam loginParam}) {
+  Future<Either<String, FullUser>> loginSystemController(
+      {required LoginParam loginParam}) {
     return throwAppException(() async {
-      final response = await remote.loginSystemController(loginParam: loginParam);
-      _saveUser(response, refreshToken: response.refreshToken, accessToken: response.accessToken);
+      final response =
+          await remote.loginSystemController(loginParam: loginParam);
+      _saveUser(response,
+          refreshToken: response.refreshToken,
+          accessToken: response.accessToken);
       return response;
     });
   }
+
   @override
   Future<Either<String, FullUser>> registerProfessor(
       {required RegisterParam registerParam}) {
     return throwAppException(() async {
-      final response = await remote.registerProfessor(registerParam: registerParam);
-      _saveUser(response, refreshToken: response.refreshToken, accessToken: response.accessToken);
+      final response =
+          await remote.registerProfessor(registerParam: registerParam);
+      _saveUser(response,
+          refreshToken: response.refreshToken,
+          accessToken: response.accessToken);
       return response;
     });
   }
+
   @override
   Future<Either<String, FullUser>> registerSuperAdmin(
       {required RegisterParam registerParam}) {
     return throwAppException(() async {
-      final response = await remote.registerSuperAdmin(registerParam: registerParam);
-      _saveUser(response, refreshToken: response.refreshToken, accessToken: response.accessToken);
+      final response =
+          await remote.registerSuperAdmin(registerParam: registerParam);
+      _saveUser(response,
+          refreshToken: response.refreshToken,
+          accessToken: response.accessToken);
       return response;
     });
   }
+
   @override
   Future<Either<String, FullUser>> registerAdmin(
       {required RegisterParam registerParam}) {
     return throwAppException(() async {
       final response = await remote.registerAdmin(registerParam: registerParam);
-      _saveUser(response, refreshToken: response.refreshToken, accessToken: response.accessToken);
+      _saveUser(response,
+          refreshToken: response.refreshToken,
+          accessToken: response.accessToken);
       return response;
     });
   }
 
-  _saveUser(FullUser user, {required String? refreshToken, String? accessToken}) {
+  _saveUser(FullUser user,
+      {required String? refreshToken, String? accessToken}) {
     reactiveTokenStorage.write(
       AuthTokenModel(
         accessToken: accessToken ?? '',
@@ -112,34 +136,41 @@ class AuthRepoImp implements AuthRepository {
   }
 
   @override
-  Future<Either<String, String>> checkOneTimeCodeSuperAdmin({required CheckOneTimeParam checkOneTimeParam}) {
+  Future<Either<String, String>> checkOneTimeCodeSuperAdmin(
+      {required CheckOneTimeParam checkOneTimeParam}) {
     return throwAppException(() async {
-      final response = await remote.checkOneTimeCodeSuperAdmin(checkOneTimeParam: checkOneTimeParam);
+      final response = await remote.checkOneTimeCodeSuperAdmin(
+          checkOneTimeParam: checkOneTimeParam);
       return response;
     });
   }
+
   @override
-  Future<Either<String, String>> checkOneTimeCodeProfessor({required CheckOneTimeParam checkOneTimeParam}) {
+  Future<Either<String, String>> checkOneTimeCodeProfessor(
+      {required CheckOneTimeParam checkOneTimeParam}) {
     return throwAppException(() async {
-      final response = await remote.checkOneTimeCodeProfessor(checkOneTimeParam: checkOneTimeParam);
+      final response = await remote.checkOneTimeCodeProfessor(
+          checkOneTimeParam: checkOneTimeParam);
       return response;
     });
   }
+
   @override
-  Future<Either<String, String>> checkOneTimeCodeAdmin({required CheckOneTimeParam checkOneTimeParam}) {
+  Future<Either<String, String>> checkOneTimeCodeAdmin(
+      {required CheckOneTimeParam checkOneTimeParam}) {
     return throwAppException(() async {
-      final response = await remote.checkOneTimeCodeAdmin(checkOneTimeParam: checkOneTimeParam);
+      final response = await remote.checkOneTimeCodeAdmin(
+          checkOneTimeParam: checkOneTimeParam);
       return response;
     });
-  } 
-  
+  }
 
   @override
   Future<bool> logout() async {
     await storageService.removeUser();
     await reactiveTokenStorage.delete();
     await getIt<FlutterSecureStorage>().deleteAll();
-    // await getIt<ReactiveTokenStorage>().loadToken();
+    await getIt<ReactiveTokenStorage>().delete();
     return await getIt<SharedPreferences>().clear();
   }
 }
