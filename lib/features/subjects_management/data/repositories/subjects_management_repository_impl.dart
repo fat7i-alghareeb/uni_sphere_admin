@@ -10,7 +10,7 @@ import '../datasources/subjects_management_remote_data_source.dart';
 import '../../domain/repositories/subjects_management_repository.dart';
 import '../../../../shared/services/exception/error_handler.dart';
 import '../models/subjects_management_model.dart'
-    show FacultySubjects, Subject, UniversitySubjects;
+    show FacultySubjects, Subject, UniversitySubjects, SuperAdminSubjects;
 
 //!----------------------------  The Class  -------------------------------------!//
 
@@ -22,7 +22,7 @@ class SubjectsManagementRepoImp implements SubjectsManagementRepo {
   }) : _remote = remote;
 
   @override
-  Future<Either<String, FacultySubjects>> getSuperAdminSubjects(
+  Future<Either<String, SuperAdminSubjects>> getSuperAdminSubjects(
       {required int year, required String majorId}) {
     return throwAppException(
       () async {

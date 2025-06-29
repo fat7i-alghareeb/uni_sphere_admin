@@ -6,7 +6,8 @@ import 'package:uni_sphere_admin/core/result_builder/result.dart' show Result;
 import '../../../../../shared/entities/role.dart' show Role;
 import '../../../../../shared/request_bodies/globel_patch_body.dart'
     show GlobalPatch, Patch;
-import '../../../data/models/subjects_management_model.dart';
+import '../../../data/models/subjects_management_model.dart'
+    show FacultySubjects, Subject, UniversitySubjects, SuperAdminSubjects;
 import '../../../data/params/update_param.dart' show UpdateSubjectParam;
 import '../../../domain/usecases/subjects_management_usecase.dart'
     show SubjectsManagementUsecase;
@@ -52,23 +53,33 @@ class GetSubjectsBloc extends Bloc<GetSubjectsEvent, SubjectState> {
 
   Future<void> _getProfessorSubjects(
       GetProfessorSubjectsEvent event, Emitter<SubjectState> emit) async {
+    print("DEBUG: GetProfessorSubjectsEvent received in bloc");
     emit(
       state.copyWith(
         getProfessorSubjectsResult: const Result.loading(),
       ),
     );
+    print("DEBUG: Calling usecase.getProfessorSubjects()");
     final result = await _usecase.getProfessorSubjects();
+    print("DEBUG: Usecase result: $result");
     result.fold(
-      (l) => emit(
-        state.copyWith(
-          getProfessorSubjectsResult: Result.error(error: l),
-        ),
-      ),
-      (r) => emit(
-        state.copyWith(
-          getProfessorSubjectsResult: Result.loaded(data: r),
-        ),
-      ),
+      (l) {
+        print("DEBUG: Professor subjects error: $l");
+        emit(
+          state.copyWith(
+            getProfessorSubjectsResult: Result.error(error: l),
+          ),
+        );
+      },
+      (r) {
+        print(
+            "DEBUG: Professor subjects success: ${r.faculties.length} faculties");
+        emit(
+          state.copyWith(
+            getProfessorSubjectsResult: Result.loaded(data: r),
+          ),
+        );
+      },
     );
   }
 

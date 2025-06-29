@@ -1,5 +1,5 @@
 class AppUrl {
-  static const baseUrlDevelopment = 'https://192.168.102.173:5001/';
+  static const baseUrlDevelopment = 'https://192.168.1.125:5001/';
 
   static const _auth = "Auth";
   static const _admin = "Admin";
@@ -32,7 +32,7 @@ class AppUrl {
   static const viewProfessorSubjects = "$_subject/$_professor/MySubjects";
   static const uploadMaterials = "$_subject/$_professor/UploadMaterials";
   static const getSuperAdminSubjects = "$_subject/$_superAdmin/Subjects";
-  static const getProfessorSubjects = "$_subject/$_professor/Subjects";
+  static const getProfessorSubjects = "$_subject/Professor/Subjects";
   static String getSuperAdminSubjectById(String id) =>
       "$_subject/$_superAdmin/$id";
   static String getProfessorSubjectById(String id) =>
@@ -72,6 +72,7 @@ class AppUrl {
   static const _info = "Info";
   static const getFaculties = '$_info/GetFaculties';
   static const getMajors = '$_info/GetMajors';
+  static const getSuperAdminMajors = '$_info/SuperAdmin/GetMyFacultyMajors';
   static const getHomePageInfo = '$_info/GetHomePageInfo';
 
   //! ************** Ent Info ***************//

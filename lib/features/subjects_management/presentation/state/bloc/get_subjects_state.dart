@@ -1,7 +1,7 @@
 part of 'get_subjects_bloc.dart';
 
 class SubjectState {
-  final Result<FacultySubjects> getSuperAdminSubjectsResult;
+  final Result<SuperAdminSubjects> getSuperAdminSubjectsResult;
   final Result<UniversitySubjects> getProfessorSubjectsResult;
   final Result<Subject> getSubjectByIdResult;
   final Result<bool> operationResult;
@@ -14,7 +14,7 @@ class SubjectState {
   });
 
   SubjectState copyWith({
-    Result<FacultySubjects>? getSuperAdminSubjectsResult,
+    Result<SuperAdminSubjects>? getSuperAdminSubjectsResult,
     Result<UniversitySubjects>? getProfessorSubjectsResult,
     Result<Subject>? getSubjectByIdResult,
     Result<bool>? operationResult,

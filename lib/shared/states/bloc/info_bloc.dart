@@ -14,6 +14,7 @@ class InfoBloc extends Bloc<InfoEvent, InfoState> {
         super(InfoState()) {
     on<GetFacultiesEvent>(_getFaculties);
     on<GetMajorsEvent>(_getMajors);
+    on<GetSuperAdminMajorsEvent>(_getSuperAdminMajors);
   }
 
   Future<void> _getFaculties(
@@ -39,6 +40,16 @@ class InfoBloc extends Bloc<InfoEvent, InfoState> {
     result.fold(
       (l) => emit(state.copyWith(majors: Result.error(error: l))),
       (r) => emit(state.copyWith(majors: Result.loaded(data: r))),
+    );
+  }
+
+  Future<void> _getSuperAdminMajors(
+      GetSuperAdminMajorsEvent event, Emitter<InfoState> emit) async {
+    emit(state.copyWith(superAdminMajors: const Result.loading()));
+    final result = await _infoRepo.getSuperAdminMajors();
+    result.fold(
+      (l) => emit(state.copyWith(superAdminMajors: Result.error(error: l))),
+      (r) => emit(state.copyWith(superAdminMajors: Result.loaded(data: r))),
     );
   }
 }

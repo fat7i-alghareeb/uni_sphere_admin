@@ -8,3 +8,5 @@ class GetMajorsEvent extends InfoEvent {
   final String facultyId;
   GetMajorsEvent({required this.facultyId});
 }
+
+class GetSuperAdminMajorsEvent extends InfoEvent {}

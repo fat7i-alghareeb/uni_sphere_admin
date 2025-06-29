@@ -27,4 +27,12 @@ class InfoRemote {
       return data.map((e) => Major.fromMap(e)).toList();
     });
   }
+
+  Future<List<Major>> getSuperAdminMajors() async {
+    return throwDioException(() async {
+      final response = await _dio.get(AppUrl.getSuperAdminMajors);
+      List<dynamic> data = response.data["majors"];
+      return data.map((e) => Major.fromMap(e)).toList();
+    });
+  }
 }

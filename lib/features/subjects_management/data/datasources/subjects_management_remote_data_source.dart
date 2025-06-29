@@ -15,7 +15,7 @@ class SubjectsManagementRemote {
   const SubjectsManagementRemote(Dio dio) : _dio = dio;
 
   //* Get All SubjectsManagement
-  Future<FacultySubjects> getSuperAdminSubjects(
+  Future<SuperAdminSubjects> getSuperAdminSubjects(
       {required int year, required String majorId}) {
     return throwDioException(
       () async {
@@ -26,7 +26,7 @@ class SubjectsManagementRemote {
             'majorId': majorId,
           },
         );
-        return FacultySubjects.fromJson(response.data);
+        return SuperAdminSubjects.fromJson(response.data);
       },
     );
   }
@@ -66,7 +66,8 @@ class SubjectsManagementRemote {
   Future<Subject> uploadMaterial(String id, FormData formData) {
     return throwDioException(
       () async {
-        final response = await _dio.post(AppUrl.uploadMaterial(id), data: formData);
+        final response =
+            await _dio.post(AppUrl.uploadMaterial(id), data: formData);
         return Subject.fromJson(response.data);
       },
     );

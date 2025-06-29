@@ -27,7 +27,7 @@ class FacultySubjects {
 
   factory FacultySubjects.fromJson(Map<String, dynamic> json) {
     return FacultySubjects(
-      facultyName: json['facultyName'],
+      facultyName: json['facultyName'] ?? '',
       majors: (json['majors'] as List<dynamic>)
           .map((e) => MajorSubjects.fromJson(e))
           .toList(),
@@ -66,7 +66,6 @@ class Subject {
   final String name;
   final String description;
   final String majorId;
-  final String labId;
   final int year;
   final int semester;
   final double midtermGrade;
@@ -82,7 +81,6 @@ class Subject {
     required this.name,
     required this.description,
     required this.majorId,
-    required this.labId,
     required this.year,
     required this.semester,
     required this.midtermGrade,
@@ -100,7 +98,6 @@ class Subject {
       name: json['name'],
       description: json['description'],
       majorId: json['majorId'],
-      labId: json['labId'],
       year: json['year'],
       semester: json['semester'],
       midtermGrade: (json['midtermGrade'] as num).toDouble(),
@@ -108,8 +105,8 @@ class Subject {
       isLabRequired: json['isLabRequired'],
       isMultipleChoice: json['isMultipleChoice'],
       isOpenBook: json['isOpenBook'],
-      image: json['image'],
-      materialUrls: (json['materialUrls'] as List<dynamic>)
+      image: json['image'] ?? '',
+      materialUrls: (json['materialUrls'] as List<dynamic>? ?? [])
           .map((e) => MaterialsUrl.fromJson(e))
           .toList(),
     );
@@ -120,7 +117,6 @@ class Subject {
         'name': name,
         'description': description,
         'majorId': majorId,
-        'labId': labId,
         'year': year,
         'semester': semester,
         'midtermGrade': midtermGrade,
@@ -164,4 +160,23 @@ enum MaterialsUrlType {
   zip,
   rar,
   other,
+}
+
+// New model for SuperAdmin API response
+class SuperAdminSubjects {
+  final List<MajorSubjects> majors;
+
+  SuperAdminSubjects({required this.majors});
+
+  factory SuperAdminSubjects.fromJson(Map<String, dynamic> json) {
+    return SuperAdminSubjects(
+      majors: (json['majors'] as List<dynamic>)
+          .map((e) => MajorSubjects.fromJson(e))
+          .toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'majors': majors.map((e) => e.toJson()).toList(),
+      };
 }

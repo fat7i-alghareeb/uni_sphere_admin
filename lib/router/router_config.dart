@@ -18,6 +18,10 @@ import '../features/access/presentation/ui/screens/check_one_time_code_screen.da
     show CheckOneTimeCodeScreen;
 import '../features/access/presentation/ui/screens/register_screen.dart'
     show RegisterScreen;
+import '../features/subjects_management/presentation/ui/screens/subject_management_screen.dart'
+    show SubjectManagementScreen;
+import '../features/subjects_management/presentation/ui/screens/subject_details_screen.dart'
+    show SubjectDetailsScreen;
 
 typedef BeamerBuilder = dynamic Function(BuildContext, BeamState, Object?);
 
@@ -74,6 +78,8 @@ class BRouterConfig {
           //! -------------- End Access ---------------- !//
 
           '/root': RootScreen.pageBuilder,
+          '/subject_management': SubjectManagementScreen.pageBuilder,
+          '/root/subject_details': SubjectDetailsScreen.pageBuilder,
           // //! -------------- Subjects ---------------- !//
           // "/root/choose_years_screen": ChooseYearsScreen.pageBuilder,
           // "/root/subject_details": SubjectDetailsScreen.pageBuilder,

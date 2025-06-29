@@ -4,6 +4,7 @@ import '../../../features/subjects_management/data/datasources/subjects_manageme
 import '../../../features/subjects_management/data/repositories/subjects_management_repository_impl.dart';
 import '../../../features/subjects_management/domain/repositories/subjects_management_repository.dart';
 import '../../../features/subjects_management/domain/usecases/subjects_management_usecase.dart';
+import '../../../features/subjects_management/presentation/state/bloc/get_subjects_bloc.dart' show GetSubjectsBloc;
 import '../injection.dart';
 
 //!----------------------------  The Class  -------------------------------------!//
@@ -24,6 +25,11 @@ Future<void> subjectsManagementInjection() async {
   getIt.registerLazySingleton<SubjectsManagementUsecase>(
     () => SubjectsManagementUsecase(
       repo: getIt<SubjectsManagementRepo>(),
+    ),
+  );
+  getIt.registerLazySingleton<GetSubjectsBloc>(
+    () => GetSubjectsBloc(
+      usecase: getIt<SubjectsManagementUsecase>(),
     ),
   );
 }

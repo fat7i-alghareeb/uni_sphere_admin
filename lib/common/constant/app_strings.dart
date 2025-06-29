@@ -35,6 +35,36 @@ class AppStrings {
   static String get twelfth => _localization.tr('twelfth');
   static String get thirteenth => _localization.tr('thirteenth');
   static String get subjects => _localization.tr('subjects');
+  static String get subjectManagement => _localization.tr('subjectManagement');
+  static String get selectYear => _localization.tr('selectYear');
+  static String get year => _localization.tr('year');
+  static String get semester => _localization.tr('semester');
+  static String get subjectName => _localization.tr('subjectName');
+  static String get subjectDescription =>
+      _localization.tr('subjectDescription');
+  static String get professorName => _localization.tr('professorName');
+  static String get midtermGrade => _localization.tr('midtermGrade');
+  static String get finalGrade => _localization.tr('finalGrade');
+  static String get totalGrade => _localization.tr('totalGrade');
+  static String get isLabRequired => _localization.tr('isLabRequired');
+  static String get isMultipleChoice => _localization.tr('isMultipleChoice');
+  static String get isOpenBook => _localization.tr('isOpenBook');
+  static String get materials => _localization.tr('materials');
+  static String get noSubjectsAvailable =>
+      _localization.tr('noSubjectsAvailable');
+  static String get noSubjectsForSelectedYear =>
+      _localization.tr('noSubjectsForSelectedYear');
+  static String get pleaseSelectMajorAndYear =>
+      _localization.tr('pleaseSelectMajorAndYear');
+  static String get pleaseSelectYear => _localization.tr('pleaseSelectYear');
+  static String get subjectDetails => _localization.tr('subjectDetails');
+  static String get viewSubjectDetails =>
+      _localization.tr('viewSubjectDetails');
+  static String get subjectId => _localization.tr('subjectId');
+  static String get labId => _localization.tr('labId');
+  static String get noMaterialsAvailable =>
+      _localization.tr('noMaterialsAvailable');
+  static String get downloadMaterial => _localization.tr('downloadMaterial');
   static String get sun => _localization.tr('sun');
   static String get mon => _localization.tr('mon');
   static String get tue => _localization.tr('tue');
@@ -134,4 +164,18 @@ class AppStrings {
       _localization.tr('assignReassignProfessor');
   static String get logout => _localization.tr('logout');
   static String get profile => _localization.tr('profile');
+
+  // Subject Management
+  static String get selectFilters => _localization.tr('selectFilters');
+  static String get professorView => _localization.tr('professorView');
+  static String get professorViewDescription =>
+      _localization.tr('professorViewDescription');
+  static String get superAdminView => _localization.tr('superAdminView');
+  static String get selectMajorFirst => _localization.tr('selectMajorFirst');
+  static String get noAccess => _localization.tr('noAccess');
+  static String get noAccessDescription =>
+      _localization.tr('noAccessDescription');
+  static String get subjectsLoadingAutomatically =>
+      _localization.tr('subjectsLoadingAutomatically');
+  static String get fetchSubjects => _localization.tr('fetchSubjects');
 }

@@ -3,9 +3,10 @@ import 'dart:io';
 
 import 'package:fpdart/fpdart.dart';
 import '../../../../shared/entities/role.dart' show Role;
-import '../../../../shared/request_bodies/globel_patch_body.dart' show GlobalPatch;
+import '../../../../shared/request_bodies/globel_patch_body.dart'
+    show GlobalPatch;
 import '../../data/models/subjects_management_model.dart'
-    show FacultySubjects, Subject, UniversitySubjects;
+    show FacultySubjects, Subject, UniversitySubjects, SuperAdminSubjects;
 import '../repositories/subjects_management_repository.dart';
 
 //!----------------------------  The Class  -------------------------------------!//
@@ -18,7 +19,7 @@ class SubjectsManagementUsecase {
   }) : _repo = repo;
 
   //* Get All SubjectsManagement
-  Future<Either<String, FacultySubjects>> getSuperAdminSubjects(
+  Future<Either<String, SuperAdminSubjects>> getSuperAdminSubjects(
           {required int year, required String majorId}) =>
       _repo.getSuperAdminSubjects(year: year, majorId: majorId);
 

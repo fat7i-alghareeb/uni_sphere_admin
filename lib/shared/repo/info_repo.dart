@@ -1,5 +1,6 @@
 import 'package:fpdart/fpdart.dart' show Either;
-import 'package:uni_sphere_admin/shared/services/exception/error_handler.dart' show throwAppException;
+import 'package:uni_sphere_admin/shared/services/exception/error_handler.dart'
+    show throwAppException;
 import '../entities/faculty.dart' show Faculty;
 import '../remote/info_remote.dart' show InfoRemote;
 
@@ -23,6 +24,14 @@ class InfoRepo {
     return await throwAppException(
       () async {
         return await _infoRemote.getMajors(facultyId: facultyId);
+      },
+    );
+  }
+
+  Future<Either<String, List<Major>>> getSuperAdminMajors() async {
+    return await throwAppException(
+      () async {
+        return await _infoRemote.getSuperAdminMajors();
       },
     );
   }
