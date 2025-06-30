@@ -6,7 +6,7 @@ import '../../../../shared/entities/role.dart' show Role;
 import '../../../../shared/request_bodies/globel_patch_body.dart'
     show GlobalPatch;
 import '../../data/models/subjects_management_model.dart'
-    show FacultySubjects, Subject, UniversitySubjects, SuperAdminSubjects;
+    show  Subject, UniversitySubjects, SuperAdminSubjects;
 import '../repositories/subjects_management_repository.dart';
 
 //!----------------------------  The Class  -------------------------------------!//
@@ -32,6 +32,6 @@ class SubjectsManagementUsecase {
   Future<Either<String, Subject>> updateSubject(String id, GlobalPatch patch) =>
       _repo.updateSubject(id, patch);
 
-  Future<Either<String, Subject>> uploadMaterial(String id, File file) =>
-      _repo.uploadMaterial(id, file);
+  Future<Either<String, Subject>> uploadMaterial(String id, File? file , String? url ) =>
+      _repo.uploadMaterial(id, file, url);
 }

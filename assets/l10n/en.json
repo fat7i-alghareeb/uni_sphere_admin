@@ -89,8 +89,9 @@
     "version": "Version",
     "studentProfile": "Student Profile",
     "noUserDataAvailable": "No user data available",
-    "tryAgainTest": "Try Again",
+    "tryAgainTest": "Try Again Test",
     "pleaseTryAgainLater": "Please try again later",
+    "tryAgain": "Try Again",
     "loading": "Loading...",
     "thisFieldRequired": "This field is required",
     "validEmail": "Invalid email",
@@ -145,5 +146,16 @@
     "noAccess": "No Access",
     "noAccessDescription": "You don't have permission to access subject management.",
     "subjectsLoadingAutomatically": "Subjects are loading automatically...",
-    "fetchSubjects": "Fetch Subjects"
+    "fetchSubjects": "Fetch Subjects",
+    "subjectInformation": "Subject Information",
+    "yes": "Yes",
+    "no": "No",
+    "uploadMaterial": "Upload Material",
+    "selectFile": "Select File",
+    "or": "OR",
+    "enterMaterialUrl": "Enter Material URL",
+    "uploading": "Uploading...",
+    "updateSubject": "Update Subject",
+    "clickEditToUpdate": "Click the edit button to update subject details.",
+    "updating": "Updating..."
 }

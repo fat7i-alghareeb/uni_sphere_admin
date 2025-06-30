@@ -159,6 +159,7 @@ enum MaterialsUrlType {
   powerpoint,
   zip,
   rar,
+  link,
   other,
 }
 

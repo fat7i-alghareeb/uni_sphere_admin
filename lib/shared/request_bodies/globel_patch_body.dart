@@ -12,13 +12,14 @@ class Patch {
   String path;
   String op;
   String from;
-  String value;
+  dynamic value;
 
-  Patch(
-      {required this.path,
-      required this.op,
-      required this.from,
-      required this.value});
+  Patch({
+    required this.path,
+    required this.op,
+    required this.from,
+    required this.value,
+  });
 
   Map<String, dynamic> toJson() {
     return {

@@ -9,6 +9,7 @@ import 'package:uni_sphere_admin/shared/entities/role.dart';
 import 'package:uni_sphere_admin/shared/extensions/form_extension.dart';
 import 'package:uni_sphere_admin/shared/imports/imports.dart';
 import 'package:uni_sphere_admin/shared/utils/helper/show_error_overlay.dart';
+import 'package:uni_sphere_admin/shared/widgets/failed_widget.dart';
 import 'subject_item_card.dart';
 
 class SubjectManagementBody extends StatefulWidget {
@@ -299,25 +300,19 @@ class _SubjectManagementBodyState extends State<SubjectManagementBody> {
   }
 
   Widget _buildErrorState(BuildContext context, String error) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.error_outline,
-            size: 64.r,
-            color: Colors.red,
-          ),
-          16.verticalSpace,
-          Text(
-            error,
-            style: context.textTheme.titleMedium?.copyWith(
-              color: Colors.red,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
+    return FailedWidget(
+      error: error,
+      onPressed: () {
+        if (AppConstants.userRole == Role.superadmin) {
+          _subjectsBloc.add(GetSuperAdminSubjectsEvent(
+            year: 1, // This should be dynamic based on form
+            majorId: '', // This should be dynamic based on form
+          ));
+        } else if (AppConstants.userRole == Role.professor) {
+          _subjectsBloc.add(GetProfessorSubjectsEvent());
+        }
+      },
+      retryText: AppStrings.tryAgain,
     );
   }
 

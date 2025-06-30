@@ -70,7 +70,7 @@ class SubjectItemCard extends StatelessWidget {
 
   void _handleTap(BuildContext context) {
     try {
-      Beamer.of(context).beamToNamed(
+      context.beamToNamed(
         SubjectDetailsScreen.pagePath,
         data: subject,
       );

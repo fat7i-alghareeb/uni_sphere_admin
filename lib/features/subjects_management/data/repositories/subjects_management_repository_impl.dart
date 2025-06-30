@@ -51,11 +51,13 @@ class SubjectsManagementRepoImp implements SubjectsManagementRepo {
   }
 
   @override
-  Future<Either<String, Subject>> uploadMaterial(String id, File file) {
+  Future<Either<String, Subject>> uploadMaterial(
+      String id, File? file, String? url) {
     return throwAppException(
       () async {
         final formData = FormData.fromMap({
-          'file': await MultipartFile.fromFile(file.path),
+          'file': file != null ? await MultipartFile.fromFile(file.path) : null,
+          'link': url,
         });
         return await _remote.uploadMaterial(id, formData);
       },

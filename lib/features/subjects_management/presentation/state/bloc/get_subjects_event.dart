@@ -11,13 +11,6 @@ class GetSuperAdminSubjectsEvent extends GetSubjectsEvent {
 
 class GetProfessorSubjectsEvent extends GetSubjectsEvent {}
 
-class GetSubjectByIdEvent extends GetSubjectsEvent {
-  final String id;
-  final Role role;
-
-  GetSubjectByIdEvent({required this.id, required this.role});
-}
-
 class UpdateSubjectEvent extends GetSubjectsEvent {
   final String id;
   final List<UpdateSubjectParam> fields;
@@ -27,7 +20,9 @@ class UpdateSubjectEvent extends GetSubjectsEvent {
 
 class UploadMaterialEvent extends GetSubjectsEvent {
   final String id;
-  final File file;
+  final File? file;
+  final String? url;
 
-  UploadMaterialEvent({required this.id, required this.file});
+  UploadMaterialEvent(
+      {required this.id, required this.file, required this.url});
 }

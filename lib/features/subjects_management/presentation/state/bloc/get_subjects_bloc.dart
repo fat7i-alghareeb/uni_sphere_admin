@@ -1,13 +1,19 @@
 import 'dart:io' show File;
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:uni_sphere_admin/core/result_builder/result.dart' show Result;
+import 'package:uni_sphere_admin/core/result_builder/result.dart';
+import 'package:uni_sphere_admin/core/constants/app_constants.dart';
 
 import '../../../../../shared/entities/role.dart' show Role;
 import '../../../../../shared/request_bodies/globel_patch_body.dart'
     show GlobalPatch, Patch;
 import '../../../data/models/subjects_management_model.dart'
-    show FacultySubjects, Subject, UniversitySubjects, SuperAdminSubjects;
+    show
+        FacultySubjects,
+        Subject,
+        UniversitySubjects,
+        SuperAdminSubjects,
+        MajorSubjects;
 import '../../../data/params/update_param.dart' show UpdateSubjectParam;
 import '../../../domain/usecases/subjects_management_usecase.dart'
     show SubjectsManagementUsecase;
@@ -23,7 +29,6 @@ class GetSubjectsBloc extends Bloc<GetSubjectsEvent, SubjectState> {
         super(SubjectState()) {
     on<GetSuperAdminSubjectsEvent>(_getSuperAdminSubjects);
     on<GetProfessorSubjectsEvent>(_getProfessorSubjects);
-    on<GetSubjectByIdEvent>(_getSubjectById);
     on<UpdateSubjectEvent>(_updateSubject);
     on<UploadMaterialEvent>(_uploadMaterial);
   }
@@ -53,46 +58,22 @@ class GetSubjectsBloc extends Bloc<GetSubjectsEvent, SubjectState> {
 
   Future<void> _getProfessorSubjects(
       GetProfessorSubjectsEvent event, Emitter<SubjectState> emit) async {
-    print("DEBUG: GetProfessorSubjectsEvent received in bloc");
     emit(
       state.copyWith(
         getProfessorSubjectsResult: const Result.loading(),
       ),
     );
-    print("DEBUG: Calling usecase.getProfessorSubjects()");
     final result = await _usecase.getProfessorSubjects();
-    print("DEBUG: Usecase result: $result");
-    result.fold(
-      (l) {
-        print("DEBUG: Professor subjects error: $l");
-        emit(
-          state.copyWith(
-            getProfessorSubjectsResult: Result.error(error: l),
-          ),
-        );
-      },
-      (r) {
-        print(
-            "DEBUG: Professor subjects success: ${r.faculties.length} faculties");
-        emit(
-          state.copyWith(
-            getProfessorSubjectsResult: Result.loaded(data: r),
-          ),
-        );
-      },
-    );
-  }
-
-  Future<void> _getSubjectById(
-      GetSubjectByIdEvent event, Emitter<SubjectState> emit) async {
-    emit(state.copyWith(getSubjectByIdResult: const Result.loading()));
-    final result = await _usecase.getSubjectById(event.id, event.role);
     result.fold(
       (l) => emit(
-        state.copyWith(getSubjectByIdResult: Result.error(error: l)),
+        state.copyWith(
+          getProfessorSubjectsResult: Result.error(error: l),
+        ),
       ),
       (r) => emit(
-        state.copyWith(getSubjectByIdResult: Result.loaded(data: r)),
+        state.copyWith(
+          getProfessorSubjectsResult: Result.loaded(data: r),
+        ),
       ),
     );
   }
@@ -100,6 +81,7 @@ class GetSubjectsBloc extends Bloc<GetSubjectsEvent, SubjectState> {
   Future<void> _updateSubject(
       UpdateSubjectEvent event, Emitter<SubjectState> emit) async {
     emit(state.copyWith(operationResult: const Result.loading()));
+
     final result = await _usecase.updateSubject(
       event.id,
       GlobalPatch(
@@ -114,35 +96,135 @@ class GetSubjectsBloc extends Bloc<GetSubjectsEvent, SubjectState> {
             .toList(),
       ),
     );
+
     result.fold(
       (error) => emit(
         state.copyWith(
           operationResult: Result.error(error: error),
         ),
       ),
-      (data) => emit(
-        state.copyWith(
-          getSubjectByIdResult: Result.loaded(data: data),
-          operationResult: const Result.loaded(data: true),
-        ),
-      ),
+      (updatedSubject) {
+        // Update the subject in the appropriate list based on user role
+        if (AppConstants.userRole == Role.superadmin) {
+          _updateSubjectInSuperAdminList(emit, updatedSubject);
+        } else if (AppConstants.userRole == Role.professor) {
+          _updateSubjectInProfessorList(emit, updatedSubject);
+        }
+
+        emit(
+          state.copyWith(
+            operationResult: const Result.loaded(data: true),
+          ),
+        );
+      },
     );
   }
 
   Future<void> _uploadMaterial(
       UploadMaterialEvent event, Emitter<SubjectState> emit) async {
+    // Validate that either file or url is provided, but not both
+    if (event.file == null && event.url == null) {
+      emit(
+        state.copyWith(
+          operationResult: const Result.error(
+            error: "Please provide either a file or a link",
+          ),
+        ),
+      );
+      return;
+    }
+
+    if (event.file != null && event.url != null) {
+      emit(
+        state.copyWith(
+          operationResult: const Result.error(
+            error: "Please provide either a file or a link, not both",
+          ),
+        ),
+      );
+      return;
+    }
+
     emit(state.copyWith(operationResult: const Result.loading()));
-    final result = await _usecase.uploadMaterial(event.id, event.file);
+
+    final result =
+        await _usecase.uploadMaterial(event.id, event.file, event.url);
+
     result.fold(
       (error) => emit(
         state.copyWith(operationResult: Result.error(error: error)),
       ),
-      (data) => emit(
-        state.copyWith(
-          getSubjectByIdResult: Result.loaded(data: data),
-          operationResult: const Result.loaded(data: true),
-        ),
-      ),
+      (updatedSubject) {
+        // Update the subject in the professor list (only professors can upload materials)
+        _updateSubjectInProfessorList(emit, updatedSubject);
+
+        emit(
+          state.copyWith(
+            operationResult: const Result.loaded(data: true),
+          ),
+        );
+      },
     );
+  }
+
+  void _updateSubjectInSuperAdminList(
+      Emitter<SubjectState> emit, Subject updatedSubject) {
+    final currentResult = state.getSuperAdminSubjectsResult;
+    if (currentResult.isLoaded()) {
+      final currentData = currentResult.getDataWhenSuccess();
+      if (currentData != null) {
+        final updatedMajors = currentData.majors.map((major) {
+          final updatedSubjects = major.subjects.map((subject) {
+            return subject.id == updatedSubject.id ? updatedSubject : subject;
+          }).toList();
+          return MajorSubjects(
+            majorName: major.majorName,
+            subjects: updatedSubjects,
+          );
+        }).toList();
+
+        final updatedData = SuperAdminSubjects(majors: updatedMajors);
+        emit(
+          state.copyWith(
+            getSuperAdminSubjectsResult: Result.loaded(data: updatedData),
+          ),
+        );
+      }
+    }
+  }
+
+  void _updateSubjectInProfessorList(
+      Emitter<SubjectState> emit, Subject updatedSubject) {
+    final currentResult = state.getProfessorSubjectsResult;
+    if (currentResult.isLoaded()) {
+      final currentData = currentResult.getDataWhenSuccess();
+      if (currentData != null) {
+        final updatedFaculties = currentData.faculties.map((faculty) {
+          final updatedMajors = faculty.majors.map((major) {
+            final updatedSubjects = major.subjects.map((subject) {
+              return subject.id == updatedSubject.id ? updatedSubject : subject;
+            }).toList();
+            return MajorSubjects(
+              majorName: major.majorName,
+              subjects: updatedSubjects,
+            );
+          }).toList();
+          return FacultySubjects(
+            facultyName: faculty.facultyName,
+            majors: updatedMajors,
+          );
+        }).toList();
+
+        final updatedData = UniversitySubjects(
+          universityName: currentData.universityName,
+          faculties: updatedFaculties,
+        );
+        emit(
+          state.copyWith(
+            getProfessorSubjectsResult: Result.loaded(data: updatedData),
+          ),
+        );
+      }
+    }
   }
 }

@@ -19,5 +19,5 @@ abstract class SubjectsManagementRepo {
   Future<Either<String, UniversitySubjects>> getProfessorSubjects();
   Future<Either<String, Subject>> getSubjectById(String id, Role role);
   Future<Either<String, Subject>> updateSubject(String id, GlobalPatch patch);
-  Future<Either<String, Subject>> uploadMaterial(String id, File formData);
+  Future<Either<String, Subject>> uploadMaterial(String id, File? formData , String? url );
 }

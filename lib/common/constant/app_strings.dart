@@ -112,6 +112,7 @@ class AppStrings {
   static String get tryAgainTest => _localization.tr('tryAgainTest');
   static String get pleaseTryAgainLater =>
       _localization.tr('pleaseTryAgainLater');
+  static String get tryAgain => _localization.tr('tryAgain');
   static String get loading => _localization.tr('loading');
   static String get thisFieldRequired => _localization.tr('thisFieldRequired');
   static String get validEmail => _localization.tr('validEmail');
@@ -178,4 +179,16 @@ class AppStrings {
   static String get subjectsLoadingAutomatically =>
       _localization.tr('subjectsLoadingAutomatically');
   static String get fetchSubjects => _localization.tr('fetchSubjects');
+  static String get subjectInformation =>
+      _localization.tr('subjectInformation');
+  static String get yes => _localization.tr('yes');
+  static String get no => _localization.tr('no');
+  static String get uploadMaterial => _localization.tr('uploadMaterial');
+  static String get selectFile => _localization.tr('selectFile');
+  static String get or => _localization.tr('or');
+  static String get enterMaterialUrl => _localization.tr('enterMaterialUrl');
+  static String get uploading => _localization.tr('uploading');
+  static String get updateSubject => _localization.tr('updateSubject');
+  static String get clickEditToUpdate => _localization.tr('clickEditToUpdate');
+  static String get updating => _localization.tr('updating');
 }
