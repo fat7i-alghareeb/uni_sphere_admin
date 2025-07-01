@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:beamer/beamer.dart';
 import 'package:dio_refresh_bot/dio_refresh_bot.dart' show Status;
 
+import '../features/root/presentation/ui/screen/language_selection_screen.dart' show LanguageSelectionScreen;
 import '../features/root/presentation/ui/screen/root_screen.dart'
     show RootScreen;
 import '../shared/imports/imports.dart';
@@ -80,6 +81,7 @@ class BRouterConfig {
           '/root': RootScreen.pageBuilder,
           '/subject_management': SubjectManagementScreen.pageBuilder,
           '/root/subject_details': SubjectDetailsScreen.pageBuilder,
+          '/root/language_selection': LanguageSelectionScreen.pageBuilder,
           // //! -------------- Subjects ---------------- !//
           // "/root/choose_years_screen": ChooseYearsScreen.pageBuilder,
           // "/root/subject_details": SubjectDetailsScreen.pageBuilder,
