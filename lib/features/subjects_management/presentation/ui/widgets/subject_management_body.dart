@@ -87,16 +87,6 @@ class _SubjectManagementBodyState extends State<SubjectManagementBody> {
     }
   }
 
-  void _fetchSuperAdminSubjects(FormGroup form) {
-    final majorId = form.getValue(SubjectManagementInputKeys.majorId);
-    final year = form.getValue(SubjectManagementInputKeys.year);
-    if (majorId != null && year != null) {
-      _subjectsBloc.add(GetSuperAdminSubjectsEvent(
-        majorId: majorId,
-        year: year,
-      ));
-    }
-  }
 
   Widget _buildSuperAdminContent(BuildContext context, SubjectState state) {
     final subjectsResult = state.getSuperAdminSubjectsResult;
@@ -149,18 +139,7 @@ class _SubjectManagementBodyState extends State<SubjectManagementBody> {
     return _buildUniversitySubjectsList(context, [universitySubjects]);
   }
 
-  Widget _buildFacultySubjectsList(
-      BuildContext context, FacultySubjects facultySubjects) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: facultySubjects.majors.length,
-      itemBuilder: (context, index) {
-        final major = facultySubjects.majors[index];
-        return _buildMajorExpansionTile(context, major);
-      },
-    );
-  }
+
 
   Widget _buildUniversitySubjectsList(
       BuildContext context, List<UniversitySubjects> universitySubjects) {

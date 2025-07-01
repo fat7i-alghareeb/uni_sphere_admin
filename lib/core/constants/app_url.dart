@@ -1,33 +1,34 @@
 class AppUrl {
-  static const baseUrlDevelopment = 'https://192.168.1.125:5001/';
+  static const baseUrlDevelopment = 'https://192.168.1.125:5001';
 
-  static const _auth = "Auth";
-  static const _admin = "Admin";
-  static const _superAdmin = "SuperAdmin";
-  static const _professor = "Professors";
-  static const _systemController = "SystemController";
+  static const _auth = "/Auth";
+  static const _api = "/api";
+  static const _admin = "/Admin";
+  static const _superAdmin = "/SuperAdmin";
+  static const _professor = "/Professors";
+  static const _systemController = "/SystemController";
   // static const _student = "Student";
 
   //! ************** Auth *************** //
-  static const loginAdmin = '$_admin/$_auth/Login';
-  static const registerAdmin = '$_admin/$_auth/Register';
-  static const checkOneTimeCodeAdmin = '$_admin/$_auth/CheckOneTimeCode';
-  static const loginSuperAdmin = '$_superAdmin/$_auth/Login';
-  static const registerSuperAdmin = '$_superAdmin/$_auth/Register';
+  static const loginAdmin = '$_api/$_admin/$_auth/Login';
+  static const registerAdmin = '$_api/$_admin/$_auth/Register';
+  static const checkOneTimeCodeAdmin = '$_api/$_admin/$_auth/CheckOneTimeCode';
+  static const loginSuperAdmin = '$_api/$_superAdmin/$_auth/Login';
+  static const registerSuperAdmin = '$_api/$_superAdmin/$_auth/Register';
   static const checkOneTimeCodeSuperAdmin =
-      '$_superAdmin/$_auth/CheckOneTimeCode';
-  static const loginProfessor = '$_professor/$_auth/Login';
-  static const registerProfessor = '$_professor/$_auth/Register';
+      '$_api/$_superAdmin/$_auth/CheckOneTimeCode';
+  static const loginProfessor = '$_api/$_professor/$_auth/Login';
+  static const registerProfessor = '$_api/$_professor/$_auth/Register';
   static const checkOneTimeCodeProfessor =
-      '$_professor/$_auth/CheckOneTimeCode';
-  static const loginSystemController = '$_systemController/$_auth/Login';
+      '$_api/$_professor/$_auth/CheckOneTimeCode';
+  static const loginSystemController = '$_api/$_systemController/$_auth/Login';
 
-  static const refreshToken = '$_auth/RefreshToken';
+  static const refreshToken = '$_api/$_auth/RefreshToken';
   // static const createAccount = '$_student/Create';
   //! ************** End Auth ***************//
 
   //! ************** Subject Management *************** //
-  static const _subject = "Subject";
+  static const _subject = "/api/Subject";
   static const viewSuperAdminSubjects = "$_subject/$_superAdmin/MySubjects";
   static const viewProfessorSubjects = "$_subject/$_professor/MySubjects";
   static const uploadMaterials = "$_subject/$_professor/UploadMaterials";
@@ -43,10 +44,10 @@ class AppUrl {
   //! ************** End Subject Management *************** //
 
   //! ************** Student Management *************** //
-  static const addStudent = "Student/AddStudent";
+  static const addStudent = "/api/Student/AddStudent";
   //! ************** End Student Management *************** //
   //! ************** news Management *************** //
-  static const _announcements = "Announcements";
+  static const _announcements = "/api/Announcements";
   static const createFacultyAnnouncement =
       "$_announcements/CreateFacultyAnnouncement";
   static const createMajorAnnouncement =
@@ -69,7 +70,7 @@ class AppUrl {
   //! ************** End Super Admin *************** //
 
   //! ************** Info ***************//
-  static const _info = "Info";
+  static const _info = "/api/Info";
   static const getFaculties = '$_info/GetFaculties';
   static const getMajors = '$_info/GetMajors';
   static const getSuperAdminMajors = '$_info/SuperAdmin/GetMyFacultyMajors';
@@ -77,8 +78,8 @@ class AppUrl {
 
   //! ************** Ent Info ***************//
   //! ************** Schedule Management *************** //
-  static const _schedule = "Schedule";
-  static const _scheduleManagement = "ScheduleManagement";
+  static const _schedule = "/api/Schedule";
+  static const _scheduleManagement = "/api/ScheduleManagement";
   static const addLecture = "$_scheduleManagement/AddLecture";
   static const createSchedule = "$_scheduleManagement/CreateSchedule";
   static String deleteLecture(String id) => "$_scheduleManagement/$id";
@@ -89,7 +90,7 @@ class AppUrl {
   //! ************** End Schedule Management *************** //
 
   //! ************** Subject Grade Management *************** //
-  static const _subjectGrade = "Grades";
+  static const _subjectGrade = "/api/Grades";
   static const assignGradesToSubject = "$_subjectGrade/AssignGradesToSubject";
   //! ************** End Subject Grade Management *************** //
   //! ************** AssignOneTimeCode ***************//

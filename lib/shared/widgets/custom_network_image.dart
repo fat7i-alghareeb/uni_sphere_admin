@@ -39,6 +39,64 @@ class _CustomNetworkImageState extends State<CustomNetworkImage> {
         : AppUrl.baseUrlDevelopment + widget.imageUrl!;
   }
 
+  // SSL certificate handling is now configured globally in main.dart
+
+  // Use CachedNetworkImage with better error handling
+  Widget _buildSimpleNetworkImage() {
+    return CachedNetworkImage(
+      imageUrl: fullUrl,
+      memCacheWidth: widget.filterQuality == FilterQuality.low ? 500 : null,
+      memCacheHeight: widget.filterQuality == FilterQuality.low ? 500 : null,
+      maxHeightDiskCache:
+          widget.filterQuality == FilterQuality.low ? 500 : null,
+      maxWidthDiskCache: widget.filterQuality == FilterQuality.low ? 500 : null,
+      filterQuality: widget.filterQuality,
+      placeholder: (context, url) => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: CircularProgressIndicator(
+            color: context.primaryColor,
+            strokeWidth: (widget.width != null &&
+                    widget.width!.isFinite &&
+                    widget.width! > 0)
+                ? (widget.width! * 0.05)
+                : 4,
+          ),
+        ),
+      ),
+      errorWidget: (context, url, error) {
+        debugPrint('CachedNetworkImage error: $error for URL: $url');
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(widget.borderRadius ?? 0),
+          child: Image.asset(
+            Assets.images.test.keyName,
+            fit: BoxFit.fill,
+          ),
+        );
+      },
+      fit: widget.fit,
+      imageBuilder: (context, imageProvider) {
+        return Image(
+          image: imageProvider,
+          fit: widget.fit,
+          filterQuality: widget.filterQuality,
+          width: widget.width,
+          height: widget.height,
+          errorBuilder: (context, error, stackTrace) {
+            debugPrint('Image rendering error: $error');
+            return ClipRRect(
+              borderRadius: BorderRadius.circular(widget.borderRadius ?? 0),
+              child: Image.asset(
+                Assets.images.test.keyName,
+                fit: BoxFit.fill,
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final errorImage = ClipRRect(
@@ -56,47 +114,7 @@ class _CustomNetworkImageState extends State<CustomNetworkImage> {
     final image = SizedBox(
       width: widget.width?.w,
       height: widget.height?.h,
-      child: CachedNetworkImage(
-        imageUrl: fullUrl,
-        memCacheWidth: widget.filterQuality == FilterQuality.low ? 500 : null,
-        memCacheHeight: widget.filterQuality == FilterQuality.low ? 500 : null,
-        maxHeightDiskCache:
-            widget.filterQuality == FilterQuality.low ? 500 : null,
-        maxWidthDiskCache:
-            widget.filterQuality == FilterQuality.low ? 500 : null,
-        filterQuality: widget.filterQuality,
-        placeholder: (context, url) => Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: CircularProgressIndicator(
-              color: context.primaryColor,
-              strokeWidth: (widget.width != null &&
-                      widget.width!.isFinite &&
-                      widget.width! > 0)
-                  ? (widget.width! * 0.05)
-                  : 4,
-            ),
-          ),
-        ),
-        errorWidget: (context, url, error) {
-          debugPrint('Image load error: $error for URL: $url');
-          return errorImage;
-        },
-        fit: widget.fit,
-        imageBuilder: (context, imageProvider) {
-          return Image(
-            image: imageProvider,
-            fit: widget.fit,
-            filterQuality: widget.filterQuality,
-            width: widget.width,
-            height: widget.height,
-            errorBuilder: (context, error, stackTrace) {
-              debugPrint('Image rendering error: $error');
-              return errorImage;
-            },
-          );
-        },
-      ),
+      child: _buildSimpleNetworkImage(),
     );
 
     if (widget.borderRadius == null) {

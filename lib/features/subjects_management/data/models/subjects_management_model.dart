@@ -66,6 +66,7 @@ class Subject {
   final String name;
   final String description;
   final String majorId;
+  final String? labId;
   final int year;
   final int semester;
   final double midtermGrade;
@@ -81,6 +82,7 @@ class Subject {
     required this.name,
     required this.description,
     required this.majorId,
+    this.labId,
     required this.year,
     required this.semester,
     required this.midtermGrade,
@@ -98,6 +100,7 @@ class Subject {
       name: json['name'],
       description: json['description'],
       majorId: json['majorId'],
+      labId: json['labId'],
       year: json['year'],
       semester: json['semester'],
       midtermGrade: (json['midtermGrade'] as num).toDouble(),
@@ -106,7 +109,7 @@ class Subject {
       isMultipleChoice: json['isMultipleChoice'],
       isOpenBook: json['isOpenBook'],
       image: json['image'] ?? '',
-      materialUrls: (json['materialUrls'] as List<dynamic>? ?? [])
+      materialUrls: (json['materials'] as List<dynamic>? ?? [])
           .map((e) => MaterialsUrl.fromJson(e))
           .toList(),
     );
@@ -117,6 +120,7 @@ class Subject {
         'name': name,
         'description': description,
         'majorId': majorId,
+        'labId': labId,
         'year': year,
         'semester': semester,
         'midtermGrade': midtermGrade,
@@ -138,7 +142,10 @@ class MaterialsUrl {
   factory MaterialsUrl.fromJson(Map<String, dynamic> json) {
     return MaterialsUrl(
       url: json['url'],
-      type: MaterialsUrlType.values.firstWhere((e) => e.name == json['type']),
+      type: MaterialsUrlType.values.firstWhere(
+        (e) => e.name.toLowerCase() == (json['type'] as String).toLowerCase(),
+        orElse: () => MaterialsUrlType.other,
+      ),
     );
   }
 
@@ -151,14 +158,10 @@ class MaterialsUrl {
 enum MaterialsUrlType {
   pdf,
   image,
-  video,
-  audio,
   document,
   excel,
   word,
   powerpoint,
-  zip,
-  rar,
   link,
   other,
 }

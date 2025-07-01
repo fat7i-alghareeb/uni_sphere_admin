@@ -64,7 +64,7 @@ Future<void> generalInjection() async {
   // Register a configured Dio HTTP client with a base URL
   getIt.registerSingleton<Dio>(
     DioClient(
-      "${AppUrl.baseUrlDevelopment}api/",
+      AppUrl.baseUrlDevelopment,
     ), // Set the base URL for API calls
   );
 }

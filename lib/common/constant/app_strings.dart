@@ -191,4 +191,90 @@ class AppStrings {
   static String get updateSubject => _localization.tr('updateSubject');
   static String get clickEditToUpdate => _localization.tr('clickEditToUpdate');
   static String get updating => _localization.tr('updating');
+  static String get availableOffline => _localization.tr('availableOffline');
+  static String get fileOpenedWithDefaultApp =>
+      _localization.tr('fileOpenedWithDefaultApp');
+  static String get downloadFailedOpenInBrowser =>
+      _localization.tr('downloadFailedOpenInBrowser');
+  static String get downloadNotSupported =>
+      _localization.tr('downloadNotSupported');
+  static String get sslCertificateError =>
+      _localization.tr('sslCertificateError');
+  static String get certificateVerificationFailed =>
+      _localization.tr('certificateVerificationFailed');
+  static String get connectionError => _localization.tr('connectionError');
+  static String get failedToOpenLink => _localization.tr('failedToOpenLink');
+  static String get storageAccessDenied =>
+      _localization.tr('storageAccessDenied');
+  static String get networkConnectionError =>
+      _localization.tr('networkConnectionError');
+  static String get anErrorOccurred => _localization.tr('anErrorOccurred');
+  static String get fileNotFoundDownloadAgain =>
+      _localization.tr('fileNotFoundDownloadAgain');
+  static String get cancel => _localization.tr('cancel');
+  static String get edit => _localization.tr('edit');
+
+  static String get materialTypeImage => _localization.tr('materialTypeImage');
+  static String get materialTypePdf => _localization.tr('materialTypePdf');
+  static String get materialTypeDocument =>
+      _localization.tr('materialTypeDocument');
+  static String get materialTypeExcel => _localization.tr('materialTypeExcel');
+  static String get materialTypePowerpoint =>
+      _localization.tr('materialTypePowerpoint');
+  static String get materialTypeLink => _localization.tr('materialTypeLink');
+  static String get materialTypeOther => _localization.tr('materialTypeOther');
+
+  static String get materialActionView =>
+      _localization.tr('materialActionView');
+  static String get materialActionDownload =>
+      _localization.tr('materialActionDownload');
+  static String get materialActionOpenLink =>
+      _localization.tr('materialActionOpenLink');
+  static String get materialActionDownloadAndOpen =>
+      _localization.tr('materialActionDownloadAndOpen');
+
+  static String get materialMessageDownloading =>
+      _localization.tr('materialMessageDownloading');
+  static String get materialMessageDownloaded =>
+      _localization.tr('materialMessageDownloaded');
+  static String get materialMessageDownloadFailed =>
+      _localization.tr('materialMessageDownloadFailed');
+  static String get materialMessageOpeningFile =>
+      _localization.tr('materialMessageOpeningFile');
+  static String get materialMessageFileOpened =>
+      _localization.tr('materialMessageFileOpened');
+  static String get materialMessageFileOpenFailed =>
+      _localization.tr('materialMessageFileOpenFailed');
+  static String get materialMessageLinkOpened =>
+      _localization.tr('materialMessageLinkOpened');
+  static String get materialMessageLinkOpenFailed =>
+      _localization.tr('materialMessageLinkOpenFailed');
+  static String get materialMessageNoAppFound =>
+      _localization.tr('materialMessageNoAppFound');
+  static String get materialMessageStoragePermissionRequired =>
+      _localization.tr('materialMessageStoragePermissionRequired');
+  static String get materialMessageSslCertificateError =>
+      _localization.tr('materialMessageSslCertificateError');
+  static String get materialMessageConnectionError =>
+      _localization.tr('materialMessageConnectionError');
+  static String get materialMessageFileDownloadedTo =>
+      _localization.tr('materialMessageFileDownloadedTo');
+  static String get materialMessageChooseAppToOpen =>
+      _localization.tr('materialMessageChooseAppToOpen');
+  static String get materialMessageFileAlreadyDownloaded =>
+      _localization.tr('materialMessageFileAlreadyDownloaded');
+  static String get materialMessageDownloadingProgress =>
+      _localization.tr('materialMessageDownloadingProgress');
+
+  static String get fileTypeImage => _localization.tr('fileTypeImage');
+  static String get fileTypePdf => _localization.tr('fileTypePdf');
+  static String get fileTypeDocument => _localization.tr('fileTypeDocument');
+  static String get fileTypeExcel => _localization.tr('fileTypeExcel');
+  static String get fileTypePowerpoint =>
+      _localization.tr('fileTypePowerpoint');
+  static String get fileTypeText => _localization.tr('fileTypeText');
+  static String get fileTypeArchive => _localization.tr('fileTypeArchive');
+  static String get fileTypeVideo => _localization.tr('fileTypeVideo');
+  static String get fileTypeAudio => _localization.tr('fileTypeAudio');
+  static String get fileTypeUnknown => _localization.tr('fileTypeUnknown');
 }

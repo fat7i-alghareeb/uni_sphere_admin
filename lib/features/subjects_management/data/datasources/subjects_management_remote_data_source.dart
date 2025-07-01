@@ -66,8 +66,14 @@ class SubjectsManagementRemote {
   Future<Subject> uploadMaterial(String id, FormData formData) {
     return throwDioException(
       () async {
-        final response =
-            await _dio.post(AppUrl.uploadMaterial(id), data: formData);
+        final response = await _dio.post(
+          AppUrl.uploadMaterial(id),
+          data: formData,
+          options: Options(
+            sendTimeout: const Duration(minutes: 10),
+            receiveTimeout: const Duration(minutes: 10),
+          ),
+        );
         return Subject.fromJson(response.data);
       },
     );
