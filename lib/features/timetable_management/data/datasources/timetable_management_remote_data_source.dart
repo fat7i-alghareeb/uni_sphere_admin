@@ -2,7 +2,8 @@
 import 'package:dio/dio.dart';
 import 'package:uni_sphere_admin/features/timetable_management/data/param/create_schedule.dart';
 import '../../../../core/constants/app_url.dart' show AppUrl;
-import '../../../../shared/request_bodies/globel_patch_body.dart' show GlobalPatch;
+import '../../../../shared/request_bodies/globel_patch_body.dart'
+    show GlobalPatch;
 import '../../../../shared/services/exception/error_handler.dart';
 import '../models/day_schedule_model.dart' show DayScheduleModel;
 import '../models/moth_schedule_model.dart' show MothScheduleModel;
@@ -17,7 +18,7 @@ class TimetableManagementRemote {
 
   //* Get All Timetable
   Future<MothScheduleModel> getMonthTimetable(
-      {required int month, required int year}) {
+      {required int month, required int year, required int majorYear}) {
     return throwDioException(
       () async {
         final response = await _dio.get(
@@ -25,6 +26,7 @@ class TimetableManagementRemote {
           queryParameters: {
             "month": month,
             "year": year,
+            "majorYear": majorYear,
           },
         );
         return MothScheduleModel.fromJson(response.data);
@@ -54,12 +56,14 @@ class TimetableManagementRemote {
   Future<MothScheduleModel> createSchedule(CreateSchedule param) {
     return throwDioException(
       () async {
-        final response = await _dio.post(AppUrl.createSchedule, data: param.toJson());
+        final response =
+            await _dio.post(AppUrl.createSchedule, data: param.toJson());
         return MothScheduleModel.fromJson(response.data);
       },
     );
   }
-    Future<DayScheduleModel> updateSchedule(String id, GlobalPatch patch) {
+
+  Future<DayScheduleModel> updateSchedule(String id, GlobalPatch patch) {
     return throwDioException(
       () async {
         final response =

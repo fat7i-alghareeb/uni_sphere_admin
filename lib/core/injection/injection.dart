@@ -7,6 +7,7 @@ import 'package:uni_sphere_admin/core/injection/src/access_injection.dart'
 import 'src/general_injection.dart';
 import 'src/info_injection.dart';
 import 'src/subjects_management_injection.dart';
+import 'src/timetable_management_injection.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -15,4 +16,5 @@ Future<void> initInjection() async {
   await authInjection();
   await infoInjection();
   await subjectsManagementInjection();
+  await timetableManagementInjection();
 }

@@ -6,7 +6,7 @@ import '../../../../shared/entities/role.dart' show Role;
 import '../../../../shared/request_bodies/globel_patch_body.dart'
     show GlobalPatch;
 import '../../data/models/subjects_management_model.dart'
-    show FacultySubjects, Subject, UniversitySubjects, SuperAdminSubjects;
+    show Subject, UniversitySubjects, SuperAdminSubjects;
 
 //!----------------------------  The Class  -------------------------------------!//
 
@@ -19,5 +19,6 @@ abstract class SubjectsManagementRepo {
   Future<Either<String, UniversitySubjects>> getProfessorSubjects();
   Future<Either<String, Subject>> getSubjectById(String id, Role role);
   Future<Either<String, Subject>> updateSubject(String id, GlobalPatch patch);
-  Future<Either<String, Subject>> uploadMaterial(String id, File? formData , String? url );
+  Future<Either<String, Subject>> uploadMaterial(
+      String id, File? formData, String? url);
 }

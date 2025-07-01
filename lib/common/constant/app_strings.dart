@@ -277,4 +277,10 @@ class AppStrings {
   static String get fileTypeVideo => _localization.tr('fileTypeVideo');
   static String get fileTypeAudio => _localization.tr('fileTypeAudio');
   static String get fileTypeUnknown => _localization.tr('fileTypeUnknown');
+
+  static String get notAuthorized => _localization.tr('notAuthorized');
+  static String get selectMajorYear => _localization.tr('selectMajorYear');
+  static String get chooseYear => _localization.tr('chooseYear');
+  static String get errorLoadingSchedule =>
+      _localization.tr('errorLoadingSchedule');
 }

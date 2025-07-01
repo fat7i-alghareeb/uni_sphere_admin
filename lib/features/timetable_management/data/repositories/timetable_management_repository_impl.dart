@@ -23,11 +23,11 @@ class TimetableManagementRepoImp implements TimetableManagementRepo {
 
   @override
   Future<Either<String, MonthScheduleEntity>> getMonthTimetable(
-      {required int month, required int year}) {
+      {required int month, required int year, required int majorYear}) {
     return throwAppException(
       () async {
-        final monthTimetable =
-            await _remote.getMonthTimetable(month: month, year: year);
+        final monthTimetable = await _remote.getMonthTimetable(
+            month: month, year: year, majorYear: majorYear);
         return monthTimetable.toEntity();
       },
     );

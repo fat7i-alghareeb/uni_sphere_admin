@@ -69,11 +69,11 @@ class _RootScreenState extends State<RootScreen>
     }
   }
 
-  List<Widget> _getScreensForRole() {
+  List<Widget> _getScreensForRole(User user) {
     switch (AppConstants.userRole) {
       case Role.admin:
         return [
-          const ScheduleView(),
+          ScheduleView(user: user),
           const NewsView(),
         ];
       case Role.professor:
@@ -125,7 +125,8 @@ class _RootScreenState extends State<RootScreen>
   Widget build(BuildContext context) {
     super.build(context);
     final navProvider = Provider.of<NavBarProvider>(context);
-    final screens = _getScreensForRole();
+    final user = getIt<AuthLocal>().getUser();
+    final screens = _getScreensForRole(user!);
     final navItems = _getNavItemsForRole();
 
     return Scaffold(

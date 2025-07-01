@@ -14,6 +14,7 @@ class User {
   final String gmail;
   final String image;
   final String role;
+  final int? numberOfMajorYears;
   User({
     required this.firstNameAr,
     required this.firstNameEn,
@@ -28,6 +29,7 @@ class User {
     required this.gmail,
     required this.image,
     required this.role,
+    this.numberOfMajorYears,
   });
 
   /// Convert role string to Role enum
@@ -61,6 +63,7 @@ class User {
       'gmail': gmail,
       'image': image,
       'role': role,
+      'numberOfMajorYears': numberOfMajorYears,
     };
   }
 
@@ -118,6 +121,7 @@ class User {
       gmail: map['gmail'] as String,
       image: map['image'] as String? ?? '',
       role: map['role'] as String,
+      numberOfMajorYears: map['numberOfYears'] as int?,
     );
   }
 }

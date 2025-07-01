@@ -10,7 +10,7 @@ import '../datasources/subjects_management_remote_data_source.dart';
 import '../../domain/repositories/subjects_management_repository.dart';
 import '../../../../shared/services/exception/error_handler.dart';
 import '../models/subjects_management_model.dart'
-    show FacultySubjects, Subject, UniversitySubjects, SuperAdminSubjects;
+    show Subject, UniversitySubjects, SuperAdminSubjects;
 
 //!----------------------------  The Class  -------------------------------------!//
 

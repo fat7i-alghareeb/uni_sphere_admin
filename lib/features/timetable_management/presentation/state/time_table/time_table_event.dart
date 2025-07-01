@@ -3,13 +3,15 @@ part of 'time_table_bloc.dart';
 abstract class TimeTableEvent {}
 
 final class GetTimeTableEvent extends TimeTableEvent {
-  GetTimeTableEvent({required this.month});
+  GetTimeTableEvent({required this.month, required this.majorYear});
   final DateTime month;
+  final int majorYear;
 }
 
 final class LoadMonthEvent extends TimeTableEvent {
-  LoadMonthEvent({required this.month});
+  LoadMonthEvent({required this.month, required this.majorYear});
   final DateTime month;
+  final int majorYear;
 }
 
 final class AddLectureEvent extends TimeTableEvent {

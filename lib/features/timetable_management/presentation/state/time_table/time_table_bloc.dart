@@ -39,16 +39,22 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
       ));
 
       final response = await _usecase.getMonthTimetable(
-          month: event.month.month, year: event.month.year);
+          month: event.month.month,
+          year: event.month.year,
+          majorYear: event.majorYear);
 
       response.fold(
-        (error) => emit(state.copyWith(
-          result: Result.error(error: error),
-        )),
+        (error) {
+          // On error, emit loaded state with empty data for fallback UI
+          emit(state.copyWith(
+            result: Result.loaded(
+                data: MonthScheduleEntity(
+                    month: event.month, daysTimeTables: [])),
+          ));
+        },
         (data) {
           final updatedSchedules =
               List<MonthScheduleEntity>.from(state.monthsSchedules)..add(data);
-
           emit(state.copyWith(
             result: Result.loaded(data: data),
             monthsSchedules: updatedSchedules,
@@ -57,7 +63,8 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
       );
     } catch (e) {
       emit(state.copyWith(
-        result: Result.error(error: e.toString()),
+        result: Result.loaded(
+            data: MonthScheduleEntity(month: event.month, daysTimeTables: [])),
       ));
     }
   }
@@ -139,19 +146,22 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
       emit(state.copyWith(loadMonthResult: const Result.loading()));
 
       final response = await _usecase.getMonthTimetable(
-          month: event.month.month, year: event.month.year);
+          month: event.month.month,
+          year: event.month.year,
+          majorYear: event.majorYear);
 
       response.fold(
         (error) {
-          printW(error);
+          // On error, emit loaded state with empty data for fallback UI
           emit(state.copyWith(
-            loadMonthResult: Result.error(error: error),
+            loadMonthResult: Result.loaded(
+                data: MonthScheduleEntity(
+                    month: event.month, daysTimeTables: [])),
           ));
         },
         (data) {
           final updatedSchedules =
               List<MonthScheduleEntity>.from(state.monthsSchedules)..add(data);
-
           emit(state.copyWith(
             loadMonthResult: Result.loaded(data: data),
             monthsSchedules: updatedSchedules,
@@ -160,7 +170,8 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
       );
     } catch (e) {
       emit(state.copyWith(
-        loadMonthResult: Result.error(error: e.toString()),
+        loadMonthResult: Result.loaded(
+            data: MonthScheduleEntity(month: event.month, daysTimeTables: [])),
       ));
     }
   }

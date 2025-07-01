@@ -206,5 +206,9 @@
     "storageAccessDenied": "Storage access denied. Please check app permissions.",
     "networkConnectionError": "Network connection error. Please check your internet connection.",
     "anErrorOccurred": "An error occurred. Please try again.",
-    "fileNotFoundDownloadAgain": "File not found. Please download again."
+    "fileNotFoundDownloadAgain": "File not found. Please download again.",
+    "notAuthorized": "Not authorized",
+    "selectMajorYear": "Select Major Year",
+    "chooseYear": "Choose year",
+    "errorLoadingSchedule": "Error loading schedule"
 }

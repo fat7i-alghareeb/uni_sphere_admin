@@ -207,5 +207,9 @@
     "storageAccessDenied": "تم رفض الوصول للتخزين. يرجى التحقق من أذونات التطبيق.",
     "networkConnectionError": "خطأ في اتصال الشبكة. يرجى التحقق من اتصال الإنترنت.",
     "anErrorOccurred": "حدث خطأ. يرجى المحاولة مرة أخرى.",
-    "fileNotFoundDownloadAgain": "الملف غير موجود. يرجى إعادة التحميل."
+    "fileNotFoundDownloadAgain": "الملف غير موجود. يرجى إعادة التحميل.",
+    "notAuthorized": "غير مصرح",
+    "selectMajorYear": "اختر سنة التخصص",
+    "chooseYear": "اختر السنة",
+    "errorLoadingSchedule": "حدث خطأ أثناء تحميل الجدول"
 }

@@ -4,6 +4,7 @@ import '../../../features/timetable_management/data/datasources/timetable_manage
 import '../../../features/timetable_management/data/repositories/timetable_management_repository_impl.dart';
 import '../../../features/timetable_management/domain/repositories/timetable_management_repository.dart';
 import '../../../features/timetable_management/domain/usecases/timetable_management_usecase.dart';
+import '../../../features/timetable_management/presentation/state/time_table/time_table_bloc.dart' show TimeTableBloc;
 import '../injection.dart';
 
 //!----------------------------  The Class  -------------------------------------!//
@@ -24,6 +25,11 @@ Future<void> timetableManagementInjection() async {
   getIt.registerLazySingleton<TimetableManagementUsecase>(
     () => TimetableManagementUsecase(
       repo: getIt<TimetableManagementRepo>(),
+    ),
+  );
+  getIt.registerLazySingleton<TimeTableBloc>(
+    () => TimeTableBloc(
+      usecase: getIt<TimetableManagementUsecase>(),
     ),
   );
 }
