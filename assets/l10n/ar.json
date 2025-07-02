@@ -211,5 +211,17 @@
     "notAuthorized": "غير مصرح",
     "selectMajorYear": "اختر سنة التخصص",
     "chooseYear": "اختر السنة",
-    "errorLoadingSchedule": "حدث خطأ أثناء تحميل الجدول"
+    "errorLoadingSchedule": "حدث خطأ أثناء تحميل الجدول",
+    "addLecture": "إضافة محاضرة",
+    "cancel": "إلغاء",
+    "success": "تم بنجاح",
+    "subjectNameEn": "اسم المادة (إنجليزي)",
+    "subjectNameAr": "اسم المادة (عربي)",
+    "lecturerNameEn": "اسم المحاضر (إنجليزي)",
+    "lecturerNameAr": "اسم المحاضر (عربي)",
+    "startTime": "وقت البدء",
+    "endTime": "وقت الانتهاء",
+    "lectureHallEn": "قاعة المحاضرة (إنجليزي)",
+    "lectureHallAr": "قاعة المحاضرة (عربي)",
+    "timeAndLocation": "الوقت والمكان"
 }

@@ -16,7 +16,8 @@ abstract class TimetableManagementRepo {
   Future<Either<String, MonthScheduleEntity>> getMonthTimetable(
       {required int month, required int year, required int majorYear});
   Future<Either<String, MonthScheduleEntity>> getAllTimetables();
-  Future<Either<String, DayScheduleEntity>> addLecture(AddLectureParam param);
+  Future<Either<String, DayScheduleEntity>> addLecture(
+      AddLectureParam param, String scheduleId);
   Future<Either<String, MonthScheduleEntity>> createSchedule(
       CreateSchedule param);
   Future<Either<String, DayScheduleEntity>> updateSchedule(

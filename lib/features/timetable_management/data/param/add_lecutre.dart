@@ -1,20 +1,12 @@
 class AddLectureParam {
-  final String scheduleId;
-  final String subjectNameEn;
-  final String subjectNameAr;
-  final String lecturerNameEn;
-  final String lecturerNameAr;
+  final String subjectId;
   final String startTime;
   final String endTime;
   final String lectureHallEn;
   final String lectureHallAr;
 
   AddLectureParam({
-    required this.scheduleId,
-    required this.subjectNameEn,
-    required this.subjectNameAr,
-    required this.lecturerNameEn,
-    required this.lecturerNameAr,
+    required this.subjectId,
     required this.startTime,
     required this.endTime,
     required this.lectureHallEn,
@@ -23,11 +15,7 @@ class AddLectureParam {
 
   factory AddLectureParam.fromJson(Map<String, dynamic> json) {
     return AddLectureParam(
-      scheduleId: json['scheduleId'],
-      subjectNameEn: json['subjectNameEn'],
-      subjectNameAr: json['subjectNameAr'],
-      lecturerNameEn: json['lecturerNameEn'],
-      lecturerNameAr: json['lecturerNameAr'],
+      subjectId: json['subjectId'],
       startTime: json['startTime'],
       endTime: json['endTime'],
       lectureHallEn: json['lectureHallEn'],
@@ -36,11 +24,7 @@ class AddLectureParam {
   }
 
   Map<String, dynamic> toJson() => {
-        'scheduleId': scheduleId,
-        'subjectNameEn': subjectNameEn,
-        'subjectNameAr': subjectNameAr,
-        'lecturerNameEn': lecturerNameEn,
-        'lecturerNameAr': lecturerNameAr,
+        'subjectId': subjectId,
         'startTime': startTime,
         'endTime': endTime,
         'lectureHallEn': lectureHallEn,

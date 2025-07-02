@@ -15,8 +15,9 @@ final class LoadMonthEvent extends TimeTableEvent {
 }
 
 final class AddLectureEvent extends TimeTableEvent {
-  AddLectureEvent({required this.param});
+  AddLectureEvent({required this.param, required this.scheduleId});
   final AddLectureParam param;
+  final String scheduleId;
 }
 
 final class CreateScheduleEvent extends TimeTableEvent {

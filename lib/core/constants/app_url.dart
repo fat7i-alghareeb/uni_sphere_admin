@@ -75,6 +75,7 @@ class AppUrl {
   static const getMajors = '$_info/GetMajors';
   static const getSuperAdminMajors = '$_info/SuperAdmin/GetMyFacultyMajors';
   static const getHomePageInfo = '$_info/GetHomePageInfo';
+  static const getMyMajorSubjects = '$_info/$_admin/MyMajorSubjects';
 
   //! ************** Ent Info ***************//
   //! ************** Schedule Management *************** //

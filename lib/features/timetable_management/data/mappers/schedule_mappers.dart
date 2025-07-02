@@ -26,6 +26,7 @@ extension DayScheduleMapper on DayScheduleModel {
   DayScheduleEntity toEntity() {
     return DayScheduleEntity(
       day: day.toDate() ?? DateTime.now(),
+      id: id,
       timetables: items.map((item) => item.toEntity()).toList(),
     );
   }

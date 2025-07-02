@@ -10,3 +10,5 @@ class GetMajorsEvent extends InfoEvent {
 }
 
 class GetSuperAdminMajorsEvent extends InfoEvent {}
+
+class GetMyMajorSubjectsEvent extends InfoEvent {}

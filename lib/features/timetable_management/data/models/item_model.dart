@@ -19,7 +19,7 @@ class ItemModel {
     return ItemModel(
       id: json['id'] as String,
       subjectName: json['subjectName'] as String,
-      lectureName: json['lectureName'] as String,
+      lectureName: json['professorName'] as String,
       lectureHall: json['lectureHall'] as String,
       startTime: json['startTime'] as String,
       endTime: json['endTime'] as String,

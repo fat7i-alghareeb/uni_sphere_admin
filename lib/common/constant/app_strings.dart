@@ -283,4 +283,15 @@ class AppStrings {
   static String get chooseYear => _localization.tr('chooseYear');
   static String get errorLoadingSchedule =>
       _localization.tr('errorLoadingSchedule');
+  static String get addLecture => _localization.tr('addLecture');
+  static String get success => _localization.tr('success');
+  static String get subjectNameEn => _localization.tr('subjectNameEn');
+  static String get subjectNameAr => _localization.tr('subjectNameAr');
+  static String get lecturerNameEn => _localization.tr('lecturerNameEn');
+  static String get lecturerNameAr => _localization.tr('lecturerNameAr');
+  static String get startTime => _localization.tr('startTime');
+  static String get endTime => _localization.tr('endTime');
+  static String get lectureHallEn => _localization.tr('lectureHallEn');
+  static String get lectureHallAr => _localization.tr('lectureHallAr');
+  static String get timeAndLocation => _localization.tr('timeAndLocation');
 }

@@ -119,3 +119,21 @@ extension DateTimeFormatter on DateTime {
     return DateFormat('HH:mm a', 'en-us').format(this);
   }
 }
+
+extension TimeSpanAmPm on String {
+  /// Converts a time string (HH:mm:ss or HH:mm) to a user-friendly format with AM/PM
+  String toAmPmTime() {
+    try {
+      final parts = split(":");
+      if (parts.length >= 2) {
+        final hour = int.parse(parts[0]);
+        final minute = int.parse(parts[1]);
+        final dt = DateTime(2020, 1, 1, hour, minute);
+        return DateFormat('hh:mm a').format(dt);
+      }
+      return this;
+    } catch (e) {
+      return this;
+    }
+  }
+}

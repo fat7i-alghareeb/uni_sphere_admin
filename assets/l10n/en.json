@@ -210,5 +210,17 @@
     "notAuthorized": "Not authorized",
     "selectMajorYear": "Select Major Year",
     "chooseYear": "Choose year",
-    "errorLoadingSchedule": "Error loading schedule"
+    "errorLoadingSchedule": "Error loading schedule",
+    "addLecture": "Add Lecture",
+    "cancel": "Cancel",
+    "success": "Success",
+    "subjectNameEn": "Subject Name (English)",
+    "subjectNameAr": "Subject Name (Arabic)",
+    "lecturerNameEn": "Lecturer Name (English)",
+    "lecturerNameAr": "Lecturer Name (Arabic)",
+    "startTime": "Start Time",
+    "endTime": "End Time",
+    "lectureHallEn": "Lecture Hall (English)",
+    "lectureHallAr": "Lecture Hall (Arabic)",
+    "timeAndLocation": "Time & Location"
 }

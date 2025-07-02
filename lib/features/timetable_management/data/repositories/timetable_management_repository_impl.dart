@@ -44,10 +44,11 @@ class TimetableManagementRepoImp implements TimetableManagementRepo {
   }
 
   @override
-  Future<Either<String, DayScheduleEntity>> addLecture(AddLectureParam param) {
+  Future<Either<String, DayScheduleEntity>> addLecture(
+      AddLectureParam param, String scheduleId) {
     return throwAppException(
       () async {
-        final addLecture = await _remote.addLecture(param);
+        final addLecture = await _remote.addLecture(param, scheduleId);
         return addLecture.toEntity();
       },
     );

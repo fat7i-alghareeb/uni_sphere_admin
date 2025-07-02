@@ -23,8 +23,9 @@ class TimetableManagementUsecase {
       _repo.getMonthTimetable(month: month, year: year, majorYear: majorYear);
   Future<Either<String, MonthScheduleEntity>> getAllTimetables() =>
       _repo.getAllTimetables();
-  Future<Either<String, DayScheduleEntity>> addLecture(AddLectureParam param) =>
-      _repo.addLecture(param);
+  Future<Either<String, DayScheduleEntity>> addLecture(
+          AddLectureParam param, String scheduleId) =>
+      _repo.addLecture(param, scheduleId);
   Future<Either<String, MonthScheduleEntity>> createSchedule(
           CreateSchedule param) =>
       _repo.createSchedule(param);

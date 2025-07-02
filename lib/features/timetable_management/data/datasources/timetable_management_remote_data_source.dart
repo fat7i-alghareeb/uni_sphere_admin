@@ -43,11 +43,17 @@ class TimetableManagementRemote {
     );
   }
 
-  Future<DayScheduleModel> addLecture(AddLectureParam param) {
+  Future<DayScheduleModel> addLecture(
+      AddLectureParam param, String scheduleId) {
     return throwDioException(
       () async {
-        final response =
-            await _dio.post(AppUrl.addLecture, data: param.toJson());
+        final response = await _dio.post(
+          AppUrl.addLecture,
+          data: param.toJson(),
+          queryParameters: {
+            "scheduleId": scheduleId,
+          },
+        );
         return DayScheduleModel.fromJson(response.data);
       },
     );

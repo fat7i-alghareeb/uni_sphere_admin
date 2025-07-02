@@ -6,7 +6,6 @@ import '../../../data/param/update_param.dart' show UpdateScheduleParam;
 import '../../../domain/entities/day_schedule_entity.dart'
     show DayScheduleEntity;
 import '../../../domain/entities/month_schedule_entity.dart';
-import '../../../../../shared/utils/helper/colored_print.dart' show printW;
 import '../../../../../core/result_builder/result.dart';
 import '../../../domain/usecases/timetable_management_usecase.dart'
     show TimetableManagementUsecase;
@@ -73,7 +72,7 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
       AddLectureEvent event, Emitter<TimeTableState> emit) async {
     emit(state.copyWith(operationResult: const Result.loading()));
 
-    final response = await _usecase.addLecture(event.param);
+    final response = await _usecase.addLecture(event.param, event.scheduleId);
     response.fold(
       (error) =>
           emit(state.copyWith(operationResult: Result.error(error: error))),
@@ -185,16 +184,26 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
   List<MonthScheduleEntity> _addDayScheduleToState(
       DayScheduleEntity daySchedule,
       List<MonthScheduleEntity> monthsSchedules) {
-    final updatedSchedules = monthsSchedules.firstWhere(
-      (element) => element.month.month == selectedDateTime.month,
-    );
-
-    updatedSchedules.daysTimeTables.add(daySchedule);
-    final updatedMonthsSchedules = monthsSchedules
-        .map((e) =>
-            e.month.month == selectedDateTime.month ? updatedSchedules : e)
-        .toList();
-
+    final updatedMonthsSchedules = monthsSchedules.map((monthEntity) {
+      if (monthEntity.month.month == selectedDateTime.month) {
+        final updatedDays =
+            List<DayScheduleEntity>.from(monthEntity.daysTimeTables);
+        final dayIndex = updatedDays.indexWhere((d) =>
+            d.day.day == daySchedule.day.day &&
+            d.day.month == daySchedule.day.month &&
+            d.day.year == daySchedule.day.year);
+        if (dayIndex != -1) {
+          updatedDays[dayIndex] = daySchedule;
+        } else {
+          updatedDays.add(daySchedule);
+        }
+        return MonthScheduleEntity(
+          month: monthEntity.month,
+          daysTimeTables: updatedDays,
+        );
+      }
+      return monthEntity;
+    }).toList();
     return updatedMonthsSchedules;
   }
 

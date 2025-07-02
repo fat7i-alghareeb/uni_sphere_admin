@@ -3,9 +3,10 @@ import 'package:uni_sphere_admin/shared/entities/user.dart';
 import 'package:uni_sphere_admin/shared/widgets/custom_picker.dart';
 import 'package:uni_sphere_admin/shared/entities/drop_down_data.dart';
 import 'package:uni_sphere_admin/shared/widgets/loading_progress.dart';
-import 'package:uni_sphere_admin/shared/widgets/failed_widget.dart';
+
 import '../../../presentation/state/time_table/time_table_bloc.dart';
 import '../../../domain/entities/month_schedule_entity.dart';
+import '../../../domain/entities/day_schedule_entity.dart';
 import '../../../../../shared/imports/imports.dart';
 import 'package:uni_sphere_admin/shared/entities/role.dart';
 import 'package:uni_sphere_admin/core/result_builder/result.dart';
@@ -13,7 +14,11 @@ import '../widgets/day_selector.dart' show DaySelector;
 import '../widgets/month_selector.dart' show MonthSelector;
 import '../widgets/no_schedule_widgets.dart' show NoSchedulesWidget;
 import '../widgets/timetable_item.dart' show TimetableItem;
+import '../widgets/add_lecture_dialog.dart' show AddLectureDialog;
 import 'package:uni_sphere_admin/common/constant/app_strings.dart';
+import 'package:uni_sphere_admin/shared/widgets/auth_button.dart';
+import 'package:uni_sphere_admin/shared/extensions/string_extension.dart';
+import 'package:uni_sphere_admin/features/timetable_management/data/param/add_lecutre.dart';
 
 class ScheduleView extends StatefulWidget {
   final User user;
@@ -142,6 +147,7 @@ class _ScheduleContent extends StatefulWidget {
 
 class _ScheduleContentState extends State<_ScheduleContent> {
   int selectedDayIndex = 0;
+  bool showSuccessSnackBar = false;
 
   @override
   Widget build(BuildContext context) {
@@ -158,24 +164,71 @@ class _ScheduleContentState extends State<_ScheduleContent> {
       selectedDayIndex = 0;
     }
     final selectedDay = daysWithSchedules[selectedDayIndex];
-    return Column(
-      children: [
-        DaySelector(
-          days: daysWithSchedules,
-          selectedDayIndex: selectedDayIndex,
-          onDaySelected: (index) => setState(() => selectedDayIndex = index),
-        ),
-        Expanded(
-          child: ListView.builder(
-            key: ValueKey<int>(selectedDayIndex),
-            padding: REdgeInsets.symmetric(vertical: 16, horizontal: 24),
-            itemCount: selectedDay.timetables.length,
-            itemBuilder: (context, index) {
-              return TimetableItem(timetable: selectedDay.timetables[index]);
-            },
+    return BlocListener<TimeTableBloc, TimeTableState>(
+      listenWhen: (prev, curr) => prev.operationResult != curr.operationResult,
+      listener: (context, state) {
+        if (state.operationResult.isLoaded() && showSuccessSnackBar) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('${AppStrings.addLecture} - ${AppStrings.success}'),
+              backgroundColor: Colors.green,
+            ),
+          );
+          showSuccessSnackBar = false;
+        }
+      },
+      child: Stack(
+        children: [
+          Column(
+            children: [
+              DaySelector(
+                days: daysWithSchedules,
+                selectedDayIndex: selectedDayIndex,
+                onDaySelected: (index) =>
+                    setState(() => selectedDayIndex = index),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  key: ValueKey<int>(selectedDayIndex),
+                  padding: REdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                  itemCount: selectedDay.timetables.length,
+                  itemBuilder: (context, index) {
+                    return TimetableItem(
+                        timetable: selectedDay.timetables[index]);
+                  },
+                ),
+              ),
+            ],
           ),
-        ),
-      ],
+          Positioned(
+            bottom: 24,
+            right: 24,
+            child: FloatingActionButton.extended(
+              onPressed: () => _showAddLectureDialog(context, selectedDay),
+              icon: const Icon(Icons.add),
+              label: Text(AppStrings.addLecture),
+            ),
+          ),
+        ],
+      ),
     );
+  }
+
+  void _showAddLectureDialog(
+      BuildContext context, DayScheduleEntity day) async {
+    final param = await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AddLectureDialog(
+        scheduleId: day.id,
+        dayName: day.day.weekday.weekdayShort,
+      ),
+    );
+    if (param != null && param is AddLectureParam && context.mounted) {
+      showSuccessSnackBar = true;
+      getIt<TimeTableBloc>()
+          .add(AddLectureEvent(param: param, scheduleId: day.id));
+      // SnackBar will be shown by BlocListener after success
+    }
   }
 }
