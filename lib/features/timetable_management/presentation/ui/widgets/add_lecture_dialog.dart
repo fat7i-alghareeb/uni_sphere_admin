@@ -17,15 +17,18 @@ import 'package:uni_sphere_admin/features/timetable_management/presentation/inpu
 import 'package:uni_sphere_admin/shared/imports/imports.dart';
 import 'package:uni_sphere_admin/core/result_builder/result.dart';
 import 'package:uni_sphere_admin/shared/extensions/date_time_extension.dart';
+import 'package:uni_sphere_admin/shared/widgets/loading_progress.dart';
 
 class AddLectureDialog extends StatefulWidget {
   final String scheduleId;
   final String dayName;
+  final Future<bool> Function(AddLectureParam param)? onSubmit;
 
   const AddLectureDialog({
     super.key,
     required this.scheduleId,
     required this.dayName,
+    this.onSubmit,
   });
 
   @override
@@ -42,6 +45,7 @@ class _AddLectureDialogState extends State<AddLectureDialog>
   String? _endTimeDisplay;
   String? _startTimeBackend;
   String? _endTimeBackend;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -80,36 +84,47 @@ class _AddLectureDialogState extends State<AddLectureDialog>
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: getIt<InfoBloc>(),
-      child: FadeTransition(
-        opacity: _fadeAnimation,
-        child: ScaleTransition(
-          scale: _scaleAnimation,
-          child: Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16.r),
-            ),
-            child: Container(
-              constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height * 0.85,
-                maxWidth: MediaQuery.of(context).size.width * 0.95,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _buildHeader(),
-                  Flexible(
-                    child: SingleChildScrollView(
-                      padding:
-                          REdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child: _buildForm(),
-                    ),
+      child: Stack(
+        children: [
+          FadeTransition(
+            opacity: _fadeAnimation,
+            child: ScaleTransition(
+              scale: _scaleAnimation,
+              child: Dialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.r),
+                ),
+                child: Container(
+                  constraints: BoxConstraints(
+                    maxHeight: MediaQuery.of(context).size.height * 0.85,
+                    maxWidth: MediaQuery.of(context).size.width * 0.95,
                   ),
-                  _buildActions(),
-                ],
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      _buildHeader(),
+                      Flexible(
+                        child: SingleChildScrollView(
+                          padding: REdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
+                          child: _buildForm(),
+                        ),
+                      ),
+                      _buildActions(),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
-        ),
+          if (_isLoading)
+            Positioned.fill(
+              child: Container(
+                color: Colors.black.withOpacity(0.3),
+                child: const LoadingProgress(),
+              ),
+            ),
+        ],
       ),
     );
   }
@@ -299,7 +314,9 @@ class _AddLectureDialogState extends State<AddLectureDialog>
         children: [
           Expanded(
             child: OutlinedButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () {
+                if (!_isLoading) Navigator.of(context).pop();
+              },
               child: Text(AppStrings.cancel),
             ),
           ),
@@ -307,7 +324,7 @@ class _AddLectureDialogState extends State<AddLectureDialog>
           Expanded(
             child: AuthButton.primary(
               title: AppStrings.addLecture,
-              onPressed: () => _submitForm(),
+              onPressed: _isLoading ? () {} : () => _submitForm(),
               context: context,
             ),
           ),
@@ -316,7 +333,7 @@ class _AddLectureDialogState extends State<AddLectureDialog>
     );
   }
 
-  void _submitForm() {
+  void _submitForm() async {
     if (!AddLectureForm.formGroup.valid) {
       showErrorOverlay(context, AppStrings.thisFieldRequired);
       return;
@@ -329,6 +346,18 @@ class _AddLectureDialogState extends State<AddLectureDialog>
       lectureHallEn: form.control(AddLectureInputKeys.lectureHallEn).value,
       lectureHallAr: form.control(AddLectureInputKeys.lectureHallAr).value,
     );
-    Navigator.of(context).pop(param);
+    setState(() => _isLoading = true);
+    bool success = true;
+    if (widget.onSubmit != null) {
+      success = await widget.onSubmit!(param);
+    } else {
+      // fallback: just pop immediately
+      Navigator.of(context).pop(param);
+      return;
+    }
+    setState(() => _isLoading = false);
+    if (success && mounted) {
+      Navigator.of(context).pop();
+    }
   }
 }

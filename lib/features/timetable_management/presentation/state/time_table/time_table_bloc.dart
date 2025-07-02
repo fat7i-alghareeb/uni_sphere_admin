@@ -76,12 +76,25 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
     response.fold(
       (error) =>
           emit(state.copyWith(operationResult: Result.error(error: error))),
-      (data) => emit(
-        state.copyWith(
-          operationResult: Result.loaded(data: true),
-          monthsSchedules: _addDayScheduleToState(data, state.monthsSchedules),
-        ),
-      ),
+      (data) {
+        final updatedMonthsSchedules =
+            _addDayScheduleToState(data, state.monthsSchedules);
+        // Find the updated month entity for the current month
+        final updatedMonth = updatedMonthsSchedules.firstWhere(
+          (m) =>
+              m.month.month == selectedDateTime.month &&
+              m.month.year == selectedDateTime.year,
+          orElse: () =>
+              MonthScheduleEntity(month: selectedDateTime, daysTimeTables: []),
+        );
+        emit(
+          state.copyWith(
+            operationResult: Result.loaded(data: true),
+            monthsSchedules: updatedMonthsSchedules,
+            result: Result.loaded(data: updatedMonth),
+          ),
+        );
+      },
     );
   }
 
@@ -188,10 +201,7 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
       if (monthEntity.month.month == selectedDateTime.month) {
         final updatedDays =
             List<DayScheduleEntity>.from(monthEntity.daysTimeTables);
-        final dayIndex = updatedDays.indexWhere((d) =>
-            d.day.day == daySchedule.day.day &&
-            d.day.month == daySchedule.day.month &&
-            d.day.year == daySchedule.day.year);
+        final dayIndex = updatedDays.indexWhere((d) => d.id == daySchedule.id);
         if (dayIndex != -1) {
           updatedDays[dayIndex] = daySchedule;
         } else {

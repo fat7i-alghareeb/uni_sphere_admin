@@ -19,6 +19,7 @@ import 'package:uni_sphere_admin/common/constant/app_strings.dart';
 import 'package:uni_sphere_admin/shared/widgets/auth_button.dart';
 import 'package:uni_sphere_admin/shared/extensions/string_extension.dart';
 import 'package:uni_sphere_admin/features/timetable_management/data/param/add_lecutre.dart';
+import '../../../domain/entities/timetable_entity.dart';
 
 class ScheduleView extends StatefulWidget {
   final User user;
@@ -54,6 +55,22 @@ class _ScheduleViewState extends State<ScheduleView> {
     }
   }
 
+  void _showAddLectureDialog(
+      BuildContext context, DayScheduleEntity day) async {
+    final param = await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AddLectureDialog(
+        scheduleId: day.id,
+        dayName: day.day.weekday.weekdayShort,
+      ),
+    );
+    if (param != null && param is AddLectureParam && context.mounted) {
+      getIt<TimeTableBloc>()
+          .add(AddLectureEvent(param: param, scheduleId: day.id));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (AppConstants.userRole != Role.admin) {
@@ -64,10 +81,41 @@ class _ScheduleViewState extends State<ScheduleView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            AppStrings.selectMajorYear,
-            style: context.textTheme.titleLarge
-                ?.copyWith(fontWeight: FontWeight.bold),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                AppStrings.selectMajorYear,
+                style: context.textTheme.titleLarge
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              if (selectedYear != null)
+                TextButton.icon(
+                  icon: Icon(Icons.add, color: Colors.white),
+                  label: Text(AppStrings.addLecture,
+                      style: TextStyle(color: Colors.white)),
+                  style: TextButton.styleFrom(
+                    backgroundColor: context.primaryColor,
+                    padding: REdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                  ),
+                  onPressed: () {
+                    // Open dialog for the first available day with schedules, or fallback to first day
+                    final state = getIt<TimeTableBloc>().state;
+                    final monthData = state.result.getDataWhenSuccess();
+                    final days = monthData?.daysTimeTables ?? [];
+                    final daysWithSchedules =
+                        days.where((day) => day.timetables.isNotEmpty).toList();
+                    final day = daysWithSchedules.isNotEmpty
+                        ? daysWithSchedules[0]
+                        : (days.isNotEmpty ? days[0] : null);
+                    if (day != null) {
+                      _showAddLectureDialog(context, day);
+                    }
+                  },
+                ),
+            ],
           ),
           16.verticalSpace,
           CustomPickerField(
@@ -188,47 +236,29 @@ class _ScheduleContentState extends State<_ScheduleContent> {
                     setState(() => selectedDayIndex = index),
               ),
               Expanded(
-                child: ListView.builder(
-                  key: ValueKey<int>(selectedDayIndex),
-                  padding: REdgeInsets.symmetric(vertical: 16, horizontal: 24),
-                  itemCount: selectedDay.timetables.length,
-                  itemBuilder: (context, index) {
-                    return TimetableItem(
-                        timetable: selectedDay.timetables[index]);
+                child: Builder(
+                  builder: (context) {
+                    // Sort lectures by startTime ascending
+                    final sortedTimetables =
+                        List<TimetableEntity>.from(selectedDay.timetables)
+                          ..sort((a, b) => a.startTime.compareTo(b.startTime));
+                    return ListView.builder(
+                      key: ValueKey<int>(selectedDayIndex),
+                      padding:
+                          REdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                      itemCount: sortedTimetables.length,
+                      itemBuilder: (context, index) {
+                        return TimetableItem(
+                            timetable: sortedTimetables[index]);
+                      },
+                    );
                   },
                 ),
               ),
             ],
           ),
-          Positioned(
-            bottom: 24,
-            right: 24,
-            child: FloatingActionButton.extended(
-              onPressed: () => _showAddLectureDialog(context, selectedDay),
-              icon: const Icon(Icons.add),
-              label: Text(AppStrings.addLecture),
-            ),
-          ),
         ],
       ),
     );
-  }
-
-  void _showAddLectureDialog(
-      BuildContext context, DayScheduleEntity day) async {
-    final param = await showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => AddLectureDialog(
-        scheduleId: day.id,
-        dayName: day.day.weekday.weekdayShort,
-      ),
-    );
-    if (param != null && param is AddLectureParam && context.mounted) {
-      showSuccessSnackBar = true;
-      getIt<TimeTableBloc>()
-          .add(AddLectureEvent(param: param, scheduleId: day.id));
-      // SnackBar will be shown by BlocListener after success
-    }
   }
 }
