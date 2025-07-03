@@ -76,7 +76,8 @@ class AppUrl {
   static const getSuperAdminMajors = '$_info/SuperAdmin/GetMyFacultyMajors';
   static const getHomePageInfo = '$_info/GetHomePageInfo';
   static const getMyMajorSubjects = '$_info/$_admin/MyMajorSubjects';
-
+  static String getStudentForSubject(String id) =>
+      '$_info/$_admin/$id/EligibleStudents';
   //! ************** Ent Info ***************//
   //! ************** Schedule Management *************** //
   static const _schedule = "/api/Schedule";

@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart' show Bloc, Emitter;
 import '../../../core/result_builder/result.dart';
 import '../../entities/faculty.dart' show Faculty;
 import '../../entities/major.dart' show Major;
+import '../../entities/student_info.dart' show StudentInfo;
 import '../../entities/subject_info.dart' show SubjectInfo;
 import '../../repo/info_repo.dart' show InfoRepo;
 
@@ -17,6 +18,7 @@ class InfoBloc extends Bloc<InfoEvent, InfoState> {
     on<GetMajorsEvent>(_getMajors);
     on<GetSuperAdminMajorsEvent>(_getSuperAdminMajors);
     on<GetMyMajorSubjectsEvent>(_getMyMajorSubjects);
+    on<GetStudentForSubjectEvent>(_getStudentForSubject);
   }
 
   Future<void> _getFaculties(
@@ -62,6 +64,17 @@ class InfoBloc extends Bloc<InfoEvent, InfoState> {
     result.fold(
       (l) => emit(state.copyWith(myMajorSubjects: Result.error(error: l))),
       (r) => emit(state.copyWith(myMajorSubjects: Result.loaded(data: r))),
+    );
+  }
+
+  Future<void> _getStudentForSubject(
+      GetStudentForSubjectEvent event, Emitter<InfoState> emit) async {
+    emit(state.copyWith(students: const Result.loading()));
+    final result =
+        await _infoRepo.getStudentForSubject(subjectId: event.subjectId);
+    result.fold(
+      (l) => emit(state.copyWith(students: Result.error(error: l))),
+      (r) => emit(state.copyWith(students: Result.loaded(data: r))),
     );
   }
 }

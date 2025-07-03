@@ -1,18 +1,15 @@
 class SubjectGrade {
   final String subjectId;
-  final int passGrade;
   final List<StudentGrade> studentGrades;
 
   SubjectGrade({
     required this.subjectId,
-    required this.passGrade,
     required this.studentGrades,
   });
 
   factory SubjectGrade.fromJson(Map<String, dynamic> json) {
     return SubjectGrade(
       subjectId: json['subjectId'],
-      passGrade: json['passGrade'],
       studentGrades: (json['studentGrades'] as List)
           .map((e) => StudentGrade.fromJson(e))
           .toList(),
@@ -22,7 +19,6 @@ class SubjectGrade {
   Map<String, dynamic> toJson() {
     return {
       'subjectId': subjectId,
-      'passGrade': passGrade,
       'studentGrades': studentGrades.map((e) => e.toJson()).toList(),
     };
   }

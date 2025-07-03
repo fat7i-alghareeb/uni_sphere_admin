@@ -15,3 +15,8 @@ class GetMyMajorSubjectsEvent extends InfoEvent {
   final int year;
   GetMyMajorSubjectsEvent({required this.year});
 }
+
+class GetStudentForSubjectEvent extends InfoEvent {
+  final String subjectId;
+  GetStudentForSubjectEvent({required this.subjectId});
+}
