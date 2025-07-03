@@ -14,7 +14,6 @@ part 'time_table_state.dart';
 
 class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
   final TimetableManagementUsecase _usecase;
-  static late DateTime selectedDateTime;
 
   TimeTableBloc({required TimetableManagementUsecase usecase})
       : _usecase = usecase,
@@ -30,12 +29,10 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
   Future<void> _onGetTimeTable(
       GetTimeTableEvent event, Emitter<TimeTableState> emit) async {
     try {
-      // Update selected date time immediately
-      selectedDateTime = event.month;
-
       emit(state.copyWith(
         result: const Result.loading(),
         monthsSchedules: [],
+        selectedDateTime: event.month,
       ));
 
       final response = await _usecase.getMonthTimetable(
@@ -83,10 +80,10 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
         // Find the updated month entity for the current month
         final updatedMonth = updatedMonthsSchedules.firstWhere(
           (m) =>
-              m.month.month == selectedDateTime.month &&
-              m.month.year == selectedDateTime.year,
-          orElse: () =>
-              MonthScheduleEntity(month: selectedDateTime, daysTimeTables: []),
+              m.month.month == state.selectedDateTime.month &&
+              m.month.year == state.selectedDateTime.year,
+          orElse: () => MonthScheduleEntity(
+              month: state.selectedDateTime, daysTimeTables: []),
         );
         emit(
           state.copyWith(
@@ -118,8 +115,8 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
 
         // Check if the created schedule is for the current month
         final createdDate = DateTime.parse(event.scheduleDate);
-        if (createdDate.month == selectedDateTime.month &&
-            createdDate.year == selectedDateTime.year) {
+        if (createdDate.month == state.selectedDateTime.month &&
+            createdDate.year == state.selectedDateTime.year) {
           // Get the current month's data
           final currentMonthData = state.result.getDataWhenSuccess();
           if (currentMonthData != null) {
@@ -205,8 +202,7 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
   Future<void> _onLoadMonth(
       LoadMonthEvent event, Emitter<TimeTableState> emit) async {
     try {
-      // Update selected date time immediately for navigation
-      selectedDateTime = event.month;
+      emit(state.copyWith(selectedDateTime: event.month));
 
       // Check if we already have the month's data
       if (_hasMonthData(event.month)) {
@@ -257,7 +253,7 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
       DayScheduleEntity daySchedule,
       List<MonthScheduleEntity> monthsSchedules) {
     final updatedMonthsSchedules = monthsSchedules.map((monthEntity) {
-      if (monthEntity.month.month == selectedDateTime.month) {
+      if (monthEntity.month.month == state.selectedDateTime.month) {
         final updatedDays =
             List<DayScheduleEntity>.from(monthEntity.daysTimeTables);
         final dayIndex = updatedDays.indexWhere((d) => d.id == daySchedule.id);
@@ -280,7 +276,7 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
       DayScheduleEntity daySchedule,
       List<MonthScheduleEntity> monthsSchedules) {
     final updatedSchedules = monthsSchedules.firstWhere(
-      (element) => element.month.month == selectedDateTime.month,
+      (element) => element.month.month == state.selectedDateTime.month,
     );
 
     updatedSchedules.daysTimeTables
@@ -288,8 +284,9 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
     updatedSchedules.daysTimeTables.add(daySchedule);
 
     final updatedMonthsSchedules = monthsSchedules
-        .map((e) =>
-            e.month.month == selectedDateTime.month ? updatedSchedules : e)
+        .map((e) => e.month.month == state.selectedDateTime.month
+            ? updatedSchedules
+            : e)
         .toList();
 
     return updatedMonthsSchedules;
@@ -311,9 +308,9 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
 
   MonthScheduleEntity get getMonthsSchedulesByDateTime {
     return state.monthsSchedules.firstWhere(
-      (element) => element.month.month == selectedDateTime.month,
+      (element) => element.month.month == state.selectedDateTime.month,
       orElse: () => MonthScheduleEntity(
-        month: selectedDateTime,
+        month: state.selectedDateTime,
         daysTimeTables: [],
       ),
     );
@@ -329,8 +326,8 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
       (deletedId) {
         // Remove the lecture from the state
         final updatedMonthsSchedules = state.monthsSchedules.map((monthEntity) {
-          if (monthEntity.month.month == selectedDateTime.month &&
-              monthEntity.month.year == selectedDateTime.year) {
+          if (monthEntity.month.month == state.selectedDateTime.month &&
+              monthEntity.month.year == state.selectedDateTime.year) {
             final updatedDays = monthEntity.daysTimeTables.map((day) {
               final updatedTimetables = day.timetables
                   .where((lecture) => lecture.id != deletedId)
@@ -347,10 +344,10 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
         // Update the result for the current month
         final updatedMonth = updatedMonthsSchedules.firstWhere(
           (m) =>
-              m.month.month == selectedDateTime.month &&
-              m.month.year == selectedDateTime.year,
-          orElse: () =>
-              MonthScheduleEntity(month: selectedDateTime, daysTimeTables: []),
+              m.month.month == state.selectedDateTime.month &&
+              m.month.year == state.selectedDateTime.year,
+          orElse: () => MonthScheduleEntity(
+              month: state.selectedDateTime, daysTimeTables: []),
         );
         emit(state.copyWith(
           operationResult: Result.loaded(data: true),

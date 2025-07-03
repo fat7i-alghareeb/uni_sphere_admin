@@ -4,6 +4,7 @@ import 'package:uni_sphere_admin/core/result_builder/result.dart';
 import 'package:uni_sphere_admin/shared/imports/imports.dart';
 import 'package:uni_sphere_admin/core/injection/injection.dart';
 import '../../state/time_table/time_table_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreateScheduleDialog extends StatefulWidget {
   final int selectedYear;
@@ -134,12 +135,14 @@ class _CreateScheduleDialogState extends State<CreateScheduleDialog> {
   }
 
   DateTime? _getFirstDayOfMonth() {
-    final currentMonth = TimeTableBloc.selectedDateTime;
+    final currentMonth =
+        BlocProvider.of<TimeTableBloc>(context).state.selectedDateTime;
     return DateTime(currentMonth.year, currentMonth.month, 1);
   }
 
   DateTime? _getLastDayOfMonth() {
-    final currentMonth = TimeTableBloc.selectedDateTime;
+    final currentMonth =
+        BlocProvider.of<TimeTableBloc>(context).state.selectedDateTime;
     return DateTime(currentMonth.year, currentMonth.month + 1, 0);
   }
 }

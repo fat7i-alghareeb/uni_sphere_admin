@@ -107,13 +107,15 @@ class _MonthSelectorState extends State<MonthSelector>
       _pendingAnimationOffset = offset;
     });
 
+    final bloc = context.read<TimeTableBloc>();
+    final currentDate = bloc.state.selectedDateTime;
     final selectedMonth = DateTime(
-      TimeTableBloc.selectedDateTime.year,
-      TimeTableBloc.selectedDateTime.month + offset,
+      currentDate.year,
+      currentDate.month + offset,
     );
 
     // Update the selected date time immediately for navigation
-    TimeTableBloc.selectedDateTime = selectedMonth;
+    // Now handled in the bloc event
 
     // Update provider
     final provider = context.read<TimetableProvider>();
@@ -183,12 +185,18 @@ class _MonthSelectorState extends State<MonthSelector>
                 opacity: _fadeAnimation,
                 child: SlideTransition(
                   position: _slideAnimation,
-                  child: Text(
-                    '${TimeTableBloc.selectedDateTime.month.monthName} ${TimeTableBloc.selectedDateTime.year}',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 0.5,
-                    ),
+                  child: Builder(
+                    builder: (context) {
+                      final currentDate =
+                          context.watch<TimeTableBloc>().state.selectedDateTime;
+                      return Text(
+                        '${currentDate.month.monthName} ${currentDate.year}',
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0.5,
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
