@@ -223,5 +223,10 @@
     "endTime": "وقت الانتهاء",
     "lectureHallEn": "قاعة المحاضرة (إنجليزي)",
     "lectureHallAr": "قاعة المحاضرة (عربي)",
-    "timeAndLocation": "الوقت والمكان"
+    "timeAndLocation": "الوقت والمكان",
+    "createSchedule": "إنشاء جدول",
+    "selectDate": "اختر التاريخ",
+    "create": "إنشاء",
+    "scheduleCreatedSuccessfully": "تم إنشاء الجدول بنجاح",
+    "pleaseSelectBothYearAndDate": "يرجى اختيار السنة والتاريخ"
 }

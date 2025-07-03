@@ -11,4 +11,7 @@ class GetMajorsEvent extends InfoEvent {
 
 class GetSuperAdminMajorsEvent extends InfoEvent {}
 
-class GetMyMajorSubjectsEvent extends InfoEvent {}
+class GetMyMajorSubjectsEvent extends InfoEvent {
+  final int year;
+  GetMyMajorSubjectsEvent({required this.year});
+}

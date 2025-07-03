@@ -1,5 +1,5 @@
 class AppUrl {
-  static const baseUrlDevelopment = 'https://192.168.1.125:5001';
+  static const baseUrlDevelopment = 'https://192.168.1.43:5001';
 
   static const _auth = "/Auth";
   static const _api = "/api";

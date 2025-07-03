@@ -21,8 +21,9 @@ final class AddLectureEvent extends TimeTableEvent {
 }
 
 final class CreateScheduleEvent extends TimeTableEvent {
-  CreateScheduleEvent({required this.param});
-  final CreateSchedule param;
+  CreateScheduleEvent({required this.year, required this.scheduleDate});
+  final int year;
+  final String scheduleDate;
 }
 
 final class UpdateScheduleEvent extends TimeTableEvent {

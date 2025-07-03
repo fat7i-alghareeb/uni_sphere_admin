@@ -102,17 +102,75 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
       CreateScheduleEvent event, Emitter<TimeTableState> emit) async {
     emit(state.copyWith(operationResult: const Result.loading()));
 
-    final response = await _usecase.createSchedule(event.param);
+    final createScheduleParam = CreateSchedule(
+      year: event.year,
+      scheduleDate: event.scheduleDate,
+    );
+    final response = await _usecase.createSchedule(createScheduleParam);
     response.fold(
       (error) =>
           emit(state.copyWith(operationResult: Result.error(error: error))),
-      (data) => emit(
-        state.copyWith(
-          operationResult: Result.loaded(data: true),
-          monthsSchedules: List<MonthScheduleEntity>.from(state.monthsSchedules)
-            ..add(data),
-        ),
-      ),
+      (data) {
+        // Add the new schedule to monthsSchedules
+        final updatedMonthsSchedules =
+            List<MonthScheduleEntity>.from(state.monthsSchedules)..add(data);
+
+        // Check if the created schedule is for the current month
+        final createdDate = DateTime.parse(event.scheduleDate);
+        if (createdDate.month == selectedDateTime.month &&
+            createdDate.year == selectedDateTime.year) {
+          // Get the current month's data
+          final currentMonthData = state.result.getDataWhenSuccess();
+          if (currentMonthData != null) {
+            // Combine existing days with new days from the returned data
+            final existingDays =
+                List<DayScheduleEntity>.from(currentMonthData.daysTimeTables);
+            final newDays = List<DayScheduleEntity>.from(data.daysTimeTables);
+
+            // Add all new days to existing days list
+            for (final newDay in newDays) {
+              // Check if the day already exists (to avoid duplicates)
+              final existingDayIndex = existingDays
+                  .indexWhere((day) => day.day.day == newDay.day.day);
+              if (existingDayIndex != -1) {
+                // Update existing day
+                existingDays[existingDayIndex] = newDay;
+              } else {
+                // Add new day
+                existingDays.add(newDay);
+              }
+            }
+
+            // Sort all days by date
+            existingDays.sort((a, b) => a.day.compareTo(b.day));
+
+            // Create updated month data
+            final updatedCurrentMonth = MonthScheduleEntity(
+              month: currentMonthData.month,
+              daysTimeTables: existingDays,
+            );
+
+            emit(state.copyWith(
+              operationResult: Result.loaded(data: true),
+              monthsSchedules: updatedMonthsSchedules,
+              result: Result.loaded(data: updatedCurrentMonth),
+            ));
+          } else {
+            // If no current month data, use the new data
+            emit(state.copyWith(
+              operationResult: Result.loaded(data: true),
+              monthsSchedules: updatedMonthsSchedules,
+              result: Result.loaded(data: data),
+            ));
+          }
+        } else {
+          // If not for current month, just update monthsSchedules
+          emit(state.copyWith(
+            operationResult: Result.loaded(data: true),
+            monthsSchedules: updatedMonthsSchedules,
+          ));
+        }
+      },
     );
   }
 

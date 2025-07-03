@@ -37,10 +37,11 @@ class InfoRepo {
     );
   }
 
-  Future<Either<String, List<SubjectInfo>>> getMyMajorSubjects() async {
+  Future<Either<String, List<SubjectInfo>>> getMyMajorSubjects(
+      {required int year}) async {
     return await throwAppException(
       () async {
-        return await _infoRemote.getMyMajorSubjects();
+        return await _infoRemote.getMyMajorSubjects(year: year);
       },
     );
   }

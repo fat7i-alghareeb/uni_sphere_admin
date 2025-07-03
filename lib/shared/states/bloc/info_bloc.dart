@@ -58,7 +58,7 @@ class InfoBloc extends Bloc<InfoEvent, InfoState> {
   Future<void> _getMyMajorSubjects(
       GetMyMajorSubjectsEvent event, Emitter<InfoState> emit) async {
     emit(state.copyWith(myMajorSubjects: const Result.loading()));
-    final result = await _infoRepo.getMyMajorSubjects();
+    final result = await _infoRepo.getMyMajorSubjects(year: event.year);
     result.fold(
       (l) => emit(state.copyWith(myMajorSubjects: Result.error(error: l))),
       (r) => emit(state.copyWith(myMajorSubjects: Result.loaded(data: r))),

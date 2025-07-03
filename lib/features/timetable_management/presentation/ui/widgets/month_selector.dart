@@ -3,18 +3,26 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:uni_sphere_admin/shared/extensions/context_extension.dart';
 import '../../../../../core/injection/injection.dart';
 import '../../../../../core/result_builder/result.dart';
+import '../../../../../shared/imports/imports.dart' show AppConstants;
 import '../../state/time_table/time_table_bloc.dart';
 import '../../../../../shared/extensions/string_extension.dart';
 import '../../../../../shared/widgets/loading_progress.dart';
 import '../../../../../shared/utils/helper/show_error_overlay.dart';
+import '../../providers/timetable_provider.dart';
 
 class MonthSelector extends StatefulWidget {
   final void Function(int newMonth, int year)? onMonthChanged;
   final int majorYear;
-  const MonthSelector(
-      {super.key, this.onMonthChanged, required this.majorYear});
+
+  const MonthSelector({
+    super.key,
+    this.onMonthChanged,
+    required this.majorYear,
+  });
 
   @override
   State<MonthSelector> createState() => _MonthSelectorState();
@@ -107,12 +115,17 @@ class _MonthSelectorState extends State<MonthSelector>
     // Update the selected date time immediately for navigation
     TimeTableBloc.selectedDateTime = selectedMonth;
 
+    // Update provider
+    final provider = context.read<TimetableProvider>();
+    provider.resetDaySelection();
+
     getIt<TimeTableBloc>().add(
       LoadMonthEvent(
         month: selectedMonth,
         majorYear: widget.majorYear,
       ),
     );
+
     // Call the callback if provided
     if (widget.onMonthChanged != null) {
       widget.onMonthChanged!(selectedMonth.month, selectedMonth.year);
@@ -151,14 +164,17 @@ class _MonthSelectorState extends State<MonthSelector>
         }
       },
       child: Container(
-        margin: REdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        padding: REdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        margin: REdgeInsets.symmetric(vertical: 8),
+        padding: REdgeInsets.symmetric(
+            horizontal: AppConstants.horizontalScreensPadding, vertical: 0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _buildMonthNavigationButton(
               isLoading: isLeftLoading,
-              icon: FontAwesomeIcons.chevronLeft,
+              icon: context.isEnglish
+                  ? FontAwesomeIcons.chevronLeft
+                  : FontAwesomeIcons.chevronRight,
               onTap: () => _changeMonth(-1),
             ),
             AnimatedBuilder(
@@ -179,7 +195,9 @@ class _MonthSelectorState extends State<MonthSelector>
             ),
             _buildMonthNavigationButton(
               isLoading: isRightLoading,
-              icon: FontAwesomeIcons.chevronRight,
+              icon: context.isEnglish
+                  ? FontAwesomeIcons.chevronRight
+                  : FontAwesomeIcons.chevronLeft,
               onTap: () => _changeMonth(1),
             ),
           ],

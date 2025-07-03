@@ -294,4 +294,11 @@ class AppStrings {
   static String get lectureHallEn => _localization.tr('lectureHallEn');
   static String get lectureHallAr => _localization.tr('lectureHallAr');
   static String get timeAndLocation => _localization.tr('timeAndLocation');
+  static String get createSchedule => _localization.tr('createSchedule');
+  static String get selectDate => _localization.tr('selectDate');
+  static String get create => _localization.tr('create');
+  static String get scheduleCreatedSuccessfully =>
+      _localization.tr('scheduleCreatedSuccessfully');
+  static String get pleaseSelectBothYearAndDate =>
+      _localization.tr('pleaseSelectBothYearAndDate');
 }

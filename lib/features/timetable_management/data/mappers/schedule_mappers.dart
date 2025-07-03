@@ -9,15 +9,12 @@ import '../models/moth_schedule_model.dart' show MothScheduleModel;
 
 extension MothScheduleMapper on MothScheduleModel {
   MonthScheduleEntity toEntity() {
-    // Filter out days with empty schedules
-    final daysWithSchedules = days
-        .map((day) => day.toEntity())
-        .where((day) => day.timetables.isNotEmpty)
-        .toList();
+    // Include all days, even those with empty schedules
+    final allDays = days.map((day) => day.toEntity()).toList();
 
     return MonthScheduleEntity(
       month: month.toDate() ?? DateTime.now(),
-      daysTimeTables: daysWithSchedules,
+      daysTimeTables: allDays,
     );
   }
 }

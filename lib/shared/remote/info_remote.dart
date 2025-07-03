@@ -37,9 +37,10 @@ class InfoRemote {
     });
   }
 
-  Future<List<SubjectInfo>> getMyMajorSubjects() async {
+  Future<List<SubjectInfo>> getMyMajorSubjects({required int year}) async {
     return throwDioException(() async {
-      final response = await _dio.get(AppUrl.getMyMajorSubjects);
+      final response = await _dio
+          .get(AppUrl.getMyMajorSubjects, queryParameters: {'year': year});
       List<dynamic> data = response.data;
       return data.map((e) => SubjectInfo.fromMap(e)).toList();
     });

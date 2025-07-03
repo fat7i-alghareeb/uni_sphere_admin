@@ -77,7 +77,7 @@ class _DaySelectorState extends State<DaySelector>
     final theme = Theme.of(context);
 
     return Container(
-      height: 100.h,
+      height: 90.h,
       margin: REdgeInsets.symmetric(vertical: 8),
       child: ListView.builder(
         controller: _scrollController,
@@ -115,7 +115,7 @@ class _DaySelectorState extends State<DaySelector>
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             margin: REdgeInsets.symmetric(horizontal: 8, vertical: 12),
-            padding: REdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: REdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               color: isSelected ? theme.primaryColor : theme.cardColor,
               borderRadius: BorderRadius.circular(16),

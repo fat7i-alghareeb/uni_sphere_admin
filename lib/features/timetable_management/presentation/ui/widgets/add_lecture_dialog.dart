@@ -22,12 +22,14 @@ import 'package:uni_sphere_admin/shared/widgets/loading_progress.dart';
 class AddLectureDialog extends StatefulWidget {
   final String scheduleId;
   final String dayName;
+  final int year;
   final Future<bool> Function(AddLectureParam param)? onSubmit;
 
   const AddLectureDialog({
     super.key,
     required this.scheduleId,
     required this.dayName,
+    required this.year,
     this.onSubmit,
   });
 
@@ -71,7 +73,7 @@ class _AddLectureDialogState extends State<AddLectureDialog>
     _animationController.forward();
     AddLectureForm.clearForm();
     // Fetch subjects
-    getIt<InfoBloc>().add(GetMyMajorSubjectsEvent());
+    getIt<InfoBloc>().add(GetMyMajorSubjectsEvent(year: widget.year));
   }
 
   @override

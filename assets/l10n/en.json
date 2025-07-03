@@ -222,5 +222,10 @@
     "endTime": "End Time",
     "lectureHallEn": "Lecture Hall (English)",
     "lectureHallAr": "Lecture Hall (Arabic)",
-    "timeAndLocation": "Time & Location"
+    "timeAndLocation": "Time & Location",
+    "createSchedule": "Create Schedule",
+    "selectDate": "Select Date",
+    "create": "Create",
+    "scheduleCreatedSuccessfully": "Schedule created successfully",
+    "pleaseSelectBothYearAndDate": "Please select both year and date"
 }
