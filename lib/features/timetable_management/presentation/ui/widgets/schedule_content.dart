@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:uni_sphere_admin/common/constant/app_strings.dart';
@@ -6,7 +5,6 @@ import 'package:uni_sphere_admin/core/result_builder/result.dart';
 import 'package:uni_sphere_admin/shared/extensions/string_extension.dart';
 import 'package:uni_sphere_admin/shared/imports/imports.dart';
 import 'package:uni_sphere_admin/core/injection/injection.dart';
-import 'package:uni_sphere_admin/shared/widgets/loading_progress.dart';
 import '../../providers/timetable_provider.dart';
 import '../../state/time_table/time_table_bloc.dart';
 import '../../../domain/entities/month_schedule_entity.dart';

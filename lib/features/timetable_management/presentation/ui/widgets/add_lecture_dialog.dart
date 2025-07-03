@@ -1,11 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:uni_sphere_admin/common/constant/app_strings.dart';
 import 'package:uni_sphere_admin/core/injection/injection.dart';
 import 'package:uni_sphere_admin/shared/entities/drop_down_data.dart';
-import 'package:uni_sphere_admin/shared/entities/subject_info.dart';
 import 'package:uni_sphere_admin/shared/states/bloc/info_bloc.dart';
 import 'package:uni_sphere_admin/shared/widgets/custom_picker.dart';
 import 'package:uni_sphere_admin/shared/widgets/auth_button.dart';
