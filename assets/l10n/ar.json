@@ -232,5 +232,14 @@
     "deleteLecture": "حذف المحاضرة",
     "deleteLectureSuccess": "تم حذف المحاضرة بنجاح",
     "deleteLectureConfirm": "حذف",
-    "deleteLectureAreYouSure": "هل أنت متأكد أنك تريد حذف هذه المحاضرة؟"
+    "deleteLectureAreYouSure": "هل أنت متأكد أنك تريد حذف هذه المحاضرة؟",
+    "assignGrades": "تعيين الدرجات",
+    "selectStudentYear": "اختر سنة الطالب",
+    "selectSubject": "اختر المادة",
+    "assignGradesButton": "تعيين الدرجات",
+    "enterMidtermGrade": "أدخل درجة منتصف الفصل",
+    "enterFinalGrade": "أدخل الدرجة النهائية",
+    "noStudentsFound": "لا يوجد طلاب لهذه المادة.",
+    "gradesAssignedSuccess": "تم تعيين الدرجات بنجاح!",
+    "gradesAssignedError": "فشل في تعيين الدرجات. يرجى المحاولة مرة أخرى."
 }

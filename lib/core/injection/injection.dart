@@ -2,6 +2,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:uni_sphere_admin/core/injection/src/access_injection.dart'
     show authInjection;
+import 'package:uni_sphere_admin/core/injection/src/grade_management_injection.dart' show gradeManagementInjection;
 
 // 🌎 Project imports:
 import 'src/general_injection.dart';
@@ -17,4 +18,5 @@ Future<void> initInjection() async {
   await infoInjection();
   await subjectsManagementInjection();
   await timetableManagementInjection();
+  await gradeManagementInjection();
 }

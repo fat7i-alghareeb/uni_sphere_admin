@@ -12,7 +12,7 @@ class StudentInfo {
   factory StudentInfo.fromJson(Map<String, dynamic> json) {
     return StudentInfo(
       id: json['id'],
-      name: json['FullName'],
+      name: json['fullName'],
       studentNumber: json['studentNumber'],
     );
   }

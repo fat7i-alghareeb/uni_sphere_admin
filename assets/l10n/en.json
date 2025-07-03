@@ -231,5 +231,14 @@
     "deleteLecture": "Delete Lecture",
     "deleteLectureSuccess": "Lecture deleted successfully",
     "deleteLectureConfirm": "Delete",
-    "deleteLectureAreYouSure": "Are you sure you want to delete this lecture?"
+    "deleteLectureAreYouSure": "Are you sure you want to delete this lecture?",
+    "assignGrades": "Assign Grades",
+    "selectStudentYear": "Select Student Year",
+    "selectSubject": "Select Subject",
+    "assignGradesButton": "Assign Grades",
+    "enterMidtermGrade": "Enter Midterm Grade",
+    "enterFinalGrade": "Enter Final Grade",
+    "noStudentsFound": "No students found for this subject.",
+    "gradesAssignedSuccess": "Grades assigned successfully!",
+    "gradesAssignedError": "Failed to assign grades. Please try again."
 }

@@ -9,6 +9,8 @@ import '../../../../../core/repo/auth_repo/auth_repo.dart';
 import '../../../../../shared/widgets/theme_switcher.dart';
 import '../../../../../shared/imports/imports.dart';
 import '../../../../../shared/entities/role.dart';
+import '../../../../grade_management/presentation/ui/screens/assign_grades_screen.dart'
+    show AssignGradesScreen;
 
 class CustomEndDrawer extends StatelessWidget {
   final Role userRole;
@@ -156,7 +158,7 @@ class CustomEndDrawer extends StatelessWidget {
               style: context.textTheme.titleMedium,
             ),
             onTap: () {
-              // Placeholder for upload grades functionality
+              context.beamToNamed(AssignGradesScreen.pagePath);
             },
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.r)),

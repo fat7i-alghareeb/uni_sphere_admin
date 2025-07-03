@@ -308,4 +308,16 @@ class AppStrings {
       _localization.tr('deleteLectureConfirm');
   static String get deleteLectureAreYouSure =>
       _localization.tr('deleteLectureAreYouSure');
+  static String get assignGrades => _localization.tr('assignGrades');
+  static String get selectStudentYear => _localization.tr('selectStudentYear');
+  static String get selectSubject => _localization.tr('selectSubject');
+  static String get assignGradesButton =>
+      _localization.tr('assignGradesButton');
+  static String get enterMidtermGrade => _localization.tr('enterMidtermGrade');
+  static String get enterFinalGrade => _localization.tr('enterFinalGrade');
+  static String get noStudentsFound => _localization.tr('noStudentsFound');
+  static String get gradesAssignedSuccess =>
+      _localization.tr('gradesAssignedSuccess');
+  static String get gradesAssignedError =>
+      _localization.tr('gradesAssignedError');
 }

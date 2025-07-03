@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:beamer/beamer.dart';
 import 'package:dio_refresh_bot/dio_refresh_bot.dart' show Status;
 
-import '../features/root/presentation/ui/screen/language_selection_screen.dart' show LanguageSelectionScreen;
+import '../features/root/presentation/ui/screen/language_selection_screen.dart'
+    show LanguageSelectionScreen;
 import '../features/root/presentation/ui/screen/root_screen.dart'
     show RootScreen;
 import '../shared/imports/imports.dart';
@@ -23,6 +24,10 @@ import '../features/subjects_management/presentation/ui/screens/subject_manageme
     show SubjectManagementScreen;
 import '../features/subjects_management/presentation/ui/screens/subject_details_screen.dart'
     show SubjectDetailsScreen;
+import '../features/grade_management/presentation/ui/screens/assign_grades_screen.dart'
+    show AssignGradesScreen;
+import '../features/grade_management/presentation/ui/screens/grade_entry_screen.dart'
+    show GradeEntryScreen;
 
 typedef BeamerBuilder = dynamic Function(BuildContext, BeamState, Object?);
 
@@ -79,6 +84,8 @@ class BRouterConfig {
           //! -------------- End Access ---------------- !//
 
           '/root': RootScreen.pageBuilder,
+          '/root/assign_grades': AssignGradesScreen.pageBuilder,
+          '/root/assign_grades/entry': GradeEntryScreen.pageBuilder,
           '/subject_management': SubjectManagementScreen.pageBuilder,
           '/root/subject_details': SubjectDetailsScreen.pageBuilder,
           '/root/language_selection': LanguageSelectionScreen.pageBuilder,
