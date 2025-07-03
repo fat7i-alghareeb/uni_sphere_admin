@@ -32,4 +32,6 @@ class TimetableManagementUsecase {
   Future<Either<String, DayScheduleEntity>> updateSchedule(
           String id, GlobalPatch patch) =>
       _repo.updateSchedule(id, patch);
+  Future<Either<String, String>> deleteLecture(String id) =>
+      _repo.deleteLecture(id);
 }

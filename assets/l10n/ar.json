@@ -228,5 +228,9 @@
     "selectDate": "اختر التاريخ",
     "create": "إنشاء",
     "scheduleCreatedSuccessfully": "تم إنشاء الجدول بنجاح",
-    "pleaseSelectBothYearAndDate": "يرجى اختيار السنة والتاريخ"
+    "pleaseSelectBothYearAndDate": "يرجى اختيار السنة والتاريخ",
+    "deleteLecture": "حذف المحاضرة",
+    "deleteLectureSuccess": "تم حذف المحاضرة بنجاح",
+    "deleteLectureConfirm": "حذف",
+    "deleteLectureAreYouSure": "هل أنت متأكد أنك تريد حذف هذه المحاضرة؟"
 }

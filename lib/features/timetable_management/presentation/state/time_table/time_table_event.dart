@@ -31,3 +31,8 @@ final class UpdateScheduleEvent extends TimeTableEvent {
   final String id;
   final List<UpdateScheduleParam> fields;
 }
+
+final class DeleteLectureEvent extends TimeTableEvent {
+  DeleteLectureEvent({required this.lectureId});
+  final String lectureId;
+}

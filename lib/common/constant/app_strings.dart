@@ -301,4 +301,11 @@ class AppStrings {
       _localization.tr('scheduleCreatedSuccessfully');
   static String get pleaseSelectBothYearAndDate =>
       _localization.tr('pleaseSelectBothYearAndDate');
+  static String get deleteLecture => _localization.tr('deleteLecture');
+  static String get deleteLectureSuccess =>
+      _localization.tr('deleteLectureSuccess');
+  static String get deleteLectureConfirm =>
+      _localization.tr('deleteLectureConfirm');
+  static String get deleteLectureAreYouSure =>
+      _localization.tr('deleteLectureAreYouSure');
 }

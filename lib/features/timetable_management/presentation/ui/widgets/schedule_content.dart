@@ -5,6 +5,8 @@ import 'package:uni_sphere_admin/core/result_builder/result.dart';
 import 'package:uni_sphere_admin/shared/extensions/string_extension.dart';
 import 'package:uni_sphere_admin/shared/imports/imports.dart';
 import 'package:uni_sphere_admin/core/injection/injection.dart';
+import 'package:uni_sphere_admin/shared/widgets/loading_progress.dart';
+import 'package:uni_sphere_admin/shared/utils/helper/show_error_overlay.dart';
 import '../../providers/timetable_provider.dart';
 import '../../state/time_table/time_table_bloc.dart';
 import '../../../domain/entities/month_schedule_entity.dart';
@@ -59,7 +61,12 @@ class ScheduleContent extends StatelessWidget {
                   provider.setSelectedScheduleDate(null);
                 },
               ),
-              if (isLoading) const SizedBox(height: 16), // keep layout stable
+              if (isLoading)
+                const Expanded(
+                  child: Center(
+                    child: LoadingProgress(),
+                  ),
+                ),
               if (!hasData && !isLoading)
                 Expanded(
                   child: NoSchedulesWidget(
@@ -140,8 +147,7 @@ class _ScheduleContentBody extends StatelessWidget {
             if (state.operationResult.isLoaded()) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content:
-                      Text('${AppStrings.addLecture} - ${AppStrings.success}'),
+                  content: Text(AppStrings.deleteLectureSuccess),
                   backgroundColor: Colors.green,
                 ),
               );
@@ -208,7 +214,7 @@ class _AddLectureButton extends StatelessWidget {
   }
 }
 
-class _ScheduleList extends StatelessWidget {
+class _ScheduleList extends StatefulWidget {
   final dynamic selectedDay;
   final int selectedYear;
 
@@ -218,28 +224,80 @@ class _ScheduleList extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    if (selectedDay.timetables.isEmpty) {
-      return _EmptyDayState(
-        selectedDay: selectedDay,
-        selectedYear: selectedYear,
-      );
+  State<_ScheduleList> createState() => _ScheduleListState();
+}
+
+class _ScheduleListState extends State<_ScheduleList> {
+  String? deletingLectureId;
+
+  @override
+  void didUpdateWidget(covariant _ScheduleList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Reset deletingLectureId if the day changes
+    if (oldWidget.selectedDay.id != widget.selectedDay.id) {
+      setState(() => deletingLectureId = null);
     }
+  }
 
-    final sortedTimetables = List<TimetableEntity>.from(selectedDay.timetables)
-      ..sort((a, b) => a.startTime.compareTo(b.startTime));
+  @override
+  Widget build(BuildContext context) {
+    final sortedTimetables =
+        List<TimetableEntity>.from(widget.selectedDay.timetables)
+          ..sort((a, b) => a.startTime.compareTo(b.startTime));
 
-    return ListView.builder(
-      key: ValueKey<int>(selectedDay.hashCode),
-      padding: REdgeInsets.only(
-          top: 16,
-          bottom: 160,
-          left: AppConstants.horizontalScreensPadding,
-          right: AppConstants.horizontalScreensPadding),
-      itemCount: sortedTimetables.length,
-      itemBuilder: (context, index) {
-        return TimetableItem(timetable: sortedTimetables[index]);
+    return BlocListener<TimeTableBloc, TimeTableState>(
+      listenWhen: (prev, curr) => prev.operationResult != curr.operationResult,
+      listener: (context, state) {
+        if (state.operationResult.isLoaded()) {
+          setState(() => deletingLectureId = null);
+        }
+        if (state.operationResult.isError()) {
+          setState(() => deletingLectureId = null);
+          showErrorOverlay(context, state.operationResult.getError());
+        }
       },
+      child: ListView.builder(
+        key: ValueKey<int>(widget.selectedDay.hashCode),
+        padding: REdgeInsets.only(
+            top: 16,
+            bottom: 160,
+            left: AppConstants.horizontalScreensPadding,
+            right: AppConstants.horizontalScreensPadding),
+        itemCount: sortedTimetables.length,
+        itemBuilder: (context, index) {
+          final timetable = sortedTimetables[index];
+          return TimetableItem(
+            timetable: timetable,
+            isDeleting: deletingLectureId == timetable.id,
+            onDelete: () async {
+              final confirmed = await showDialog<bool>(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text(AppStrings.deleteLecture),
+                  content: Text(AppStrings.deleteLectureAreYouSure),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(false),
+                      child: Text(AppStrings.cancel),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(true),
+                      child: Text(AppStrings.deleteLectureConfirm,
+                          style: TextStyle(color: Colors.red)),
+                    ),
+                  ],
+                ),
+              );
+              if (confirmed == true) {
+                setState(() => deletingLectureId = timetable.id);
+                context
+                    .read<TimeTableBloc>()
+                    .add(DeleteLectureEvent(lectureId: timetable.id));
+              }
+            },
+          );
+        },
+      ),
     );
   }
 }

@@ -24,6 +24,7 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
     on<AddLectureEvent>(_onAddLecture);
     on<CreateScheduleEvent>(_onCreateSchedule);
     on<UpdateScheduleEvent>(_onUpdateSchedule);
+    on<DeleteLectureEvent>(_onDeleteLecture);
   }
 
   Future<void> _onGetTimeTable(
@@ -315,6 +316,48 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
         month: selectedDateTime,
         daysTimeTables: [],
       ),
+    );
+  }
+
+  Future<void> _onDeleteLecture(
+      DeleteLectureEvent event, Emitter<TimeTableState> emit) async {
+    emit(state.copyWith(operationResult: const Result.loading()));
+    final response = await _usecase.deleteLecture(event.lectureId);
+    response.fold(
+      (error) =>
+          emit(state.copyWith(operationResult: Result.error(error: error))),
+      (deletedId) {
+        // Remove the lecture from the state
+        final updatedMonthsSchedules = state.monthsSchedules.map((monthEntity) {
+          if (monthEntity.month.month == selectedDateTime.month &&
+              monthEntity.month.year == selectedDateTime.year) {
+            final updatedDays = monthEntity.daysTimeTables.map((day) {
+              final updatedTimetables = day.timetables
+                  .where((lecture) => lecture.id != deletedId)
+                  .toList();
+              return day.copyWith(timetables: updatedTimetables);
+            }).toList();
+            return MonthScheduleEntity(
+              month: monthEntity.month,
+              daysTimeTables: updatedDays,
+            );
+          }
+          return monthEntity;
+        }).toList();
+        // Update the result for the current month
+        final updatedMonth = updatedMonthsSchedules.firstWhere(
+          (m) =>
+              m.month.month == selectedDateTime.month &&
+              m.month.year == selectedDateTime.year,
+          orElse: () =>
+              MonthScheduleEntity(month: selectedDateTime, daysTimeTables: []),
+        );
+        emit(state.copyWith(
+          operationResult: Result.loaded(data: true),
+          monthsSchedules: updatedMonthsSchedules,
+          result: Result.loaded(data: updatedMonth),
+        ));
+      },
     );
   }
 }

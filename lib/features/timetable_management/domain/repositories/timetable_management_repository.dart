@@ -22,4 +22,5 @@ abstract class TimetableManagementRepo {
       CreateSchedule param);
   Future<Either<String, DayScheduleEntity>> updateSchedule(
       String id, GlobalPatch patch);
+  Future<Either<String, String>> deleteLecture(String id);
 }

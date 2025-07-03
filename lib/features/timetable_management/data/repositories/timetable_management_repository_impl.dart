@@ -75,4 +75,14 @@ class TimetableManagementRepoImp implements TimetableManagementRepo {
       },
     );
   }
+
+  @override
+  Future<Either<String, String>> deleteLecture(String id) {
+    return throwAppException(
+      () async {
+        await _remote.deleteLecture(id);
+        return id;
+      },
+    );
+  }
 }

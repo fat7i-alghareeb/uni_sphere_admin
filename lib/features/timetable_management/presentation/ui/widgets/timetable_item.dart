@@ -3,13 +3,20 @@ import '../../../../../shared/imports/imports.dart';
 import '../../../../../shared/utils/helper/get_colored_svg_picture.dart';
 import '../../../../../shared/widgets/dashed_line.dart';
 import '../../../domain/entities/timetable_entity.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../state/time_table/time_table_bloc.dart';
+import '../../../../../core/result_builder/result.dart';
 
 class TimetableItem extends StatefulWidget {
   final TimetableEntity timetable;
+  final bool isDeleting;
+  final Future<void> Function()? onDelete;
 
   const TimetableItem({
     super.key,
     required this.timetable,
+    this.isDeleting = false,
+    this.onDelete,
   });
 
   @override
@@ -76,6 +83,17 @@ class _TimetableItemState extends State<TimetableItem>
                       12.horizontalSpace,
                       Expanded(
                         child: _buildSubjectInfo(context),
+                      ),
+                      IconButton(
+                        icon: widget.isDeleting
+                            ? SizedBox(
+                                width: 20,
+                                height: 20,
+                                child:
+                                    CircularProgressIndicator(strokeWidth: 2),
+                              )
+                            : Icon(Icons.delete, color: Colors.red),
+                        onPressed: widget.isDeleting ? null : widget.onDelete,
                       ),
                     ],
                   ),
@@ -202,4 +220,4 @@ class _TimetableItemState extends State<TimetableItem>
       ),
     );
   }
-} 
+}

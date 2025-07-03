@@ -1,5 +1,5 @@
 class AppUrl {
-  static const baseUrlDevelopment = 'https://192.168.1.43:5001';
+  static const baseUrlDevelopment = 'https://192.168.1.125:5001';
 
   static const _auth = "/Auth";
   static const _api = "/api";
@@ -83,7 +83,8 @@ class AppUrl {
   static const _scheduleManagement = "/api/ScheduleManagement";
   static const addLecture = "$_scheduleManagement/AddLecture";
   static const createSchedule = "$_scheduleManagement/CreateSchedule";
-  static String deleteLecture(String id) => "$_scheduleManagement/$id";
+  static String deleteLecture(String id) =>
+      "$_scheduleManagement/DeleteLecture/$id";
   static String updateSchedule(String id) => "$_schedule/$id";
   static const getScheduleByMonth = "$_schedule/$_admin/GetScheduleByMonth";
   static const getMySchedule =

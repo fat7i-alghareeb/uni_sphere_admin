@@ -78,4 +78,12 @@ class TimetableManagementRemote {
       },
     );
   }
+
+  Future<void> deleteLecture(String id) {
+    return throwDioException(
+      () async {
+        await _dio.delete(AppUrl.deleteLecture(id));
+      },
+    );
+  }
 }

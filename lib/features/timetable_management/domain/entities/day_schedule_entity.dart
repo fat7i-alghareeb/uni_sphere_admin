@@ -10,4 +10,16 @@ class DayScheduleEntity {
     required this.id,
     required this.timetables,
   });
+
+  DayScheduleEntity copyWith({
+    DateTime? day,
+    String? id,
+    List<TimetableEntity>? timetables,
+  }) {
+    return DayScheduleEntity(
+      day: day ?? this.day,
+      id: id ?? this.id,
+      timetables: timetables ?? this.timetables,
+    );
+  }
 }
