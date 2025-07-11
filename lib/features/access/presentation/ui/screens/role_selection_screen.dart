@@ -8,6 +8,7 @@ import 'package:uni_sphere_admin/shared/widgets/auth_button.dart'
     show AuthButton;
 import 'package:uni_sphere_admin/shared/widgets/custom_scaffold_body.dart'
     show CustomScaffoldBody;
+import '../../../../../shared/utils/helper/get_colored_svg_picture.dart' show getColoredSvgPicture;
 import 'authentication_method_screen.dart' show AuthenticationMethodScreen;
 import '../../../../../shared/entities/role.dart' show Role;
 import '../../../../../router/router_config.dart' show BeamerBuilder;
@@ -86,22 +87,12 @@ class _RoleSelectionBodyState extends State<RoleSelectionBody>
           children: [
             FadeTransition(
               opacity: _fadeAnimation,
-              child: Container(
-                width: 120.r,
-                height: 120.r,
-                decoration: BoxDecoration(
-                  color: context.primaryColor.withValues(alpha: 0.1),
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: context.primaryColor.withValues(alpha: 0.3),
-                    width: 2,
-                  ),
-                ),
-                child: Icon(
-                  Icons.admin_panel_settings,
-                  size: 60.r,
-                  color: context.primaryColor,
-                ),
+              child: getColoredSvgPicture(
+                assetName: Assets.images.logoSvg,
+                width: 250.w,
+                height: 250.h,
+                color: context.onBackgroundColor,
+                // color: context.theme.colorScheme.primary,
               ),
             ),
             30.verticalSpace,
@@ -161,21 +152,21 @@ class _RoleSelectionBodyState extends State<RoleSelectionBody>
                 ),
               ),
             ),
-            20.verticalSpace,
-            FadeTransition(
-              opacity: _fadeAnimation,
-              child: SlideTransition(
-                position: _slideAnimation,
-                child: RoleSelectionButton(
-                  title: AppStrings.systemController,
-                  icon: Icons.settings_system_daydream,
-                  onTap: () {
-                    AuthBloc.selectedRole = Role.systemcontroller;
-                    context.beamToNamed(AuthenticationMethodScreen.pagePath);
-                  },
-                ),
-              ),
-            ),
+            // 20.verticalSpace,
+            // FadeTransition(
+            //   opacity: _fadeAnimation,
+            //   child: SlideTransition(
+            //     position: _slideAnimation,
+            //     child: RoleSelectionButton(
+            //       title: AppStrings.systemController,
+            //       icon: Icons.settings_system_daydream,
+            //       onTap: () {
+            //         AuthBloc.selectedRole = Role.systemcontroller;
+            //         context.beamToNamed(AuthenticationMethodScreen.pagePath);
+            //       },
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

@@ -66,6 +66,12 @@ class $AssetsImagesGen {
   /// File path: assets/images/avatar-girl.svg
   String get avatarGirl => 'assets/images/avatar-girl.svg';
 
+  /// File path: assets/images/logo.png
+  AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
+
+  /// File path: assets/images/logoSvg.svg
+  String get logoSvg => 'assets/images/logoSvg.svg';
+
   /// File path: assets/images/pattern1.png
   AssetGenImage get pattern1 =>
       const AssetGenImage('assets/images/pattern1.png');
@@ -102,6 +108,8 @@ class $AssetsImagesGen {
   List<dynamic> get values => [
     avatarBoy,
     avatarGirl,
+    logo,
+    logoSvg,
     pattern1,
     pattern1White,
     pattern2,
