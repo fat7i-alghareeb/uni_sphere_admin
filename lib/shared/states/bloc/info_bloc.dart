@@ -1,7 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart' show Bloc, Emitter;
 import '../../../core/result_builder/result.dart';
+import '../../entities/admin.dart' show Admin;
 import '../../entities/faculty.dart' show Faculty;
 import '../../entities/major.dart' show Major;
+import '../../entities/professor.dart' show Professor;
 import '../../entities/student_info.dart' show StudentInfo;
 import '../../entities/subject_info.dart' show SubjectInfo;
 import '../../repo/info_repo.dart' show InfoRepo;
@@ -19,6 +21,10 @@ class InfoBloc extends Bloc<InfoEvent, InfoState> {
     on<GetSuperAdminMajorsEvent>(_getSuperAdminMajors);
     on<GetMyMajorSubjectsEvent>(_getMyMajorSubjects);
     on<GetStudentForSubjectEvent>(_getStudentForSubject);
+    on<GetProfessorsEvent>(_getProfessors);
+    on<GetUnregisteredStudentsByMajorEvent>(_getUnregisteredStudentsByMajor);
+    on<GetUnregisteredAdminsByFacultyEvent>(_getUnregisteredAdminsByFaculty);
+    on<GetUnassignedSubjectsEvent>(_getUnassignedSubjects);
   }
 
   Future<void> _getFaculties(
@@ -75,6 +81,50 @@ class InfoBloc extends Bloc<InfoEvent, InfoState> {
     result.fold(
       (l) => emit(state.copyWith(students: Result.error(error: l))),
       (r) => emit(state.copyWith(students: Result.loaded(data: r))),
+    );
+  }
+
+  Future<void> _getProfessors(
+      GetProfessorsEvent event, Emitter<InfoState> emit) async {
+    emit(state.copyWith(professors: const Result.loading()));
+    final result = await _infoRepo.getProfessors();
+    result.fold(
+      (l) => emit(state.copyWith(professors: Result.error(error: l))),
+      (r) => emit(state.copyWith(professors: Result.loaded(data: r))),
+    );
+  }
+
+  Future<void> _getUnregisteredStudentsByMajor(
+      GetUnregisteredStudentsByMajorEvent event,
+      Emitter<InfoState> emit) async {
+    emit(state.copyWith(unregisteredStudent: const Result.loading()));
+    final result = await _infoRepo.getUnregisteredStudentsByMajor(
+        studentNumber: event.studentNumber);
+    result.fold(
+      (l) => emit(state.copyWith(unregisteredStudent: Result.error(error: l))),
+      (r) => emit(state.copyWith(unregisteredStudent: Result.loaded(data: r))),
+    );
+  }
+
+  Future<void> _getUnregisteredAdminsByFaculty(
+      GetUnregisteredAdminsByFacultyEvent event,
+      Emitter<InfoState> emit) async {
+    emit(state.copyWith(admins: const Result.loading()));
+    final result = await _infoRepo.getUnregisteredAdminsByFaculty();
+    result.fold(
+      (l) => emit(state.copyWith(admins: Result.error(error: l))),
+      (r) => emit(state.copyWith(admins: Result.loaded(data: r))),
+    );
+  }
+
+  Future<void> _getUnassignedSubjects(
+      GetUnassignedSubjectsEvent event, Emitter<InfoState> emit) async {
+    emit(state.copyWith(unassignedSubjects: const Result.loading()));
+    final result = await _infoRepo.getUnassignedSubjects(
+        majorId: event.majorId, majorYear: event.majorYear);
+    result.fold(
+      (l) => emit(state.copyWith(unassignedSubjects: Result.error(error: l))),
+      (r) => emit(state.copyWith(unassignedSubjects: Result.loaded(data: r))),
     );
   }
 }

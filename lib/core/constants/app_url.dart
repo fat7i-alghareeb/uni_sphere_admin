@@ -78,6 +78,11 @@ class AppUrl {
   static const getMyMajorSubjects = '$_info/$_admin/MyMajorSubjects';
   static String getStudentForSubject(String id) =>
       '$_info/Subject/$id/EligibleStudents';
+  static const getUnassignedSubjects = '$_info/SuperAdmin/GetUnassignedSubjects';
+  static const getProfessorsByFaculty = '$_info/SuperAdmin/GetProfessorsByFaculty';
+  static const getUnregisteredStudentsByMajor = '$_info/Admin/GetUnregisteredStudentsByMajor';
+  static const getUnregisteredAdminsByFaculty = '$_info/SuperAdmin/GetUnregisteredAdminsByFaculty';
+
   //! ************** Ent Info ***************//
   //! ************** Schedule Management *************** //
   static const _schedule = "/api/Schedule";

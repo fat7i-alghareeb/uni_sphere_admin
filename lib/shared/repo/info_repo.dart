@@ -1,7 +1,9 @@
 import 'package:fpdart/fpdart.dart' show Either;
 import 'package:uni_sphere_admin/shared/services/exception/error_handler.dart'
     show throwAppException;
+import '../entities/admin.dart' show Admin;
 import '../entities/faculty.dart' show Faculty;
+import '../entities/professor.dart' show Professor;
 import '../entities/student_info.dart' show StudentInfo;
 import '../entities/subject_info.dart' show SubjectInfo;
 import '../remote/info_remote.dart' show InfoRemote;
@@ -55,4 +57,39 @@ class InfoRepo {
       },
     );
   }
+
+  Future<Either<String, List<Professor>>> getProfessors() async {
+    return await throwAppException(
+      () async {
+        return await _infoRemote.getProfessors();
+      },
+    );
+  }
+
+  Future<Either<String, StudentInfo>> getUnregisteredStudentsByMajor(
+      {required String studentNumber}) async {
+    return await throwAppException(
+      () async {
+        return await _infoRemote.getUnregisteredStudentsByMajor(studentNumber: studentNumber);
+      },
+    );
+  }
+
+  Future<Either<String, List<Admin>>> getUnregisteredAdminsByFaculty() async {
+    return await throwAppException(
+      () async {
+        return await _infoRemote.getUnregisteredAdminsByFaculty();
+      },
+    );
+  }
+
+  Future<Either<String, List<SubjectInfo>>> getUnassignedSubjects(
+      {required String majorId, required int majorYear}) async {
+    return await throwAppException(
+      () async {
+        return await _infoRemote.getUnassignedSubjects(majorId: majorId, majorYear: majorYear);
+      },
+    );
+  }
 }
+

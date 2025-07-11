@@ -6,17 +6,17 @@ enum TargetRole {
 
 class AssignOneTimeCode {
   final TargetRole targetRole;
-  final String adminId;
-  final String professorId;
-  final String studentId;
-  final int expirationInMinutes;
+  final String? adminId;
+  final String? professorId;
+  final String? studentId;
+ // final int expirationInMinutes;
 
   AssignOneTimeCode({
     required this.targetRole,
-    required this.adminId,
-    required this.professorId,
-    required this.studentId,
-    required this.expirationInMinutes,
+    this.adminId,
+    this.professorId,
+    this.studentId,
+  //  required this.expirationInMinutes,
   });
 
   factory AssignOneTimeCode.fromJson(Map<String, dynamic> json) {
@@ -25,17 +25,17 @@ class AssignOneTimeCode {
       adminId: json['adminId'],
       professorId: json['professorId'],
       studentId: json['studentId'],
-      expirationInMinutes: json['expirationInMinutes'],
+    //  expirationInMinutes: json['expirationInMinutes'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'targetRole': targetRole.index, // convert enum to int
-      'adminId': adminId,
-      'professorId': professorId,
-      'studentId': studentId,
-      'expirationInMinutes': expirationInMinutes,
+      if (adminId != null) 'adminId': adminId,
+      if (professorId != null) 'professorId': professorId,
+      if (studentId != null) 'studentId': studentId,
+   //   'expirationInMinutes': expirationInMinutes,
     };
   }
 }
