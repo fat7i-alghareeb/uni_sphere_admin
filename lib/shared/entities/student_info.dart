@@ -1,7 +1,7 @@
 class StudentInfo {
   final String id;
   final String name;
-  final String studentNumber;
+  final String? studentNumber;
 
   StudentInfo({
     required this.id,
@@ -12,7 +12,7 @@ class StudentInfo {
   factory StudentInfo.fromJson(Map<String, dynamic> json) {
     return StudentInfo(
       id: json['id'],
-      name: json['fullName'],
+      name: json['fullName'] ?? json['name'],
       studentNumber: json['studentNumber'],
     );
   }

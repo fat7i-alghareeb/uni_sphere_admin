@@ -173,7 +173,7 @@ class CustomEndDrawer extends StatelessWidget {
               style: context.textTheme.titleMedium,
             ),
             onTap: () {
-              // Placeholder for generate one-time code functionality
+              context.beamToNamed('/root/assign_one_time_code');
             },
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.r)),
@@ -192,7 +192,7 @@ class CustomEndDrawer extends StatelessWidget {
               style: context.textTheme.titleMedium,
             ),
             onTap: () {
-              // Placeholder for generate one-time code functionality
+              context.beamToNamed('/root/assign_one_time_code');
             },
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.r)),

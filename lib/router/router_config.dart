@@ -28,6 +28,8 @@ import '../features/grade_management/presentation/ui/screens/assign_grades_scree
     show AssignGradesScreen;
 import '../features/grade_management/presentation/ui/screens/grade_entry_screen.dart'
     show GradeEntryScreen;
+import '../../features/generate_otp/presentation/ui/screens/assign_one_time_code_screen.dart'
+    show AssignOneTimeCodeScreen;
 
 typedef BeamerBuilder = dynamic Function(BuildContext, BeamState, Object?);
 
@@ -86,6 +88,7 @@ class BRouterConfig {
           '/root': RootScreen.pageBuilder,
           '/root/assign_grades': AssignGradesScreen.pageBuilder,
           '/root/assign_grades/entry': GradeEntryScreen.pageBuilder,
+          '/root/assign_one_time_code': AssignOneTimeCodeScreen.pageBuilder,
           '/subject_management': SubjectManagementScreen.pageBuilder,
           '/root/subject_details': SubjectDetailsScreen.pageBuilder,
           '/root/language_selection': LanguageSelectionScreen.pageBuilder,

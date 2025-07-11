@@ -184,7 +184,7 @@ class _GradeEntryScreenState extends State<GradeEntryScreen> {
                                   ),
                                   verticalSpace(4),
                                   Text(
-                                    student.studentNumber,
+                                    student.studentNumber ?? '',
                                     style: context.textTheme.bodySmall
                                         ?.copyWith(color: context.greyColor),
                                   ),

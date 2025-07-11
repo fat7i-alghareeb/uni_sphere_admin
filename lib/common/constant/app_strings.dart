@@ -320,4 +320,34 @@ class AppStrings {
       _localization.tr('gradesAssignedSuccess');
   static String get gradesAssignedError =>
       _localization.tr('gradesAssignedError');
+  static String get assignOneTimeCode => _localization.tr('assignOneTimeCode');
+  static String get enterStudentNumber =>
+      _localization.tr('enterStudentNumber');
+  static String get studentField => _localization.tr('studentField');
+  static String get assignCode => _localization.tr('assignCode');
+  static String get targetType => _localization.tr('targetType');
+  static String get selectAdmin => _localization.tr('selectAdmin');
+  static String get selectProfessor => _localization.tr('selectProfessor');
+  static String get oneTimeCodeAssignedSuccess =>
+      _localization.tr('oneTimeCodeAssignedSuccess');
+  static String get oneTimeCodeAssignedError =>
+      _localization.tr('oneTimeCodeAssignedError');
+  static String get checkStudent => _localization.tr('checkStudent');
+  static String get noUnregisteredAdmins =>
+      _localization.tr('noUnregisteredAdmins');
+  static String get noUnregisteredProfessors =>
+      _localization.tr('noUnregisteredProfessors');
+  static String get noStudentFound => _localization.tr('noStudentFound');
+  static String get assign => _localization.tr('assign');
+  static String get code => _localization.tr('code');
+  static String get adminName => _localization.tr('adminName');
+  static String get studentName => _localization.tr('studentName');
+  static String get studentNumber => _localization.tr('studentNumber');
+  static String get roleType => _localization.tr('roleType');
+  static String get chooseTargetType => _localization.tr('chooseTargetType');
+  static String get assignOneTimeCodeTitle =>
+      _localization.tr('assignOneTimeCodeTitle');
+  static String get assignOneTimeCodeDescription =>
+      _localization.tr('assignOneTimeCodeDescription');
+  static String get codePlaceholder => _localization.tr('codePlaceholder');
 }

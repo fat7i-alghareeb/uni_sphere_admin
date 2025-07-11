@@ -9,14 +9,16 @@ class AssignOneTimeCode {
   final String? adminId;
   final String? professorId;
   final String? studentId;
- // final int expirationInMinutes;
+  final int oneTimeCode;
+  // final int expirationInMinutes;
 
   AssignOneTimeCode({
     required this.targetRole,
     this.adminId,
     this.professorId,
     this.studentId,
-  //  required this.expirationInMinutes,
+    required this.oneTimeCode,
+    //  required this.expirationInMinutes,
   });
 
   factory AssignOneTimeCode.fromJson(Map<String, dynamic> json) {
@@ -25,7 +27,8 @@ class AssignOneTimeCode {
       adminId: json['adminId'],
       professorId: json['professorId'],
       studentId: json['studentId'],
-    //  expirationInMinutes: json['expirationInMinutes'],
+      oneTimeCode: json['oneTimeCode'],
+      //  expirationInMinutes: json['expirationInMinutes'],
     );
   }
 
@@ -35,7 +38,8 @@ class AssignOneTimeCode {
       if (adminId != null) 'adminId': adminId,
       if (professorId != null) 'professorId': professorId,
       if (studentId != null) 'studentId': studentId,
-   //   'expirationInMinutes': expirationInMinutes,
+      'oneTimeCode': oneTimeCode,
+      //   'expirationInMinutes': expirationInMinutes,
     };
   }
 }
