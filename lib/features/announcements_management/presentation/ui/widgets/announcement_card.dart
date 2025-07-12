@@ -38,7 +38,9 @@ class AnnouncementCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Image section
-            if (announcementEntity.image?.isNotEmpty ?? false) ...[
+            if (announcementEntity.image != null &&
+                announcementEntity.image!.isNotEmpty &&
+                announcementEntity.image!.first.trim().isNotEmpty) ...[
               SizedBox(
                 width: double.infinity,
                 height: 200.h,

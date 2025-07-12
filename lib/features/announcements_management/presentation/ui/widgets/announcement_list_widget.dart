@@ -421,7 +421,6 @@ class _AnnouncementListWidgetState extends State<AnnouncementListWidget>
         );
       },
       child: Container(
-        height: 300.h,
         margin: REdgeInsets.only(bottom: 22.h),
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
@@ -433,7 +432,9 @@ class _AnnouncementListWidgetState extends State<AnnouncementListWidget>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Image section
-            if (announcement.image?.isNotEmpty ?? false) ...[
+            if (announcement.image != null &&
+                announcement.image!.isNotEmpty &&
+                announcement.image!.first.trim().isNotEmpty)
               Container(
                 decoration: BoxDecoration(
                   boxShadow: AppColors.primaryShadow(context),
@@ -448,40 +449,33 @@ class _AnnouncementListWidgetState extends State<AnnouncementListWidget>
                   ),
                 ),
               ),
-            ],
             // Content section
-            Expanded(
-              child: Padding(
-                padding:
-                    REdgeInsets.symmetric(horizontal: 22.w, vertical: 12.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      announcement.createdAt.toHumanReadableDate(),
-                      style: context.textTheme.labelMedium?.copyWith(
-                        color: context.greyColor,
-                      ),
+            Padding(
+              padding: REdgeInsets.symmetric(horizontal: 22.w, vertical: 12.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    announcement.createdAt.toHumanReadableDate(),
+                    style: context.textTheme.labelMedium?.copyWith(
+                      color: context.greyColor,
                     ),
-                    5.verticalSpace,
-                    Expanded(
-                      child: Text(
-                        announcement.description,
-                        style: context.textTheme.labelLarge!.copyWith(
-                          wordSpacing: 1.8,
-                          height: 1.5,
-                          letterSpacing: 0.4,
-                          fontWeight: FontWeight.w900,
-                          color:
-                              context.onBackgroundColor.withValues(alpha: 0.95),
-                        ),
-                        softWrap: true,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                  ),
+                  5.verticalSpace,
+                  Text(
+                    announcement.description,
+                    style: context.textTheme.labelLarge!.copyWith(
+                      wordSpacing: 1.8,
+                      height: 1.5,
+                      letterSpacing: 0.4,
+                      fontWeight: FontWeight.w900,
+                      color: context.onBackgroundColor.withValues(alpha: 0.95),
                     ),
-                  ],
-                ),
+                    softWrap: true,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
               ),
             ),
           ],
