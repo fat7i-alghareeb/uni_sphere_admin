@@ -5,6 +5,10 @@ import 'package:uni_sphere_admin/core/result_builder/result.dart';
 import 'package:uni_sphere_admin/features/announcements_management/domain/entities/announcement_entity.dart';
 import 'package:uni_sphere_admin/features/announcements_management/domain/usecases/get_admin_announcements_usecase.dart';
 import 'package:uni_sphere_admin/features/announcements_management/domain/usecases/get_super_admin_announcements_usecase.dart';
+import 'package:uni_sphere_admin/features/announcements_management/domain/usecases/create_faculty_announcement_usecase.dart';
+import 'package:uni_sphere_admin/features/announcements_management/domain/usecases/create_major_announcement_usecase.dart';
+import 'package:uni_sphere_admin/features/announcements_management/data/params/create_faculty_announcement_param.dart';
+import 'package:uni_sphere_admin/features/announcements_management/data/params/create_major_announcement_param.dart';
 import 'package:uni_sphere_admin/shared/entities/role.dart';
 import 'package:uni_sphere_admin/shared/states/bloc/info_bloc.dart';
 
@@ -15,16 +19,24 @@ class AnnouncementsManagementBloc
     extends Bloc<AnnouncementsManagementEvent, AnnouncementsManagementState> {
   final GetAdminAnnouncementsUsecase _getAdminAnnouncementsUsecase;
   final GetSuperAdminAnnouncementsUsecase _getSuperAdminAnnouncementsUsecase;
+  final CreateFacultyAnnouncementUsecase _createFacultyAnnouncementUsecase;
+  final CreateMajorAnnouncementUsecase _createMajorAnnouncementUsecase;
 
   AnnouncementsManagementBloc({
     required GetAdminAnnouncementsUsecase getAdminAnnouncementsUsecase,
     required GetSuperAdminAnnouncementsUsecase
         getSuperAdminAnnouncementsUsecase,
+    required CreateFacultyAnnouncementUsecase createFacultyAnnouncementUsecase,
+    required CreateMajorAnnouncementUsecase createMajorAnnouncementUsecase,
   })  : _getAdminAnnouncementsUsecase = getAdminAnnouncementsUsecase,
         _getSuperAdminAnnouncementsUsecase = getSuperAdminAnnouncementsUsecase,
+        _createFacultyAnnouncementUsecase = createFacultyAnnouncementUsecase,
+        _createMajorAnnouncementUsecase = createMajorAnnouncementUsecase,
         super(const AnnouncementsManagementState()) {
     on<GetAdminAnnouncementsEvent>(_onGetAdminAnnouncements);
     on<GetSuperAdminAnnouncementsEvent>(_onGetSuperAdminAnnouncements);
+    on<CreateFacultyAnnouncementEvent>(_onCreateFacultyAnnouncement);
+    on<CreateMajorAnnouncementEvent>(_onCreateMajorAnnouncement);
   }
 
   Future<void> _onGetAdminAnnouncements(
@@ -76,6 +88,58 @@ class AnnouncementsManagementBloc
             '🔍 Bloc: SuperAdmin announcements success: ${announcements.length} items');
         emit(state.copyWith(
           superAdminAnnouncementsResult: Result.loaded(data: announcements),
+        ));
+      },
+    );
+  }
+
+  Future<void> _onCreateFacultyAnnouncement(
+    CreateFacultyAnnouncementEvent event,
+    Emitter<AnnouncementsManagementState> emit,
+  ) async {
+    debugPrint('🔍 Bloc: Creating faculty announcement');
+    emit(state.copyWith(createAnnouncementResult: const Result.loading()));
+
+    final result = await _createFacultyAnnouncementUsecase(event.param);
+    debugPrint('🔍 Bloc: Create faculty announcement result: $result');
+
+    result.fold(
+      (error) {
+        debugPrint('🔍 Bloc: Create faculty announcement error: $error');
+        emit(state.copyWith(
+          createAnnouncementResult: Result.error(error: error),
+        ));
+      },
+      (success) {
+        debugPrint('🔍 Bloc: Create faculty announcement success');
+        emit(state.copyWith(
+          createAnnouncementResult: Result.loaded(data: true),
+        ));
+      },
+    );
+  }
+
+  Future<void> _onCreateMajorAnnouncement(
+    CreateMajorAnnouncementEvent event,
+    Emitter<AnnouncementsManagementState> emit,
+  ) async {
+    debugPrint('🔍 Bloc: Creating major announcement');
+    emit(state.copyWith(createAnnouncementResult: const Result.loading()));
+
+    final result = await _createMajorAnnouncementUsecase(event.param);
+    debugPrint('🔍 Bloc: Create major announcement result: $result');
+
+    result.fold(
+      (error) {
+        debugPrint('🔍 Bloc: Create major announcement error: $error');
+        emit(state.copyWith(
+          createAnnouncementResult: Result.error(error: error),
+        ));
+      },
+      (success) {
+        debugPrint('🔍 Bloc: Create major announcement success');
+        emit(state.copyWith(
+          createAnnouncementResult: Result.loaded(data: true),
         ));
       },
     );

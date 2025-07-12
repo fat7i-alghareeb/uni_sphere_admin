@@ -8,3 +8,13 @@ class GetAdminAnnouncementsEvent extends AnnouncementsManagementEvent {
 }
 
 class GetSuperAdminAnnouncementsEvent extends AnnouncementsManagementEvent {}
+
+class CreateFacultyAnnouncementEvent extends AnnouncementsManagementEvent {
+  final CreateFacultyAnnouncementParam param;
+  CreateFacultyAnnouncementEvent({required this.param});
+}
+
+class CreateMajorAnnouncementEvent extends AnnouncementsManagementEvent {
+  final CreateMajorAnnouncementParam param;
+  CreateMajorAnnouncementEvent({required this.param});
+}

@@ -32,6 +32,10 @@ import '../../features/generate_otp/presentation/ui/screens/assign_one_time_code
     show AssignOneTimeCodeScreen;
 import '../features/announcements_management/presentation/ui/screens/announcement_details_screen.dart'
     show AnnouncementDetailsScreen;
+import '../features/announcements_management/presentation/ui/screens/create_faculty_announcement_screen.dart'
+    show CreateFacultyAnnouncementScreen;
+import '../features/announcements_management/presentation/ui/screens/create_major_announcement_screen.dart'
+    show CreateMajorAnnouncementScreen;
 
 typedef BeamerBuilder = dynamic Function(BuildContext, BeamState, Object?);
 
@@ -95,6 +99,10 @@ class BRouterConfig {
           '/root/subject_details': SubjectDetailsScreen.pageBuilder,
           '/root/language_selection': LanguageSelectionScreen.pageBuilder,
           '/root/announcement_details': AnnouncementDetailsScreen.pageBuilder,
+          '/root/create_faculty_announcement':
+              CreateFacultyAnnouncementScreen.pageBuilder,
+          '/root/create_major_announcement':
+              CreateMajorAnnouncementScreen.pageBuilder,
           // //! -------------- Subjects ---------------- !//
           // "/root/choose_years_screen": ChooseYearsScreen.pageBuilder,
           // "/root/subject_details": SubjectDetailsScreen.pageBuilder,

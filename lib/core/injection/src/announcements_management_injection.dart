@@ -6,6 +6,8 @@ import '../../../features/announcements_management/domain/repositories/announcem
 import '../../../features/announcements_management/domain/usecases/announcements_management_usecase.dart';
 import '../../../features/announcements_management/domain/usecases/get_admin_announcements_usecase.dart';
 import '../../../features/announcements_management/domain/usecases/get_super_admin_announcements_usecase.dart';
+import '../../../features/announcements_management/domain/usecases/create_faculty_announcement_usecase.dart';
+import '../../../features/announcements_management/domain/usecases/create_major_announcement_usecase.dart';
 import '../../../features/announcements_management/presentation/state/bloc/announcements_management_bloc.dart';
 import '../injection.dart';
 
@@ -40,11 +42,26 @@ Future<void> announcementsManagementInjection() async {
     ),
   );
 
+  getIt.registerLazySingleton<CreateFacultyAnnouncementUsecase>(
+    () => CreateFacultyAnnouncementUsecase(
+      repo: getIt<AnnouncementsManagementRepo>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<CreateMajorAnnouncementUsecase>(
+    () => CreateMajorAnnouncementUsecase(
+      repo: getIt<AnnouncementsManagementRepo>(),
+    ),
+  );
 
   getIt.registerLazySingleton<AnnouncementsManagementBloc>(
     () => AnnouncementsManagementBloc(
       getAdminAnnouncementsUsecase: getIt<GetAdminAnnouncementsUsecase>(),
-      getSuperAdminAnnouncementsUsecase: getIt<GetSuperAdminAnnouncementsUsecase>(),
+      getSuperAdminAnnouncementsUsecase:
+          getIt<GetSuperAdminAnnouncementsUsecase>(),
+      createFacultyAnnouncementUsecase:
+          getIt<CreateFacultyAnnouncementUsecase>(),
+      createMajorAnnouncementUsecase: getIt<CreateMajorAnnouncementUsecase>(),
     ),
   );
 }

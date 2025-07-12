@@ -375,4 +375,43 @@ class AppStrings {
   static String get daysAgo => _localization.tr('daysAgo');
   static String get title => _localization.tr('title');
   static String get content => _localization.tr('content');
+
+  // Announcement Creation
+  static String get addAnnouncement => _localization.tr('addAnnouncement');
+  static String get createAnnouncement =>
+      _localization.tr('createAnnouncement');
+  static String get announcementTitleEn =>
+      _localization.tr('announcementTitleEn');
+  static String get announcementTitleAr =>
+      _localization.tr('announcementTitleAr');
+  static String get announcementContentEn =>
+      _localization.tr('announcementContentEn');
+  static String get announcementContentAr =>
+      _localization.tr('announcementContentAr');
+  static String get enterAnnouncementTitleEn =>
+      _localization.tr('enterAnnouncementTitleEn');
+  static String get enterAnnouncementTitleAr =>
+      _localization.tr('enterAnnouncementTitleAr');
+  static String get enterAnnouncementContentEn =>
+      _localization.tr('enterAnnouncementContentEn');
+  static String get enterAnnouncementContentAr =>
+      _localization.tr('enterAnnouncementContentAr');
+  static String get selectSubjectForAnnouncement =>
+      _localization.tr('selectSubjectForAnnouncement');
+  static String get uploadImages => _localization.tr('uploadImages');
+  static String get selectImages => _localization.tr('selectImages');
+  static String get announcementCreatedSuccess =>
+      _localization.tr('announcementCreatedSuccess');
+  static String get announcementCreatedError =>
+      _localization.tr('announcementCreatedError');
+  static String get creatingAnnouncement =>
+      _localization.tr('creatingAnnouncement');
+  static String get facultyAnnouncement =>
+      _localization.tr('facultyAnnouncement');
+  static String get majorAnnouncement => _localization.tr('majorAnnouncement');
+  static String get createFacultyAnnouncement =>
+      _localization.tr('createFacultyAnnouncement');
+  static String get createMajorAnnouncement =>
+      _localization.tr('createMajorAnnouncement');
+  static String get addMoreImages => _localization.tr('addMoreImages');
 }

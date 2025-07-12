@@ -2,6 +2,8 @@
 import 'package:dio/dio.dart';
 import '../../../../core/constants/app_url.dart';
 import '../models/announcement_model.dart';
+import '../params/create_faculty_announcement_param.dart';
+import '../params/create_major_announcement_param.dart';
 import '../../../../shared/services/exception/error_handler.dart';
 import 'package:flutter/foundation.dart';
 
@@ -48,6 +50,37 @@ class AnnouncementsManagementRemote {
           data.map((e) => AnnouncementModel.fromSuperAdminMap(e)).toList();
       debugPrint('🔍 Remote: Mapped ${result.length} announcements');
       return result;
+    });
+  }
+
+  Future<void> createFacultyAnnouncement(
+      CreateFacultyAnnouncementParam param) async {
+    return throwDioException(() async {
+      debugPrint('🔍 Remote: Creating faculty announcement');
+      final formData = FormData.fromMap(param.toFormData());
+
+      final response =
+          await _dio.post(AppUrl.createFacultyAnnouncement, data: formData);
+
+      debugPrint('🔍 Remote: Faculty announcement created successfully');
+      debugPrint('🔍 Remote: Response status: ${response.statusCode}');
+      return response.data;
+    });
+  }
+
+  Future<void> createMajorAnnouncement(
+      CreateMajorAnnouncementParam param) async {
+    return throwDioException(() async {
+      debugPrint('🔍 Remote: Creating major announcement');
+
+      final response = await _dio.post(
+        AppUrl.createMajorAnnouncement,
+        data: param.toJson(),
+      );
+
+      debugPrint('🔍 Remote: Major announcement created successfully');
+      debugPrint('🔍 Remote: Response status: ${response.statusCode}');
+      return response.data;
     });
   }
 }

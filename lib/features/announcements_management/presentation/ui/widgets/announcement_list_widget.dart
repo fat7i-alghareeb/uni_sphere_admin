@@ -16,6 +16,7 @@ import 'package:uni_sphere_admin/shared/imports/imports.dart';
 import 'package:uni_sphere_admin/shared/widgets/custom_shimmer.dart';
 import 'package:uni_sphere_admin/shared/widgets/custom_network_image.dart';
 import 'package:uni_sphere_admin/shared/widgets/spacing.dart';
+import 'package:uni_sphere_admin/shared/widgets/auth_button.dart';
 
 class AnnouncementListWidget extends StatefulWidget {
   const AnnouncementListWidget({super.key});
@@ -107,6 +108,30 @@ class _AnnouncementListWidgetState extends State<AnnouncementListWidget>
 
         return Column(
           children: [
+            // Add Announcement Button
+            Padding(
+              padding: REdgeInsets.symmetric(
+                horizontal: AppConstants.horizontalScreensPadding,
+                vertical: 16,
+              ),
+              child: AuthButton.primary(
+                title: AppStrings.addAnnouncement,
+                onPressed: () {
+                  if (AppConstants.userRole == Role.superadmin) {
+                    context.beamToNamed('/root/create_faculty_announcement');
+                  } else if (AppConstants.userRole == Role.admin) {
+                    // Pass the selected year to the create major announcement screen
+                    final selectedYear =
+                        _yearForm.control('year').value as int? ?? 1;
+                    context.beamToNamed(
+                      '/root/create_major_announcement',
+                      data: selectedYear,
+                    );
+                  }
+                },
+                context: context,
+              ),
+            ),
             // Year picker for Admin role
             if (AppConstants.userRole == Role.admin) ...[
               Padding(
