@@ -12,8 +12,8 @@ abstract class AnnouncementsManagementRepo {
   Future<Either<String, List<AnnouncementEntity>>> getAdminAnnouncements(
       {int? year});
   Future<Either<String, List<AnnouncementEntity>>> getSuperAdminAnnouncements();
-  Future<Either<String, void>> createFacultyAnnouncement(
+  Future<Either<String, AnnouncementEntity>> createFacultyAnnouncement(
       CreateFacultyAnnouncementParam param);
-  Future<Either<String, void>> createMajorAnnouncement(
+  Future<Either<String, AnnouncementEntity>> createMajorAnnouncement(
       CreateMajorAnnouncementParam param);
 }

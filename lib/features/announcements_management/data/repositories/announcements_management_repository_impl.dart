@@ -38,7 +38,7 @@ class AnnouncementsManagementRepoImp implements AnnouncementsManagementRepo {
   }
 
   @override
-  Future<Either<String, void>> createFacultyAnnouncement(
+  Future<Either<String, AnnouncementEntity>> createFacultyAnnouncement(
       CreateFacultyAnnouncementParam param) async {
     return await throwAppException(
       () async {
@@ -48,7 +48,7 @@ class AnnouncementsManagementRepoImp implements AnnouncementsManagementRepo {
   }
 
   @override
-  Future<Either<String, void>> createMajorAnnouncement(
+  Future<Either<String, AnnouncementEntity>> createMajorAnnouncement(
       CreateMajorAnnouncementParam param) async {
     return await throwAppException(
       () async {

@@ -1,3 +1,6 @@
+// Reminder: Make sure you have image_picker in your pubspec.yaml and run flutter pub get
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import 'package:beamer/beamer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -35,6 +38,21 @@ class CreateFacultyAnnouncementScreen extends StatefulWidget {
 
 class _CreateFacultyAnnouncementScreenState
     extends State<CreateFacultyAnnouncementScreen> {
+  List<XFile> _selectedImages = [];
+
+  Future<void> _pickImages() async {
+    final ImagePicker picker = ImagePicker();
+    final images = await picker.pickMultiImage();
+    if (images != null && images.isNotEmpty) {
+      setState(() {
+        _selectedImages = images;
+        FacultyAnnouncementForm.formGroup
+            .control(AnnouncementCreationInputKeys.images)
+            .value = images;
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -67,6 +85,9 @@ class _CreateFacultyAnnouncementScreenState
                     ),
                   );
                   FacultyAnnouncementForm.clear();
+                  setState(() {
+                    _selectedImages = [];
+                  });
                   context.beamBack();
                 } else if (state.createAnnouncementResult.isError()) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -115,12 +136,41 @@ class _CreateFacultyAnnouncementScreenState
                         keyboardType: TextInputType.multiline,
                         maxLines: 5,
                       ),
+                      16.verticalSpace,
+                      Text('Images'),
+                      SizedBox(
+                        height: 80,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: _selectedImages
+                              .map((img) => Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Image.file(File(img.path),
+                                        width: 70,
+                                        height: 70,
+                                        fit: BoxFit.cover),
+                                  ))
+                              .toList(),
+                        ),
+                      ),
+                      ElevatedButton.icon(
+                        onPressed: _pickImages,
+                        icon: Icon(Icons.add_a_photo),
+                        label: Text('Add Images'),
+                      ),
                       24.verticalSpace,
                       AuthButton.primary(
                         title: AppStrings.createAnnouncement,
                         isLoading: state.createAnnouncementResult.isLoading(),
                         onPressed: () {
                           if (FacultyAnnouncementForm.formGroup.valid) {
+                            final images = (FacultyAnnouncementForm.formGroup
+                                        .control(AnnouncementCreationInputKeys
+                                            .images)
+                                        .value as List<XFile>?)
+                                    ?.map((xfile) => File(xfile.path))
+                                    .toList() ??
+                                [];
                             final param = CreateFacultyAnnouncementParam(
                               titleEn: FacultyAnnouncementForm.formGroup
                                   .control(
@@ -138,7 +188,7 @@ class _CreateFacultyAnnouncementScreenState
                                   .control(
                                       AnnouncementCreationInputKeys.contentAr)
                                   .value,
-                              images: [], // Empty list for now
+                              images: images,
                             );
                             context.read<AnnouncementsManagementBloc>().add(
                                   CreateFacultyAnnouncementEvent(param: param),

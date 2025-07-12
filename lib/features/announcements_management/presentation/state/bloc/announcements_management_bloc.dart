@@ -110,10 +110,22 @@ class AnnouncementsManagementBloc
           createAnnouncementResult: Result.error(error: error),
         ));
       },
-      (success) {
-        debugPrint('🔍 Bloc: Create faculty announcement success');
+      (createdAnnouncement) {
+        debugPrint(
+            '🔍 Bloc: Create faculty announcement success: ${createdAnnouncement.id}');
+
+        // Add the new announcement to the existing super admin announcements list
+        final currentSuperAdminAnnouncements =
+            state.superAdminAnnouncementsResult.getDataWhenSuccess() ?? [];
+        final updatedAnnouncements = [
+          createdAnnouncement,
+          ...currentSuperAdminAnnouncements
+        ];
+
         emit(state.copyWith(
           createAnnouncementResult: Result.loaded(data: true),
+          superAdminAnnouncementsResult:
+              Result.loaded(data: updatedAnnouncements),
         ));
       },
     );
@@ -136,10 +148,21 @@ class AnnouncementsManagementBloc
           createAnnouncementResult: Result.error(error: error),
         ));
       },
-      (success) {
-        debugPrint('🔍 Bloc: Create major announcement success');
+      (createdAnnouncement) {
+        debugPrint(
+            '🔍 Bloc: Create major announcement success: ${createdAnnouncement.id}');
+
+        // Add the new announcement to the existing admin announcements list
+        final currentAdminAnnouncements =
+            state.adminAnnouncementsResult.getDataWhenSuccess() ?? [];
+        final updatedAnnouncements = [
+          createdAnnouncement,
+          ...currentAdminAnnouncements
+        ];
+
         emit(state.copyWith(
           createAnnouncementResult: Result.loaded(data: true),
+          adminAnnouncementsResult: Result.loaded(data: updatedAnnouncements),
         ));
       },
     );

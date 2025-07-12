@@ -6,6 +6,7 @@ import '../params/create_faculty_announcement_param.dart';
 import '../params/create_major_announcement_param.dart';
 import '../../../../shared/services/exception/error_handler.dart';
 import 'package:flutter/foundation.dart';
+import '../../../../shared/utils/helper/colored_print.dart';
 
 //!----------------------------  The Class  -------------------------------------!//
 
@@ -53,22 +54,49 @@ class AnnouncementsManagementRemote {
     });
   }
 
-  Future<void> createFacultyAnnouncement(
+  Future<AnnouncementModel> createFacultyAnnouncement(
       CreateFacultyAnnouncementParam param) async {
     return throwDioException(() async {
       debugPrint('🔍 Remote: Creating faculty announcement');
       final formData = FormData.fromMap(param.toFormData());
+
+      // Print number of images and if images are being sent
+      final images = param.images;
+      printY('Number of images: ${images.length}');
+      if (images.isNotEmpty) {
+        printG('Images are being sent.');
+      } else {
+        printR('No images are being sent.');
+      }
+
+      // Print formData fields and files for debugging
+      printC('FormData fields:');
+      for (var field in formData.fields) {
+        printC('  ${field.key}: ${field.value}');
+      }
+      printC('FormData files:');
+      for (var file in formData.files) {
+        printC('  ${file.key}: ${file.value.filename}');
+      }
 
       final response =
           await _dio.post(AppUrl.createFacultyAnnouncement, data: formData);
 
       debugPrint('🔍 Remote: Faculty announcement created successfully');
       debugPrint('🔍 Remote: Response status: ${response.statusCode}');
-      return response.data;
+      debugPrint('🔍 Remote: Response data: ${response.data}');
+
+      // Parse the created announcement from response
+      final createdAnnouncement =
+          AnnouncementModel.fromSuperAdminMap(response.data);
+      debugPrint(
+          '🔍 Remote: Parsed created faculty announcement: ${createdAnnouncement.id}');
+
+      return createdAnnouncement;
     });
   }
 
-  Future<void> createMajorAnnouncement(
+  Future<AnnouncementModel> createMajorAnnouncement(
       CreateMajorAnnouncementParam param) async {
     return throwDioException(() async {
       debugPrint('🔍 Remote: Creating major announcement');
@@ -80,7 +108,14 @@ class AnnouncementsManagementRemote {
 
       debugPrint('🔍 Remote: Major announcement created successfully');
       debugPrint('🔍 Remote: Response status: ${response.statusCode}');
-      return response.data;
+      debugPrint('🔍 Remote: Response data: ${response.data}');
+
+      // Parse the created announcement from response
+      final createdAnnouncement = AnnouncementModel.fromMap(response.data);
+      debugPrint(
+          '🔍 Remote: Parsed created announcement: ${createdAnnouncement.id}');
+
+      return createdAnnouncement;
     });
   }
 }

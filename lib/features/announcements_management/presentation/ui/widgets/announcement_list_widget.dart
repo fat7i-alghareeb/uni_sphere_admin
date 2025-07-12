@@ -17,6 +17,7 @@ import 'package:uni_sphere_admin/shared/widgets/custom_shimmer.dart';
 import 'package:uni_sphere_admin/shared/widgets/custom_network_image.dart';
 import 'package:uni_sphere_admin/shared/widgets/spacing.dart';
 import 'package:uni_sphere_admin/shared/widgets/auth_button.dart';
+import 'package:uni_sphere_admin/shared/extensions/date_time_extension.dart';
 
 class AnnouncementListWidget extends StatefulWidget {
   const AnnouncementListWidget({super.key});
@@ -457,7 +458,7 @@ class _AnnouncementListWidgetState extends State<AnnouncementListWidget>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      announcement.createdAt,
+                      announcement.createdAt.toHumanReadableDate(),
                       style: context.textTheme.labelMedium?.copyWith(
                         color: context.greyColor,
                       ),
@@ -506,7 +507,7 @@ class _AnnouncementListWidgetState extends State<AnnouncementListWidget>
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              announcement.createdAt,
+              announcement.createdAt.toHumanReadableDate(),
               style: context.textTheme.labelMedium?.copyWith(
                 color: context.greyColor,
               ),

@@ -1,5 +1,6 @@
 import '../../../../../common/constant/app_strings.dart';
 import '../../../../../shared/imports/imports.dart';
+import '../../../../../shared/extensions/date_time_extension.dart';
 import '../../../domain/entities/announcement_entity.dart';
 
 class AnnouncementDetailsContent extends StatelessWidget {
@@ -23,8 +24,39 @@ class AnnouncementDetailsContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: _spacing.h,
         children: [
+          _buildDateSection(context),
           _buildTitleSection(context),
           _buildDescriptionSection(context),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDateSection(BuildContext context) {
+    return Container(
+      padding: REdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.primaryColor.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(_borderRadius.r),
+        border: Border.all(
+          color: context.primaryColor.withValues(alpha: 0.3),
+        ),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            Icons.access_time,
+            color: context.primaryColor,
+            size: 20.r,
+          ),
+          12.horizontalSpace,
+          Text(
+            announcement.createdAt.toHumanReadableDate(),
+            style: context.textTheme.bodyMedium?.copyWith(
+              color: context.primaryColor,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ],
       ),
     );

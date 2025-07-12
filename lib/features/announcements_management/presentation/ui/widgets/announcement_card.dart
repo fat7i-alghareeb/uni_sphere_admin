@@ -3,6 +3,7 @@ import '../../../../../common/constant/app_strings.dart';
 import '../../../../../core/styles/colors.dart';
 import '../../../../../shared/imports/imports.dart';
 import '../../../../../shared/widgets/custom_network_image.dart';
+import '../../../../../shared/extensions/date_time_extension.dart';
 import '../../../domain/entities/announcement_entity.dart';
 import '../screens/announcement_details_screen.dart';
 
@@ -86,7 +87,7 @@ class AnnouncementCard extends StatelessWidget {
                     children: [
                       // Date
                       Text(
-                        announcementEntity.createdAt,
+                        announcementEntity.createdAt.toHumanReadableDate(),
                         style: context.textTheme.bodySmall?.copyWith(
                           color: context.greyColor,
                         ),
@@ -119,28 +120,5 @@ class AnnouncementCard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String _formatDate(String dateString) {
-    try {
-      final date = DateTime.parse(dateString);
-      final now = DateTime.now();
-      final difference = now.difference(date);
-
-      if (difference.inDays == 0) {
-        if (difference.inHours == 0) {
-          return '${difference.inMinutes} ${AppStrings.minutesAgo}';
-        }
-        return '${difference.inHours} ${AppStrings.hoursAgo}';
-      } else if (difference.inDays == 1) {
-        return AppStrings.yesterday;
-      } else if (difference.inDays < 7) {
-        return '${difference.inDays} ${AppStrings.daysAgo}';
-      } else {
-        return '${date.day}/${date.month}/${date.year}';
-      }
-    } catch (e) {
-      return dateString;
-    }
   }
 }
