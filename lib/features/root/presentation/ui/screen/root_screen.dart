@@ -83,6 +83,7 @@ class _RootScreenState extends State<RootScreen>
       case Role.superadmin:
         return [
           const SubjectsView(),
+          const NewsView(),
         ];
       case Role.systemcontroller:
         return [
@@ -109,6 +110,7 @@ class _RootScreenState extends State<RootScreen>
       case Role.superadmin:
         return [
           NavItem(iconPath: Assets.icons.subjects, index: 0),
+          NavItem(iconPath: Assets.icons.announcement, index: 1),
         ];
       case Role.systemcontroller:
         return [

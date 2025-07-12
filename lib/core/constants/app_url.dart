@@ -1,5 +1,5 @@
 class AppUrl {
-  static const baseUrlDevelopment = 'https://192.168.192.173:5001';
+  static const baseUrlDevelopment = 'https://192.168.1.125:5001';
 
   static const _auth = "/Auth";
   static const _api = "/api";
@@ -52,6 +52,10 @@ class AppUrl {
       "$_announcements/CreateFacultyAnnouncement";
   static const createMajorAnnouncement =
       "$_announcements/CreateMajorAnnouncement";
+  static const getAdminAnnouncements =
+      "$_announcements/Admin/GetMyAnnouncements";
+  static const getSuperAdminAnnouncements =
+      "$_announcements/SuperAdmin/GetFacultyAnnouncements";
 
   //! ************** End news Management *************** //
 

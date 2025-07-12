@@ -19,6 +19,7 @@ import 'package:uni_sphere_admin/shared/states/bloc/info_bloc.dart';
 import 'package:uni_sphere_admin/shared/utils/helper/show_error_overlay.dart';
 import 'package:uni_sphere_admin/shared/widgets/custom_picker.dart';
 import 'package:uni_sphere_admin/shared/widgets/custom_scaffold_body.dart';
+import 'package:uni_sphere_admin/features/announcements_management/presentation/state/bloc/announcements_management_bloc.dart';
 
 class SubjectManagementScreen extends StatefulWidget {
   const SubjectManagementScreen({super.key});
@@ -362,6 +363,11 @@ class _SubjectManagementScreenState extends State<SubjectManagementScreen>
                   majorId: majorId,
                   year: value,
                 ));
+                // Also refresh announcements for Admin role
+                if (AppConstants.userRole == Role.admin) {
+                  getIt<AnnouncementsManagementBloc>()
+                      .add(GetAdminAnnouncementsEvent(year: value));
+                }
               }
             },
           ),

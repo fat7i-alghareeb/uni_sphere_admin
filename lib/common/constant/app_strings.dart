@@ -350,4 +350,29 @@ class AppStrings {
   static String get assignOneTimeCodeDescription =>
       _localization.tr('assignOneTimeCodeDescription');
   static String get codePlaceholder => _localization.tr('codePlaceholder');
+
+  // Announcements
+  static String get allNews => _localization.tr('allNews');
+  static String get myNews => _localization.tr('myNews');
+  static String get noAnnouncementsAvailable =>
+      _localization.tr('noAnnouncementsAvailable');
+  static String get announcementDetails =>
+      _localization.tr('announcementDetails');
+  static String get viewAnnouncementDetails =>
+      _localization.tr('viewAnnouncementDetails');
+  static String get announcementTitle => _localization.tr('announcementTitle');
+  static String get announcementDescription =>
+      _localization.tr('announcementDescription');
+  static String get announcementDate => _localization.tr('announcementDate');
+  static String get announcementImages =>
+      _localization.tr('announcementImages');
+  static String get noImagesAvailable => _localization.tr('noImagesAvailable');
+  static String get newsNotFound => _localization.tr('newsNotFound');
+  static String get readMore => _localization.tr('readMore');
+  static String get minutesAgo => _localization.tr('minutesAgo');
+  static String get hoursAgo => _localization.tr('hoursAgo');
+  static String get yesterday => _localization.tr('yesterday');
+  static String get daysAgo => _localization.tr('daysAgo');
+  static String get title => _localization.tr('title');
+  static String get content => _localization.tr('content');
 }
