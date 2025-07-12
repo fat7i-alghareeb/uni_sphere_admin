@@ -43,7 +43,7 @@ class _CreateFacultyAnnouncementScreenState
   Future<void> _pickImages() async {
     final ImagePicker picker = ImagePicker();
     final images = await picker.pickMultiImage();
-    if (images != null && images.isNotEmpty) {
+    if (images.isNotEmpty) {
       setState(() {
         _selectedImages = images;
         FacultyAnnouncementForm.formGroup
@@ -63,6 +63,77 @@ class _CreateFacultyAnnouncementScreenState
   void dispose() {
     FacultyAnnouncementForm.clear();
     super.dispose();
+  }
+
+  Widget _buildImageGrid() {
+    final images = _selectedImages;
+    return SizedBox(
+      height: 100,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: [
+          ...images.asMap().entries.map((entry) {
+            final idx = entry.key;
+            final img = entry.value;
+            return Stack(
+              alignment: Alignment.topRight,
+              children: [
+                Container(
+                  margin: const EdgeInsets.all(6),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.file(
+                      File(img.path),
+                      width: 80,
+                      height: 80,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _selectedImages.removeAt(idx);
+                        FacultyAnnouncementForm.formGroup
+                            .control(AnnouncementCreationInputKeys.images)
+                            .value = List<XFile>.from(_selectedImages);
+                      });
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black54,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.close,
+                          color: Colors.white, size: 18),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }),
+          // Add button
+          GestureDetector(
+            onTap: _pickImages,
+            child: Container(
+              width: 80,
+              height: 80,
+              margin: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.grey[400]!),
+              ),
+              child:
+                  const Icon(Icons.add_a_photo, size: 32, color: Colors.grey),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -138,26 +209,7 @@ class _CreateFacultyAnnouncementScreenState
                       ),
                       16.verticalSpace,
                       Text('Images'),
-                      SizedBox(
-                        height: 80,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: _selectedImages
-                              .map((img) => Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: Image.file(File(img.path),
-                                        width: 70,
-                                        height: 70,
-                                        fit: BoxFit.cover),
-                                  ))
-                              .toList(),
-                        ),
-                      ),
-                      ElevatedButton.icon(
-                        onPressed: _pickImages,
-                        icon: Icon(Icons.add_a_photo),
-                        label: Text('Add Images'),
-                      ),
+                      _buildImageGrid(),
                       24.verticalSpace,
                       AuthButton.primary(
                         title: AppStrings.createAnnouncement,
